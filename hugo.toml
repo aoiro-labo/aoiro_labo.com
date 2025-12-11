@@ -30,6 +30,9 @@ defaultContentLanguage = "ja"
   [params.homeInfoParams]
     Title = "Welcome"
     Content = "ここは書かないと忘れることとかをネットの海に放流する場所です"
+  [params.social]
+    twitter = "aoiro_labo"
+    github = "aoiro-labo"
 
 [taxonomies]
   category = "categories"
