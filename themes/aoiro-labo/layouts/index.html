@@ -1,27 +1,15 @@
-{{ define "title" }}
-    {{ .Site.Title }} - aoiro-labo
-{{ end }}
+{{ define "title" }} {{ .Site.Title }} - {{ .Site.Params.Description }} {{ end }}
 
 {{ define "main" }}
-<section class="mb-12">
-    <section class="mb-10">
-        </section>
-
-    <section class="mb-10">
-        <h2 class="text-3xl font-bold mb-6 border-b pb-3 border-gray-200 dark:border-gray-700">最新の記事 (Latest Posts)</h2>
-
-        <div class="space-y-6">
-            {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-            {{ range first 5 $pages }}
+<section class="home-page-content">
+    <h1 class="text-4xl font-extrabold mb-8">最新の記事</h1>
+    
+    <div class="space-y-6">
+        {{ range first 5 .Paginator.Pages }}
             {{ partial "post-card-list.html" . }}
-            {{ end }}
-        </div>
+        {{ end }}
+    </div>
 
-        <div class="mt-10 text-center">
-            <a href="{{ "posts" | relURL }}" class="inline-block bg-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-primary/90 transition-colors">
-                すべての記事を見る &rarr;
-            </a>
-        </div>
-    </section>
+    {{ partial "pagination.html" . }}
 </section>
 {{ end }}

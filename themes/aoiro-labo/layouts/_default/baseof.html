@@ -1,73 +1,29 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}" data-theme="light">
-{{ partial "head-css-js.html" . }}
-<body class="antialiased bg-bg-base text-fg-base">
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+    
+    {{ partial "head-css-js.html" . }} {{/* CSS変数とTailwind設定を読み込み */}}
 
-<div class="container flex max-w-7xl mx-auto md:flex-row flex-col">
+    {{ block "head" . }}{{ end }} {{/* 個別ページでの追加要素を許容 */}}
+</head>
+<body class="bg-bg-base text-fg-base min-h-screen">
+    <div id="wrapper" class="flex flex-col md:flex-row max-w-7xl mx-auto md:space-x-8 p-4">
 
-    {{ partial "sidebar.html" . }}
+        {{ partial "sidebar.html" . }} {{/* PC用のサイドバーとモバイルメニュー */}}
+        
+        <main id="content" class="flex-grow w-full md:w-3/4">
+            {{ block "main" . }}{{ end }} {{/* ここに index.html, single.html のコンテンツが入ります */}}
+        </main>
 
-    <main class="main-content flex-grow p-6 md:p-10 lg:p-12 min-h-screen">
-        {{ block "main" . }}{{ end }}
-    </main>
-</div>
+    </div>
+    
+    {{ partial "footer.html" . }}
 
-<script>
-    const html = document.documentElement;
-    const toggleThemePC = document.getElementById("toggleThemePC");
-    const toggleThemeMobile = document.getElementById("toggleThemeMobile");
-    const iconMoonPC = document.getElementById("icon-moon-pc");
-    const iconSunPC = document.getElementById("icon-sun-pc");
-    const iconMoonMobile = document.getElementById("icon-moon-mobile");
-    const iconSunMobile = document.getElementById("icon-sun-mobile");
-    const toggleMenuButton = document.getElementById("toggleMenuMobile");
-    const mobileNavContainer = document.getElementById("mobile-nav-container");
-    const iconMenu = document.getElementById("icon-menu");
-    const iconClose = document.getElementById("icon-close");
-
-    // 1. テーマの初期設定
-    function initializeTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        let initialTheme = 'light';
-        if (savedTheme) { initialTheme = savedTheme; }
-        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) { initialTheme = 'dark'; }
-        html.classList.toggle('dark', initialTheme === 'dark');
-        updateIcons(initialTheme);
-    }
-
-    // 2. アイコンの表示を更新する関数
-    function updateIcons(theme) {
-        const isDark = theme === 'dark';
-        if (iconMoonPC) iconMoonPC.style.display = isDark ? "block" : "none";
-        if (iconSunPC) iconSunPC.style.display = isDark ? "none" : "block";
-        if (iconMoonMobile) iconMoonMobile.style.display = isDark ? "block" : "none";
-        if (iconSunMobile) iconSunMobile.style.display = isDark ? "none" : "block";
-    }
-
-    // 3. トグル処理関数
-    function toggleTheme() {
-        const isDark = html.classList.contains('dark');
-        const newTheme = isDark ? "light" : "dark";
-        html.classList.toggle('dark', newTheme === 'dark');
-        localStorage.setItem('theme', newTheme);
-        updateIcons(newTheme);
-    }
-
-    // 4. モバイルメニューのトグル処理
-    function toggleMobileMenu() {
-        const isMenuClosed = mobileNavContainer.classList.toggle('hidden');
-        if (iconMenu) iconMenu.classList.toggle('hidden', !isMenuClosed);
-        if (iconClose) iconClose.classList.toggle('hidden', isMenuClosed);
-    }
-
-    // 5. イベントリスナーの設定
-    if (toggleThemePC) toggleThemePC.addEventListener('click', toggleTheme);
-    if (toggleThemeMobile) toggleThemeMobile.addEventListener('click', toggleTheme);
-    if (toggleMenuButton) toggleMenuButton.addEventListener('click', toggleMobileMenu);
-
-    // 6. ページロード時にテーマを初期化
-    window.addEventListener('load', initializeTheme);
-</script>
-
+    {{ block "footer_js" . }}
+        {{ partial "theme-switcher-js.html" . }} {{/* ダークモード切り替えJSを読み込み */}}
+    {{ end }}
 </body>
 </html>
