@@ -1,6 +1,8 @@
 +++
-date = '2025-12-12T01:11:58+09:00'
+date = "2025-12-29T10:22:45.743Z"
 draft = false
-title = 'Hello World'
+title = "Hello World"
+description = "Test Description"
+preview = "/Michael Jackson's This Is It_t12.mkv_snapshot_00.01_[2025-12-16_17.07.18].png"
 +++
 これはテスト投稿です。
