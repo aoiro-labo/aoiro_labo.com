@@ -1,84 +1,70 @@
-/**
- * Cloudflare R2 File Upload Script using AWS SDK v3
- * * Required Packages:
- * npm install @aws-sdk/client-s3
- */
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { readFileSync } from "fs";
+import { basename, extname } from "path";
+import dotenv from "dotenv";
 
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const fs = require("fs");
-const path = require("path");
+// .envファイルを読み込む
+dotenv.config();
 
-// Environment Variables required:
-// R2_ACCOUNT_ID: Cloudflare Account ID
-// R2_ACCESS_KEY_ID: R2 API Token Access Key ID
-// R2_SECRET_ACCESS_KEY: R2 API Token Secret Access Key
-// R2_BUCKET_NAME: Target Bucket Name
+const {
+  R2_ACCESS_KEY_ID,
+  R2_SECRET_ACCESS_KEY,
+  R2_ENDPOINT,
+  R2_BUCKET_NAME,
+  R2_PUBLIC_DOMAIN
+} = process.env;
 
-const r2Client = new S3Client({
+// 設定チェック
+if (!R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_ENDPOINT || !R2_BUCKET_NAME) {
+  console.error("Error: Missing R2 configuration in .env file.");
+  process.exit(1);
+}
+
+// コマンドライン引数からファイルパスを取得
+const filePath = process.argv[2];
+if (!filePath) {
+  console.error("Error: No file path provided.");
+  process.exit(1);
+}
+
+const s3Client = new S3Client({
   region: "auto",
-  endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  endpoint: R2_ENDPOINT,
   credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID,
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+    accessKeyId: R2_ACCESS_KEY_ID,
+    secretAccessKey: R2_SECRET_ACCESS_KEY,
   },
 });
 
-/**
- * Uploads a file to Cloudflare R2
- * @param {string} filePath - Path to the local file
- * @param {string} destinationKey - The key (path) in the bucket
- */
-async function uploadToR2(filePath, destinationKey) {
+async function uploadFile() {
   try {
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`File not found: ${filePath}`);
-    }
+    const fileContent = readFileSync(filePath);
+    const fileName = basename(filePath);
+    const extension = extname(filePath).toLowerCase();
 
-    const fileStream = fs.createReadStream(filePath);
-    const fileStats = fs.statSync(filePath);
+    // Content-Typeの簡易判定
+    let contentType = "application/octet-stream";
+    if (extension === ".png") contentType = "image/png";
+    if (extension === ".jpg" || extension === ".jpeg") contentType = "image/jpeg";
+    if (extension === ".gif") contentType = "image/gif";
+    if (extension === ".webp") contentType = "image/webp";
 
     const uploadParams = {
-      Bucket: process.env.R2_BUCKET_NAME,
-      Key: destinationKey,
-      Body: fileStream,
-      ContentLength: fileStats.size,
-      // Optional: Set Content-Type based on extension
-      ContentType: getContentType(filePath),
+      Bucket: R2_BUCKET_NAME,
+      Key: `blog/${fileName}`, // R2内の保存先パス（適宜変更してください）
+      Body: fileContent,
+      ContentType: contentType,
     };
 
-    console.log(`Starting upload: ${filePath} -> ${destinationKey}`);
-    
-    const command = new PutObjectCommand(uploadParams);
-    const response = await r2Client.send(command);
-    
-    console.log("Upload successful!");
-    console.log("Response Metadata:", response.$metadata);
-    return response;
+    await s3Client.send(new PutObjectCommand(uploadParams));
 
+    // アップロード成功時のURLを出力（Front Matter CMSがこれを読み取ります）
+    const publicUrl = `${R2_PUBLIC_DOMAIN}/blog/${fileName}`;
+    console.log(publicUrl);
   } catch (err) {
-    console.error("Error uploading to R2:", err);
+    console.error("Upload Error:", err);
     process.exit(1);
   }
 }
 
-/**
- * Basic helper to determine content type
- */
-function getContentType(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
-  const mimeMap = {
-    ".png": "image/png",
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".pdf": "application/pdf",
-    ".txt": "text/plain",
-    ".json": "application/json",
-  };
-  return mimeMap[ext] || "application/octet-stream";
-}
-
-// Example usage:
-// uploadToR2("./my-image.png", "uploads/images/my-image.png");
-
-module.exports = { uploadToR2 };
+uploadFile();
