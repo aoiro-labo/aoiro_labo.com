@@ -1,9 +1,8 @@
 ---
-title: "検索"
+title: "Search"
 layout: "search"
-placeholder: "記事タイトル、タグ、内容から検索..."
+placeholder: "Search from Title, Tag, Context, etc..."
 summary: "サイト内の全記事からキーワードを探せます。"
-description: "検索ページです。"
 # 検索結果に含めたくない場合は false
 sitemap:
   priority: 0.1
