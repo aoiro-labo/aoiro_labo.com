@@ -3,7 +3,6 @@ languageCode = "ja"
 title = "aoiro-labo"
 theme = "PaperMod"
 
-# 検索機能のためにJSON出力を追加
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
@@ -13,7 +12,7 @@ theme = "PaperMod"
   description = "備忘録的な何か"
   author = "aoiro"
   
-  # 視覚・機能設定
+  # Visual & Function Settings
   ShowReadingTime = true
   ShowShareButtons = true
   ShowCodeCopyButtons = true
@@ -21,15 +20,15 @@ theme = "PaperMod"
   ShowPostNavLinks = true
   ShowToc = true
   
-  # リスト表示設定
-  disableSpecial1stPost = false）
+  # List Settings
+  disableSpecial1stPost = false
   displayFullLangName = false
   
-  # ダークモード
+  # Theme
   defaultTheme = "auto"
   disableThemeToggle = false
 
-  # プロフィールモード（自己紹介）
+  # Profile Mode
   [params.profileMode]
     enabled = true
     title = "aoiro-labo"
@@ -46,7 +45,7 @@ theme = "PaperMod"
       name = "Tags"
       url = "/tags"
 
-  # SNSリンク（noteを追加）
+  # Social Icons
   [[params.socialIcons]]
     name = "x"
     url = "https://x.com/aoiro_labo"
@@ -57,13 +56,13 @@ theme = "PaperMod"
     name = "github"
     url = "https://github.com/aoir-labo"
 
-  # カバー画像の設定
+  # Cover Image
   [params.cover]
     responsiveImages = true
     linkFullImages = true
     hidden = false 
 
-  # 検索機能のパラメーター（Fuse.js）
+  # Search (Fuse.js)
   [params.fuseConfig]
     isCaseSensitive = false
     shouldSort = true
