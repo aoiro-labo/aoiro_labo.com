@@ -72,6 +72,12 @@ theme = "PaperMod"
     minMatchCharLength = 1
     keys = ["title", "permalink", "summary", "content"]
 
+    [params.editPost]
+        URL = "[https://github.com/](https://github.com/)aoiro-labo/aoiro_labo.com/tree/main/content"
+        Text = "Suggest Changes"
+        appendFilePath = true
+
+
 [menu]
   [[menu.main]]
     identifier = "search"
