@@ -124,17 +124,17 @@ comments:
   # giscus, disqus, utterances, waline, artalk, twikoo
   system: "giscus"
   giscus:
-    repo: "tom2almighty/hugo-narrow-giscus"
-    repoId: "R_kgDOO2gwLg"
-    category: "General"
-    categoryId: "DIC_kwDOO2gwLs4CrEaf"
+    repo: "aoiro-labo/aoiro_labo.com"
+    repoId: "R_kgDOQm-1Kw"
+    category: "Announcements"
+    categoryId: "DIC_kwDOQm-1K84C0ZGJ"
     mapping: "pathname"
     strict: "0"
     reactionsEnabled: "1"
     emitMetadata: "0"
     inputPosition: "bottom"
     theme: "preferred_color_scheme"
-    lang: "en"
+    lang: "ja"
   disqus:
     shortname: ""
   utterances:
