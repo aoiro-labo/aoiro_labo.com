@@ -120,7 +120,7 @@ post:
 
 # Comments
 comments:
-  enabled: false
+  enabled: true
   # giscus, disqus, utterances, waline, artalk, twikoo
   system: "giscus"
   giscus:
