@@ -19,13 +19,13 @@ author:
   avatar: "/images/avatar.svg"
   social:
     - name: "GitHub"
-      url: "https://github.com/username"
+      url: "https://github.com/aoiro-labo"
       icon: "github"
     - name: "Twitter"
-      url: "https://twitter.com/username"
+      url: "https://twitter.com/aoiro_labo"
       icon: "twitter"
     - name: "Email"
-      url: "mailto:hello@example.com"
+      url: "mailto:contact@aoiro-labo.com"
       icon: "email"
 
 # Header configuration (modularized)
