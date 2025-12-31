@@ -6,20 +6,20 @@
     <description>Recent content in Categories on aoiro-labo</description>
     <generator>Hugo</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Wed, 31 Dec 2025 05:35:15 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 31 Dec 2025 07:39:35 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>http://localhost:1313/categories/test/</link>
+      <pubDate>Wed, 31 Dec 2025 07:39:35 +0000</pubDate>
+      <guid>http://localhost:1313/categories/test/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Expetimental</title>
       <link>http://localhost:1313/categories/expetimental/</link>
       <pubDate>Wed, 31 Dec 2025 05:35:15 +0000</pubDate>
       <guid>http://localhost:1313/categories/expetimental/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Projects</title>
-      <link>http://localhost:1313/categories/projects/</link>
-      <pubDate>Tue, 20 Feb 2024 14:30:00 +0800</pubDate>
-      <guid>http://localhost:1313/categories/projects/</guid>
       <description></description>
     </item>
   </channel>

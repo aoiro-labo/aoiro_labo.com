@@ -64,5 +64,7 @@
   "frontMatter.website.host": "https://aoiro-labo.com",
   "frontMatter.content.publicPath": "https://images.aoiro-labo.com",
   "frontMatter.media.storage.type": "external",
-  "frontMatter.media.external.command": "node [[workspace]]/r2_upload.js \"[[filePath]]\" \"[[slug]]\""
+  "frontMatter.media.external.command": "node [[workspace]]/r2_upload.js \"[[filePath]]\" \"[[slug]]\"",
+  "frontMatter.dashboard.openOnStart": true,
+  "frontMatter.panel.openOnSupportedFile": true
 }

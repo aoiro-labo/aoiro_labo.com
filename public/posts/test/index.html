@@ -50,7 +50,7 @@
   <meta itemprop="description" content="これはテスト投稿です">
   <meta itemprop="datePublished" content="2025-12-31T05:35:15+00:00">
   <meta itemprop="dateModified" content="2025-12-31T05:35:15+00:00">
-  <meta itemprop="wordCount" content="173">
+  <meta itemprop="wordCount" content="185">
   <meta itemprop="image" content="http://localhost:1313/images/og-default.avif">
   <meta itemprop="keywords" content="Test">
 
@@ -949,7 +949,7 @@
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
 </svg>
 
-          <span>173 文字</span>
+          <span>185 文字</span>
         </div>
       
 
@@ -1019,6 +1019,70 @@
   
   <article class="prose prose-neutral dark:prose-invert mb-12 max-w-none">
     <h1 id="h1タイトル">H1タイトル</h1>
+<div
+    class="alert alert-note my-6 overflow-hidden rounded-lg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md"
+    style="background-color: color-mix(in srgb, var(--color-note) 10%, transparent);
+              border-left-color: var(--color-note);
+              --hover-bg: color-mix(in srgb, var(--color-note) 15%, transparent);"
+    onmouseover="this.style.backgroundColor = this.style.getPropertyValue('--hover-bg')"
+    onmouseout="this.style.backgroundColor = 'color-mix(in srgb, var(--color-note) 10%, transparent)'"
+    role="alert"
+    aria-labelledby="alert-0-title">
+    
+    <div
+      class=" flex items-center justify-between px-6 py-6"
+      >
+      <div class="flex items-center gap-3">
+        
+        <h4
+          id="alert-0-title"
+          class="m-0 font-semibold text-foreground/90">
+          お知らせ
+        </h4>
+      </div>
+
+      
+      
+    </div>
+
+    
+    <div
+      id="alert-0-content"
+      class="alert-content  px-6 pb-6">
+      <div class="prose prose-sm text-foreground/90 max-w-none">
+        <p>ここに内容を入力</p>
+      </div>
+    </div>
+  </div><script>
+function toggleAlert(alertId) {
+  const content = document.getElementById(alertId + '-content');
+  const chevron = document.getElementById(alertId + '-chevron');
+  const header = content.previousElementSibling;
+  
+  if (content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    chevron.style.transform = 'rotate(0deg)';
+    header.setAttribute('aria-expanded', 'true');
+  } else {
+    content.classList.add('hidden');
+    chevron.style.transform = 'rotate(-90deg)';
+    header.setAttribute('aria-expanded', 'false');
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const collapsedAlerts = document.querySelectorAll('.alert-content.hidden');
+  collapsedAlerts.forEach(function(content) {
+    const alertId = content.id.replace('-content', '');
+    const chevron = document.getElementById(alertId + '-chevron');
+    if (chevron) {
+      chevron.style.transform = 'rotate(-90deg)';
+    }
+  });
+});
+</script>
+
 <h2 id="h2タイトル">H2タイトル</h2>
 <h3 id="h3以降のタイトル">H3以降のタイトル</h3>
 <ul>

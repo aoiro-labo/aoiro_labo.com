@@ -1,6 +1,4 @@
 {
-    "frontMatter.panel.openOnSupportedFile": true,
-    "frontMatter.dashboard.openOnStart": true,
     "[markdown]": {
         "editor.fontSize": 14,
         "editor.lineHeight": 26,
