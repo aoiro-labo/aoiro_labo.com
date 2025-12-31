@@ -6,8 +6,15 @@
     <description>Recent content in Tags on aoiro-labo</description>
     <generator>Hugo</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Tue, 20 Feb 2024 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 31 Dec 2025 05:35:15 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>http://localhost:1313/tags/test/</link>
+      <pubDate>Wed, 31 Dec 2025 05:35:15 +0000</pubDate>
+      <guid>http://localhost:1313/tags/test/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Go</title>
       <link>http://localhost:1313/tags/go/</link>

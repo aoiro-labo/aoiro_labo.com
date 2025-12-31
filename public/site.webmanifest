@@ -8,13 +8,6 @@
   "description": "備忘録的な何か",
   "dir": "ltr",
   "display": "standalone",
-  "icons": [
-    {
-      "sizes": "any",
-      "src": "/favicon.svg",
-      "type": "image/svg+xml"
-    }
-  ],
   "lang": "ja-JP",
   "name": "aoiro-labo",
   "orientation": "portrait-primary",
