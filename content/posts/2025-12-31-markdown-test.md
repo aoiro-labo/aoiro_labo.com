@@ -1,14 +1,14 @@
 ---
 title: Markdown Syntax Test Document
 date: 2025-12-31T07:39:35.397Z
-draft: false
+draft: true
 summary: This is a test document containing various Markdown syntax to verify the completeness of prose styles.
 categories:
-    - Test
+  - Test
 tags:
-    - markdown
-    - prose
-    - style
+  - markdown
+  - prose
+  - style
 ---
 
 # Heading 1
