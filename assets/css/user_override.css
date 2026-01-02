@@ -2,6 +2,6 @@
 :root {
     --base-font-family: 'Murecho', sans-serif;
 }
-strong, b {
-    font-weight: 700;
-}
+body {
+    font-family: var(--base-font-family);
+}   
