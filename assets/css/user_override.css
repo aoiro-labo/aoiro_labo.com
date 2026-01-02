@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&display=swap');
+:root {
+    --base-font-family: 'Murecho', sans-serif!important;
+}
+body {
+    font-family: var(--base-font-family)!important;
+}   
