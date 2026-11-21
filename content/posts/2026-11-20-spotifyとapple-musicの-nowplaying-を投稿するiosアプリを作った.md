@@ -185,3 +185,5 @@ MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作�
 {{< x user="aoiro_labo" id="2123784780236149198" >}}
 
 残っているのは、X API用の開発者アプリの作成（developer.x.com側でアプリ作成とRead and Write権限、アクセストークンの発行が要る）と、SideStoreで通常インストールしたときのウィジェットの確認くらい。ウィジェットはLiveContainer内では拡張が登録されないので未確認のまま。
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
