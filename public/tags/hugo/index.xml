@@ -5,15 +5,15 @@
     <link>http://localhost:1313/tags/hugo/</link>
     <description>Recent content in Hugo on aoiro-labo</description>
     <generator>Hugo</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Mon, 15 Jan 2024 10:00:00 +0800</lastBuildDate>
+    <language>ja</language>
+    <lastBuildDate>Sat, 21 Nov 2026 00:00:00 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hugo Narrow テーマ</title>
-      <link>http://localhost:1313/projects/hugo-narrow-theme/</link>
-      <pubDate>Mon, 15 Jan 2024 10:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/projects/hugo-narrow-theme/</guid>
-      <description>TailwindCSS 4で構築されたモダンなHugoテーマ。複数のカラースキーム、ダークモードサポート、レスポンシブデザインを備えています。</description>
+      <title>サイトのアイコンとフォントを変えた</title>
+      <link>http://localhost:1313/posts/%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%81%A8%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%81%9F/</link>
+      <pubDate>Sat, 21 Nov 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%81%A8%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%81%9F/</guid>
+      <description>トップのアイコンをXのアバターに変えて、フォントをIBM Plex Sans JPにした。ついでにYouTubeへのリンクと動画ページも足した。</description>
     </item>
   </channel>
 </rss>

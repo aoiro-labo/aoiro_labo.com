@@ -1,1 +1,10 @@
-{"taxonomy":{"tags":["test"],"categories":["expetimental"]}}
+{
+  "taxonomy": {
+    "categories": [
+      "expetimental"
+    ],
+    "tags": [
+      "test"
+    ]
+  }
+}

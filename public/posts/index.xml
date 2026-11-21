@@ -6,12 +6,54 @@
     <description>Recent content in Posts on aoiro-labo</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 02 Jan 2026 11:18:16 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 00:00:00 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った</title>
+      <link>http://localhost:1313/posts/spotify%E3%81%A8apple-music%E3%81%AE-%23nowplaying-%E3%82%92%E6%8A%95%E7%A8%BF%E3%81%99%E3%82%8Bios%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F/</link>
+      <pubDate>Sat, 21 Nov 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/spotify%E3%81%A8apple-music%E3%81%AE-%23nowplaying-%E3%82%92%E6%8A%95%E7%A8%BF%E3%81%99%E3%82%8Bios%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F/</guid>
+      <description>ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、MediaRemoteの壁など。</description>
+    </item>
+    <item>
+      <title>サイトのアイコンとフォントを変えた</title>
+      <link>http://localhost:1313/posts/%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%81%A8%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%81%9F/</link>
+      <pubDate>Sat, 21 Nov 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%81%A8%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%81%9F/</guid>
+      <description>トップのアイコンをXのアバターに変えて、フォントをIBM Plex Sans JPにした。ついでにYouTubeへのリンクと動画ページも足した。</description>
+    </item>
+    <item>
+      <title>ドラマ「ザ・ロイヤルファミリー」に登場する競走馬の戦績をできるだけ特定する</title>
+      <link>http://localhost:1313/posts/%E3%83%89%E3%83%A9%E3%83%9E%E3%82%B6%E3%83%AD%E3%82%A4%E3%83%A4%E3%83%AB%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA%E3%83%BC%E3%81%AB%E7%99%BB%E5%A0%B4%E3%81%99%E3%82%8B%E7%AB%B6%E8%B5%B0%E9%A6%AC%E3%81%AE%E6%88%A6%E7%B8%BE%E3%82%92%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%A0%E3%81%91%E7%89%B9%E5%AE%9A%E3%81%99%E3%82%8B/</link>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/%E3%83%89%E3%83%A9%E3%83%9E%E3%82%B6%E3%83%AD%E3%82%A4%E3%83%A4%E3%83%AB%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA%E3%83%BC%E3%81%AB%E7%99%BB%E5%A0%B4%E3%81%99%E3%82%8B%E7%AB%B6%E8%B5%B0%E9%A6%AC%E3%81%AE%E6%88%A6%E7%B8%BE%E3%82%92%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%A0%E3%81%91%E7%89%B9%E5%AE%9A%E3%81%99%E3%82%8B/</guid>
+      <description>劇中の出馬表、実況、netkeibaの特設ページ、実際のJRA開催記録から、ロイヤルファイトやロイヤルイザーニャなどの戦績を整理する。</description>
+    </item>
+    <item>
+      <title>円盤（BD/UHD BD）の字幕書体を特定してみる</title>
+      <link>http://localhost:1313/posts/%E5%86%86%E7%9B%A4bd/uhd-bd%E3%81%AE%E5%AD%97%E5%B9%95%E6%9B%B8%E4%BD%93%E3%82%92%E7%89%B9%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link>
+      <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/%E5%86%86%E7%9B%A4bd/uhd-bd%E3%81%AE%E5%AD%97%E5%B9%95%E6%9B%B8%E4%BD%93%E3%82%92%E7%89%B9%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid>
+      <description>手持ちの円盤に焼き込まれた字幕・テロップのフォントを見比べて特定していくログ。随時追記予定。</description>
+    </item>
+    <item>
+      <title>【ネタバレあり】Netflix映画「新幹線大爆破」の時系列と場所を整理する記事</title>
+      <link>http://localhost:1313/posts/%E3%83%8D%E3%82%BF%E3%83%90%E3%83%AC%E3%81%82%E3%82%8Anetflix%E6%98%A0%E7%94%BB%E6%96%B0%E5%B9%B9%E7%B7%9A%E5%A4%A7%E7%88%86%E7%A0%B4%E3%81%AE%E6%99%82%E7%B3%BB%E5%88%97%E3%81%A8%E5%A0%B4%E6%89%80%E3%82%92%E6%95%B4%E7%90%86%E3%81%99%E3%82%8B%E8%A8%98%E4%BA%8B/</link>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/%E3%83%8D%E3%82%BF%E3%83%90%E3%83%AC%E3%81%82%E3%82%8Anetflix%E6%98%A0%E7%94%BB%E6%96%B0%E5%B9%B9%E7%B7%9A%E5%A4%A7%E7%88%86%E7%A0%B4%E3%81%AE%E6%99%82%E7%B3%BB%E5%88%97%E3%81%A8%E5%A0%B4%E6%89%80%E3%82%92%E6%95%B4%E7%90%86%E3%81%99%E3%82%8B%E8%A8%98%E4%BA%8B/</guid>
+      <description>劇中の時計・発車標・空撮などから、事件発生前の時系列と撮影地を整理してみる</description>
+    </item>
+    <item>
+      <title>テレビを彩る名曲たち</title>
+      <link>http://localhost:1313/posts/%E3%83%86%E3%83%AC%E3%83%93%E3%82%92%E5%BD%A9%E3%82%8B%E5%90%8D%E6%9B%B2%E3%81%9F%E3%81%A1/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/%E3%83%86%E3%83%AC%E3%83%93%E3%82%92%E5%BD%A9%E3%82%8B%E5%90%8D%E6%9B%B2%E3%81%9F%E3%81%A1/</guid>
+      <description></description>
+    </item>
     <item>
       <title>作品・媒体ごとによる映像・音声品質の比較</title>
       <link>http://localhost:1313/posts/%E4%BD%9C%E5%93%81%E5%AA%92%E4%BD%93%E3%81%94%E3%81%A8%E3%81%AB%E3%82%88%E3%82%8B%E6%98%A0%E5%83%8F%E9%9F%B3%E5%A3%B0%E5%93%81%E8%B3%AA%E3%81%AE%E6%AF%94%E8%BC%83/</link>
-      <pubDate>Fri, 02 Jan 2026 11:18:16 +0000</pubDate>
+      <pubDate>Sat, 03 Jan 2026 05:15:21 +0000</pubDate>
       <guid>http://localhost:1313/posts/%E4%BD%9C%E5%93%81%E5%AA%92%E4%BD%93%E3%81%94%E3%81%A8%E3%81%AB%E3%82%88%E3%82%8B%E6%98%A0%E5%83%8F%E9%9F%B3%E5%A3%B0%E5%93%81%E8%B3%AA%E3%81%AE%E6%AF%94%E8%BC%83/</guid>
       <description>テレビ、サブスク、円盤などの画質や音質を比較してみる</description>
     </item>
@@ -20,7 +62,7 @@
       <link>http://localhost:1313/posts/2025-2026%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%A7%E8%A6%8B%E3%82%8B%E5%B9%B4%E6%9C%AB%E5%B9%B4%E5%A7%8B%E3%81%AE%E3%83%86%E3%83%AC%E3%83%93%E6%AD%8C%E7%95%AA%E7%B5%84%E7%B7%A8/</link>
       <pubDate>Thu, 01 Jan 2026 09:35:33 +0000</pubDate>
       <guid>http://localhost:1313/posts/2025-2026%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%A7%E8%A6%8B%E3%82%8B%E5%B9%B4%E6%9C%AB%E5%B9%B4%E5%A7%8B%E3%81%AE%E3%83%86%E3%83%AC%E3%83%93%E6%AD%8C%E7%95%AA%E7%B5%84%E7%B7%A8/</guid>
-      <description>年末年始を彩るテレビ番組のテロップ再現を通じて変化や哀愁を感じるシリーズ（予定）</description>
+      <description>年末年始のテレビ番組で使われたテロップを再現し、前年からのデザインの変化を比べるシリーズ（予定）</description>
     </item>
     <item>
       <title>Markdown Syntax Test Document</title>

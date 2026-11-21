@@ -21,7 +21,6 @@
 
 
 
-
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 
@@ -48,7 +47,7 @@
   <meta itemprop="description" content="aoiro-labo の技術スタックと運営環境について">
   <meta itemprop="datePublished" content="2025-12-30T00:00:00+09:00">
   <meta itemprop="dateModified" content="2025-12-30T00:00:00+09:00">
-  <meta itemprop="wordCount" content="234">
+  <meta itemprop="wordCount" content="242">
   <meta itemprop="image" content="http://localhost:1313/images/og-default.avif">
 
 
@@ -193,6 +192,10 @@
 
 
 
+  
+    <link rel="stylesheet" href="/css/custom/toc-accordion.css" />
+  
+
 
 
 
@@ -239,6 +242,7 @@
 
 
 
+      <script src="/js/custom//js/custom/toc-accordion.js" defer></script>
 
 
 
@@ -460,6 +464,32 @@
             
             
             <a
+              href="/videos/"
+              class="nav-link 
+                text-muted-foreground hover:text-primary hover:bg-primary/10
+               focus:ring-primary/20 relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 focus:ring-2 focus:outline-none">
+              
+                <svg class="h-5 w-5" aria-label="動画" fill="currentColor" viewBox="0 0 24 24">
+  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+</svg>
+
+              
+              <span
+                >
+                  動画
+                </span
+              >
+            </a>
+          
+            
+            
+            
+              
+                
+              
+            
+            
+            <a
               href="/categories/"
               class="nav-link 
                 text-muted-foreground hover:text-primary hover:bg-primary/10
@@ -651,6 +681,34 @@
           <span
             >
               記事
+            </span
+          >
+        </a>
+      
+        
+        
+        
+          
+            
+          
+        
+        
+        <a
+          href="/videos/"
+          class="nav-link 
+            text-muted-foreground hover:text-primary hover:bg-primary/10
+           focus:ring-primary/20 relative flex items-center gap-3 rounded-md px-4 py-3 text-sm font-medium transition-all duration-200 ease-out hover:translate-x-1 focus:ring-2 focus:outline-none"
+          role="menuitem"
+          >
+          
+            <svg class="h-5 w-5" aria-label="動画" fill="currentColor" viewBox="0 0 24 24">
+  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+</svg>
+
+          
+          <span
+            >
+              動画
             </span
           >
         </a>
@@ -880,10 +938,10 @@
   <div class="bg-card border border-border rounded-lg p-6 mb-8 shadow-sm">
     <div class="prose prose-neutral dark:prose-invert max-w-none">
       <h2 id="aoiro-labo-について">aoiro-labo について</h2>
-<p>このサイトは、放送、アニメ、バーチャルなどの趣味や、技術的な備忘録をまとめている個人ブログです。
-「書かないと忘れること」を主軸に、自分が後で見返して役立つ情報を発信しています。</p>
+<p>放送、アニメ、バーチャル関係の趣味と、作業中に調べた技術情報を置いている個人ブログです。
+あとで自分が読み返せるように、検証した手順や結果を記録しています。</p>
 <h2 id="技術スタック">技術スタック</h2>
-<p>軽量さとメンテナンス性を重視し、以下のモダンなツールセットで構築されています。</p>
+<p>サイトはHugoで生成し、Cloudflare Pagesで公開しています。</p>
 <ul>
 <li>SSG: Hugo Extended</li>
 <li>Theme: hugo-narrow (Minimalist 1-column theme)</li>
@@ -893,7 +951,7 @@
 <li>Design: Tailwind CSS 4.0</li>
 </ul>
 <h2 id="画像管理について">画像管理について</h2>
-<p>GitHub リポジトリの肥大化を防ぐため、画像アセットの多くは Cloudflare R2 にホスティングされ、カスタムドメイン images.aoiro-labo.com を通じて配信されています。</p>
+<p>記事の画像はCloudflare R2に保存し、images.aoiro-labo.comから配信しています。GitHubリポジトリには原則として画像を置きません。</p>
 
     </div>
   </div>
@@ -1342,6 +1400,22 @@
               aria-label="Twitter">
               
                 <svg class="h-6 w-6" aria-label="Twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6c2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4c-.9-4.2 4-6.6 7-3.8c1.1 0 3-1.2 3-1.2"/></svg>
+              
+            </a>
+          
+            <a
+              href="https://www.youtube.com/@aoiro_labo"
+              
+                target="_blank" rel="noopener noreferrer"
+              
+              class="text-muted-foreground hover:text-primary focus:ring-primary/20 rounded-lg p-1 transition-all duration-300 ease-out hover:scale-110 focus:ring-2 focus:outline-none"
+              title="YouTube"
+              aria-label="YouTube">
+              
+                <svg class="h-6 w-6" aria-label="YouTube" fill="currentColor" viewBox="0 0 24 24">
+  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+</svg>
+
               
             </a>
           

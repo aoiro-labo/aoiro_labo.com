@@ -8,4 +8,11 @@
     {{- $src = $src | relURL -}}
   {{- end -}}
 {{- end -}}
-<img src="{{ $src | safeURL }}" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}" {{ end }} />
+<figure class="image-figure not-prose my-8">
+  <div class="image-container">
+    <img src="{{ $src | safeURL }}" alt="{{ .Text }}" loading="lazy" />
+  </div>
+  {{- with .Title }}
+  <figcaption class="image-caption">{{ . }}</figcaption>
+  {{- end }}
+</figure>
