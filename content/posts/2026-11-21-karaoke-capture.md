@@ -110,9 +110,21 @@ LIVE DAM Ai本体の裏面にあるHDMI出力端子のうち、「メイン」�
 
 モニター側面にHDMI入力端子が見える位置にあればDAM本体を動かす必要は全くないが、モニターの入力端子がどこにあるかわからないときは、DAM本体を動かしたほうが作業しやすい。
 
+{{< masonry maxColumns="2" >}}
 ![DAM本体の背面。HDMI出力のメインとサブ（スペシャル）が並んでいる](karaoke-dam-rear.jpg "メインがモニターにつながっている")
+![モニター側面のHDMI入力端子。DAM本体からのケーブルが挿さっている](karaoke-monitor-port.jpg "モニター側の端子はこんな感じ")
+{{< /masonry >}}
 
 LIVE DAM Aiの取扱説明書によれば、サブ（スペシャル）の方では情報画面を出力できるらしい。実店舗で見かけた範囲では、一部の映像（ライブ版の本人映像等）でメインとは別の映像が出る程度で、それ以外はメイン出力と同じ映像だった。
+
+![LIVE DAM Aiの取扱説明書のHDMI出力端子（メイン、サブ（スペシャル））の説明](karaoke-dam-manual.jpg "取扱説明書の該当箇所")
+
+サブ出力でメインとは別の映像が出ている実例はこのあたり。
+
+{{< masonry maxColumns="2" >}}
+![サブ出力に映った本人映像（ライブ映像）](karaoke-sub-live1.jpg "One more time, One more chance / 山崎まさよし")
+![サブ出力に映った本人映像](karaoke-sub-live2.jpg "どんなときも / 槇原敬之")
+{{< /masonry >}}
 
 ちなみに、サブ出力でメインとは違う映像が出ているときは歌詞テロップが出ない。
 
@@ -124,18 +136,20 @@ DAM本体からモニターに出力しているHDMIケーブルがわかった�
 
 そしたら分配器のoutput側からキャプボのinput側へHDMIケーブルをつなぐ。
 
-分配器のoutputは片方だけ使う。output1か2のどちらかでHDCPを無視できるはずなので、そのどちらかをキャプボにつなぐ。もう片方の出力をモニターにつないでも使えるかもしれないが、EDID（ケーブルを通してやりとりされるディスプレイの情報）がバグるみたいな話を聞いたことがあるので、おすすめはしない。
-
 {{< masonry maxColumns="2" >}}
 ![モニターに挿さっていたDAM本体からのケーブルを分配器のinputへつないだところ](karaoke-splitter-in.jpg "モニターに挿されているDAM本体からのHDMIケーブルを分配器へ")
 ![分配器のoutputからキャプボのinputへつないだところ](karaoke-splitter-out.jpg "分配器からキャプボへ")
 {{< /masonry >}}
+
+分配器のoutputは片方だけ使う。output1か2のどちらかでHDCPを無視できるはずなので、そのどちらかをキャプボにつなぐ。もう片方の出力をモニターにつないでも使えるかもしれないが、EDID（ケーブルを通してやりとりされるディスプレイの情報）がバグるみたいな話を聞いたことがあるので、おすすめはしない。
 
 ### 3. キャプボからモニターにつなぐ
 
 キャプボのパススルー出力を、元々挿さっていたモニターのHDMI入力端子につなぐ。こうしておけば録画中もモニターに映像が出るので便利。
 
 モニターに繋いだあとに元の画面（DAMチャンネルとか）が映るなら問題なし。
+
+![キャプボの入力側。HDMI INとAV IN（音声入力）の端子](karaoke-capture-ports.jpg "キャプボの入力端子まわり")
 
 ### 4. 【DAMの場合】アンプにAUXケーブルをぶっ刺してキャプボにつなげる
 
@@ -155,7 +169,10 @@ JOYSOUND MAX GO以降であればHDMI経由で音声も出るので、この工�
 
 場所によってはサブ出力に別の機器へのケーブルがつながっている場合もあるが、ミキシングミュージックのケーブル（大抵はここからスピーカーに出力される）さえ外さなければ特段問題ないはず。
 
+{{< masonry maxColumns="2" >}}
 ![JOYSOUND本体の背面。音声出力のRCA端子が並んでいる](karaoke-joysound-rear.jpg "JOYSOUND本体背面の端子群")
+![JOYSOUND本体背面の音声出力端子にRCAケーブルを挿したところ](karaoke-joysound-rear2.jpg "音声出力まわり（拡大）")
+{{< /masonry >}}
 
 ### 5. 録画してキャプチャする
 
@@ -163,13 +180,34 @@ PC経由なら録画ソフト側で、単体録画ならキャプボ本体の録
 
 GV-HDRECは音声入力がゴミなのでやめたほうがいい。映像はちゃんと取れる。
 
+![カラオケルームのテーブルに組んだキャプボ（GV-HDREC）とHDMI分配器](karaoke-setup.jpg "実際に組んだ構成")
+
 ## 実際のキャプチャ
 
 PC経由でOBS等を使う場合はコーデックも品質も自由だが、GV-HDREC単体で録画すると.mov形式で保存される。録画ファイルのコーデック自体は普通だが、いかんせんタイムスタンプが正常に動かないので管理しにくい。PCでキャプチャした方が融通が効くでしょう。
 
+![キャプチャしたJOYSOUND MAX GOの起動ロゴ画面](karaoke-joysound-logo.jpg "JOYSOUND MAX GOの起動ロゴ")
+
+![GV-HDRECで録画したファイルのMediaInfo表示。エンコード日が2012年になっている](karaoke-mediainfo.jpg "録画ファイルの情報（日付がおかしい）")
+
+GV-HDRECでキャプチャしたもの。
+
 {{< masonry maxColumns="2" >}}
+![GV-HDRECでキャプチャした画面](karaoke-gv-1.jpg)
+![GV-HDRECでキャプチャした画面](karaoke-gv-2.jpg)
 ![キャプチャしたDAMの精密採点Aiの画面。歌詞テロップと音程バーが表示されている](karaoke-capture-dam.jpg "DAM（精密採点Ai）")
-![キャプチャしたDAMチャンネルのキャンペーン画面](karaoke-capture-channel.jpg "DAMチャンネル。GC551G2でキャプチャ")
+![GV-HDRECでキャプチャした画面](karaoke-gv-3.jpg)
+![GV-HDRECでキャプチャした画面](karaoke-gv-4.jpg)
+{{< /masonry >}}
+
+GC551G2（AVerMedia Streaming Center経由）でキャプチャしたもの。
+
+{{< masonry maxColumns="2" >}}
+![GC551G2でキャプチャした画面](karaoke-ext-1.jpg)
+![GC551G2でキャプチャした画面](karaoke-ext-2.jpg)
+![GC551G2でキャプチャした画面](karaoke-ext-3.jpg)
+![GC551G2でキャプチャした画面](karaoke-ext-4.jpg)
+![キャプチャしたDAMチャンネルのキャンペーン画面](karaoke-capture-channel.jpg "DAMチャンネル")
 {{< /masonry >}}
 
 ## うまくいかないとき
