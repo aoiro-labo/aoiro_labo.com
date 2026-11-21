@@ -13,9 +13,6 @@ categories: ["雑記"]
 
 カラオケの画面を、歌詞テロップごとそのまま録画したい。結論から書くと、デジタル出力であれば基本問題ない、アナログ出力は変換噛ませればいける。
 
-> [!NOTE]
-> この記事の製品リンクには、Amazonアソシエイトリンクが含まれています。
-
 ## 収録環境
 
 撮影・収録場所
@@ -45,7 +42,7 @@ categories: ["雑記"]
 
 ### キャプチャボード
 
-{{< link title="AVerMedia Live Gamer Portable 2 AVT-C878｜Amazon" url="https://amzn.to/4jY7Mq8" description="ゲームの録画・ライブ配信用キャプチャーデバイス" icon="link" >}}
+使ったのはAVerMediaのLive Gamer Portable 2（AVT-C878）。
 
 基本的に、音声入力とパススルー出力に対応しているキャプチャボードを使用するのが好ましい。
 
@@ -59,7 +56,7 @@ DAMは最大1080p60だが、JOYSOUNDの一部機種は4K画質に対応してい
 
 ### ゴニョゴニョできるHDMI分配器
 
-{{< link title="1入力2出力 HDMI分配器｜Amazon" url="https://amzn.to/447GSGq" description="1×2 HDMIスプリッター。フルハイビジョン・3D対応、HDMI 1.4" icon="link" >}}
+1入力2出力の安いやつ。
 
 中華製のスプリッターにはどういうわけかHDCPを無視するものがある（なんなら解除できないパチモンも出回ってるらしい）。
 
@@ -80,8 +77,6 @@ DAMは最大1080p60だが、JOYSOUNDの一部機種は4K画質に対応してい
 ### 音声を取り込むやつ
 
 MAX GO以降の機種はHDMI経由で音声も入るので、以下はJOYSOUND MAXまでの機種でのお話。
-
-{{< link title="サンワダイレクト USBオーディオキャプチャー 400-MEDI017｜Amazon" url="https://amzn.to/449SbOt" description="アナログ音声をデジタル化するUSBオーディオキャプチャー" icon="link" >}}
 
 JOYSOUNDのアンプには3.5mmの音声出力端子がないため、本体裏面の音声出力用RCA端子から音声を抜く以外の方法がない（非純正アンプ等を使用している一部店舗ならもしかしたら程度）。
 
