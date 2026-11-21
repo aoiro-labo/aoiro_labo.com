@@ -40,7 +40,7 @@ categories: ["雑記"]
 
 ### キャプチャボード
 
-当方で検証済みなのは、AVerMediaのLive Gamer Portable 2（AVT-C878）とLive Gamer EXTREME 3（GC551G2）の2つ。一番直近の収録はGC551G2でやっている。
+当方で検証済みなのは、AVerMediaのLive Gamer Portable 2（AVT-C878）とLive Gamer EXTREME 3（GC551G2）、アイ・オー・データのGV-HDRECの3つ。一番直近の収録はGC551G2でやっている。GV-HDRECは音声入力に難があるのでおすすめはしない（詳しくは後述）。
 
 選ぶ基準として、音声入力とパススルー出力に対応しているキャプチャボードが好ましい。音声入力がないと音声をキャプボに取り込めず、パススルー出力がないと映像をモニターに戻せない。
 
