@@ -1,6 +1,7 @@
 ---
 title: "このサイトについて"
 layout: "about"
+comments_disabled: true
 summary: "aoiro-labo の技術スタックと運営環境について"
 date: 2025-12-30T00:00:00+09:00
 links:
