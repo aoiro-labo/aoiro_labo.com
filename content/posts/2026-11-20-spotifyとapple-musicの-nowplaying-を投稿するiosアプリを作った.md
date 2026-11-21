@@ -36,7 +36,7 @@ Androidには、メイン機だった頃に長らくお世話になっていたN
 {{< masonry maxColumns="3" >}}
 ![再生中の曲とジャケ写が表示された既存アプリの画面。Xでシェアするボタンと使い方ガイドがある](https://images.aoiro-labo.com/blog/nowplaying-existing-1.jpg "既存アプリの画面 1")
 ![再生中の曲名が表示された既存アプリの画面。ジャケ写の位置は音符のイラストで、下部に広告がある](https://images.aoiro-labo.com/blog/nowplaying-existing-2.jpg "既存アプリの画面 2")
-![円形に切り抜かれたジャケ写と、生成された投稿文が表示された既存アプリの画面。投稿先のボタンが並んでいる](https://images.aoiro-labo.com/blog/nowplaying-existing-3.jpg "既存アプリの画面 3")
+![ジャケ写と、生成された投稿文が表示された既存アプリの画面。投稿先のボタンが並んでいる](https://images.aoiro-labo.com/blog/nowplaying-existing-3.jpg "既存アプリの画面 3")
 {{< /masonry >}}
 
 - 出発点がショートカットだった。既製品を探して乗り換える前に、自分の道具の方が先に育っていた。アプリはその延長で、文面マクロの仕様はショートカット版から引き継いでいる
