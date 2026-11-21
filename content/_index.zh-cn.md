@@ -4,7 +4,7 @@ author:
   name: "Hugo Narrow"
   title: "简洁的 Hugo 主题"
   description: "专注于内容和用户体验。"
-  avatar: "/images/avatar.svg"
+  avatar: "/images/avatar.jpg"
   social:
     - name: "GitHub"
       url: "https://github.com/tom2almighty/hugo-narrow"
