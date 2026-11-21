@@ -2,7 +2,7 @@
 title: "SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った"
 date: 2026-11-21T00:00:00+09:00
 draft: true
-summary: "ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、MediaRemoteの壁など。"
+summary: "ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約など。"
 categories:
     - 開発
 tags:
@@ -23,6 +23,8 @@ tags:
 
 手元のMacにはXcodeが入っていないので、ビルドはGitHub Actionsに任せ、署名なしの .ipa を作ってSideStore / LiveContainer でiPhoneに入れる方式にした。開発はAI（Muse）に壁打ちしながら、都度こちらで実機確認して進めた。
 
+{{< link title="最終的にアプリにしたほうが多少は使いやすいという結論に" url="https://x.com/aoiro_labo/status/2123623813191733301" description="2026-11-20 のポスト" icon="twitter" >}}
+
 ## ビルドの流れ
 
 ```mermaid
@@ -35,7 +37,7 @@ flowchart LR
 
 - ソースはSwift + SwiftUI。プロジェクトファイルはXcodeGenの project.yml から生成する
 - v* のタグを打つと、リリースにも .ipa が添付される
-- 署名なしなのでApp Storeには出せないし、SideStoreで通常インストールする場合は7日ごとの更新が要る。自分しか使わないので、それで割り切っている
+- 署名なしなのでApp Storeには出せないし、SideStoreで通常インストールする場合は7日ごとの更新が要る
 
 ## バージョンごとの流れ
 
@@ -94,17 +96,30 @@ flowchart LR
 
 プリセットと編集欄は一本化してあって、編集すると選択中のプリセット自体が書き換わる。
 
+実際に投稿した例がこれ。「ワールドイズマイン」はショートカット時代にジャケ写とURLが壊れた曲で、アプリでは正しい盤のものが出るようになった。
+
+{{< link title="#NowPlaying ワールドイズマイン (かぐや&月見ヤチヨ ver.) [CPK! Remix]" url="https://x.com/aoiro_labo/status/2123615772572618844" description="2026-11-20 のポスト" icon="twitter" >}}
+
 ### そのほか
 
 - Spotifyのrefresh tokenはローテーションで新しいものが返ってくることがあるので、返ってきたら保存し直す
 - Last.fmは取得時に updateNowPlaying を送り、投稿のタイミングで scrobble する
 - 履歴は同じ曲＋同じ文面なら全体から重複を除いて先頭に移す。ジャケ写のサムネイルが無い場合は前のものを引き継ぐ
 
-## ハマったところ・ミス
+## Apple MusicとiOSの制約
 
-### Apple Musicのプレースホルダ
+Spotifyは公式のWeb APIがあるので、再生情報をサーバー側から引っ張って解決できた。Apple側はそうはいかない。開発中にぶつかった制約を並べると、だいたいAppleの仕様の話になる。
 
-「現在の曲」は、状況によって「iTunesメディア」という名前で詳細が空のプレースホルダを返すことがある。アーティスト名が空なら採用しない、という健全性ゲートを入れた。iPhone側の詰まりもあって、同じような状態でも正常／プレースホルダ／エラーの3通りを返すので、ショートカット版の頃から引きずっている問題でもある。
+{{< link title="SpotifyはAPIから再生情報を引っ張ってることで解決 Appleは全体的にクソ、もっと汎用性のある仕様にしやがれください" url="https://x.com/aoiro_labo/status/2123636617365844440" description="2026-11-20 のポスト" icon="twitter" >}}
+{{< link title="Appleのエコシステムは融通が効かなさすぎて嫌い" url="https://x.com/aoiro_labo/status/2123637077967573322" description="2026-11-20 のポスト" icon="twitter" >}}
+
+### 端末内の再生曲はApple Musicしか取れない
+
+iOSでは、他のアプリが今何を再生しているかを知る公開APIがない。MediaPlayerで取れるのはミュージックアプリ（Apple Music）の再生曲だけで、Spotifyアプリの再生状態は端末内からは見えない。だからSpotifyはWeb API経由、という設計になっている。YouTube Musicに至っては再生状態を見る公式API自体がないので、v1.8.0で足したのもジャケ写などのメタデータ取得だけ。
+
+### 「iTunesメディア」というプレースホルダ
+
+Apple Musicの「現在の曲」は、状況によって「iTunesメディア」という名前で詳細が空のプレースホルダを返すことがある。アーティスト名が空なら採用しない、という健全性ゲートを入れた。同じような状態でも正常／プレースホルダ／エラーの3通りを返すので、ショートカット版の頃から引きずっている問題でもある。
 
 ### MediaRemoteの壁
 
@@ -115,14 +130,18 @@ MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作�
 
 プローブのコードは死にコードとして残っている。
 
-### そのほか
+### 金の話
+
+まともに配布しようとするとApple Developer Program（年99ドル）が要る。やめればアプリも消える。無料の範囲だと署名の有効期限が7日で、SideStoreで更新し続けるしかない。個人で使うだけの道具に年額を払う気はないので、野良 .ipa のままにしている。
+
+## ハマったところ・ミス
 
 - 開発側のミスで、Trackの初期化を思い込みで書いてビルドを落としたことがある。既存の型は実物を見てから書く、という当たり前の話
 - LiveContainerではバージョンが「1.0」と表示されたまま＆アイコンが真っ白、という問題があった。project.yml にバージョンを明示して、アプリアイコンのアセットを入れて対処した（v1.5.1）
 
 ## 今の状態
 
-現行はv1.8.1で、.ipa もリリースに付いている。リポジトリは公開している。
+現行はv1.8.1で、 .ipa もリリースに付いている。リポジトリは公開している。
 
 {{< link title="一通り整えたのでパブリックリポジトリにした" url="https://x.com/aoiro_labo/status/2123783147074842997" description="2026-11-20 のポスト" icon="twitter" >}}
 {{< link title="SpotifyとAppleMusicで再生している曲をTwitterで共有するための文言とジャケ写をテンプレから生成して共有できるやつ" url="https://x.com/aoiro_labo/status/2123784780236149198" description="2026-11-20 のポスト" icon="twitter" >}}
