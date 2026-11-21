@@ -5,7 +5,7 @@ defaultAuthor: "aoiro"
 language: "ja-JP"
 shortName: "aoiro_labo"  # PWA
 images:
-  - "/images/og-default.avif"
+  - "/images/og-default.jpg"
 
 # Favicon
 favicon:
@@ -32,12 +32,12 @@ author:
 header:
   sticky: true  # Enable sticky navigation bar
   logo:
-    image: ""  # Logo path relative to static folder, leave empty to use site title first letter
+    image: "/images/avatar.jpg"  # Logo path relative to static folder, leave empty to use site title first letter
     link: "/"  # Click to home page
   # UI Components Control (header controls)
   showThemeSwitch: true      # Set to false to hide theme style switcher (palette icon)
   showDarkModeSwitch: true   # Set to false to hide dark mode switcher (sun/moon icon)
-  showLanguageSwitch: true   # Set to false to hide language switcher
+  showLanguageSwitch: false   # Set to false to hide language switcher
   languageSwitchMode: "dropdown"  # Language switch mode: "dropdown" (show panel) or "cycle" (direct cycle)
 
 # Dock display mode
@@ -198,7 +198,7 @@ mermaid:
 
 # GLightbox
 lightbox:
-  enabled: false
+  enabled: true
   loop: true
   width: 80vw
   height: 80vh

@@ -8,6 +8,8 @@ theme: "hugo-narrow"
 hasCJKLanguage: true
 enableEmoji: true
 
+enableRobotsTXT: true
+
 permalinks:
   posts: /posts/:slug/
   projects: /projects/:slug/
