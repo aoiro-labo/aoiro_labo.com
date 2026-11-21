@@ -86,6 +86,14 @@ flowchart LR
 
 順位に頼るのをやめて、アルバム名の一致で盤を特定してから曲を引く、という順番にしたのが効いた。ほかにMusicBrainzとYouTube Music、再生元（Spotify等）のジャケ写も候補にできて、優先順位は設定で並び替えできる。候補ピッカーから手で選ぶこともできるし、「正解として報告」でIssueに送る導線も付けた。
 
+同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Apple Musicで表示される本来のジャケ写（中）、修正後のアプリ（右）。
+
+{{< masonry maxColumns="3" >}}
+![カラオケ版のジャケ写を掴んだ状態](https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg "カラオケ版を掴んだ状態")
+![Apple Musicで表示される本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-applemusic-geki.jpg "本来のジャケ写（Apple Music）")
+![修正後、正しいジャケ写になったアプリ](https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg "修正後")
+{{< /masonry >}}
+
 ### 文面の組み立て
 
 文面は `{track}` `{artist}` `{album}` `{url}` のマクロで組み立てる。自分の既定はURLなしで、こうなる。
@@ -95,6 +103,10 @@ flowchart LR
 ```
 
 プリセットと編集欄は一本化してあって、編集すると選択中のプリセット自体が書き換わる。
+
+実際の画面はこんな感じで、投稿文と文字数、履歴が並ぶ。
+
+![投稿文と履歴の画面](https://images.aoiro-labo.com/blog/nowplaying-post-history.jpg "投稿文と履歴の画面")
 
 実際に投稿した例がこれ。「ワールドイズマイン」はショートカット時代にジャケ写とURLが壊れた曲で、アプリでは正しい盤のものが出るようになった。
 
