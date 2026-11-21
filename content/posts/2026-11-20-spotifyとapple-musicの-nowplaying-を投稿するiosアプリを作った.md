@@ -122,6 +122,9 @@ MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作�
 
 ## 今の状態
 
-現行は[v1.8.1](https://github.com/aoiro-labo/nowplaying-ios/releases/tag/v1.8.1)。 .ipa もリリースに付いている。
+現行はv1.8.1で、.ipa もリリースに付いている。リポジトリは公開している。
+
+{{< link title="一通り整えたのでパブリックリポジトリにした" url="https://x.com/aoiro_labo/status/2123783147074842997" description="2026-11-20 のポスト" icon="twitter" >}}
+{{< link title="SpotifyとAppleMusicで再生している曲をTwitterで共有するための文言とジャケ写をテンプレから生成して共有できるやつ" url="https://x.com/aoiro_labo/status/2123784780236149198" description="2026-11-20 のポスト" icon="twitter" >}}
 
 残っているのは、X API用の開発者アプリの作成（developer.x.com側でアプリ作成とRead and Write権限、アクセストークンの発行が要る）と、SideStoreで通常インストールしたときのウィジェットの確認くらい。ウィジェットはLiveContainer内では拡張が登録されないので未確認のまま。
