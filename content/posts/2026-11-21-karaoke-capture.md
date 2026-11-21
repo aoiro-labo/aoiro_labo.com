@@ -2,7 +2,7 @@
 title: "カラオケの画面をキャプチャする夢"
 date: 2026-11-21T12:00:00+09:00
 draft: true
-summary: "カラオケ（DAMとJOYSOUND）の画面をキャプチャボードで録画する構成と手順。映像はHDMI分配器経由。音声はDAMならアンプのヘッドフォン端子などから別に取り、JOYSOUNDはMAX GO以降ならHDMIで一緒に取れる。"
+summary: "カラオケ（DAMとJOYSOUND）の画面をキャプチャボードで録画する構成と手順。映像はHDMI分配器経由。音声はDAMならアンプのヘッドフォン端子などから別に取り、JOYSOUND MAX GO以降ならHDMIで一緒に取れる。"
 tags: ["カラオケ", "DAM", "JOYSOUND", "キャプチャ"]
 categories: ["雑記"]
 ---
@@ -40,11 +40,11 @@ categories: ["雑記"]
 
 ### キャプチャボード
 
-当方で検証済みなのは、AVerMediaのLive Gamer Portable 2（AVT-C878）とLive Gamer EXTREME 3の2つ。一番直近の収録はEXTREME 3でやっている。
+当方で検証済みなのは、AVerMediaのLive Gamer Portable 2（AVT-C878）とLive Gamer EXTREME 3の2つ。一番直近の収録はLive Gamer EXTREME 3でやっている。
 
 基本的に、音声入力とパススルー出力に対応しているキャプチャボードを使用するのが好ましい。
 
-Portable 2は電源およびPCとの接続をMicroUSB Type-B（2.0）から供給するタイプなので、キャプボ単体で録画する場合は別途アダプターも必要。PC経由の場合はケーブルで繋いでOBS Studio等のソフトを利用する。EXTREME 3はPC経由のみ。
+Live Gamer Portable 2は電源およびPCとの接続をMicroUSB Type-B（2.0）から供給するタイプなので、キャプボ単体で録画する場合は別途アダプターも必要。PC経由の場合はケーブルで繋いでOBS Studio等のソフトを利用する。Live Gamer EXTREME 3はPC経由のみ。
 
 なお、同じAVerMediaでもLive Gamer EXTREME 3などは、Assist Central ProでHDCP検出をオフにした状態でゴニョゴニョしないとHDCP Protectionに阻まれるので注意。
 
@@ -76,7 +76,7 @@ DAMは最大1080p60だが、JOYSOUNDの一部機種は4K画質に対応してい
 
 ### 音声を取り込むやつ
 
-MAX GO以降の機種はHDMI経由で音声も入るので、以下はJOYSOUND MAXまでの機種でのお話。
+JOYSOUND MAX GO以降の機種はHDMI経由で音声も入るので、以下はJOYSOUND MAXまでの機種でのお話。
 
 JOYSOUNDのアンプには3.5mmの音声出力端子がないため、本体裏面の音声出力用RCA端子から音声を抜く以外の方法がない（非純正アンプ等を使用している一部店舗ならもしかしたら程度）。
 
@@ -92,7 +92,7 @@ PCに接続する場合は400-MEDI017（サンワサプライ）やGV-USB（ア�
 - 録画：キャプボ →（USB）→ PC（単体録画に対応した機種ならPCなしでも可）
 - 音声（DAMの場合）：アンプのヘッドフォン端子、または本体背面のRCA端子 → キャプボの音声入力
 
-映像の流れはJOYSOUNDも同じ。音声だけ扱いが違って、JOYSOUNDはMAX GO以降ならHDMI経由で音声も一緒に取れる（それより前の機種は背面のRCAから取る。後述）。
+映像の流れはJOYSOUNDも同じ。音声だけ扱いが違って、JOYSOUND MAX GO以降ならHDMI経由で音声も一緒に取れる（それより前の機種は背面のRCAから取る。後述）。
 
 大事なのは、DAMのHDMI出力には音声が乗っていないこと。映像はHDMI、音声は別のケーブル、と分けて考える必要がある。
 
@@ -149,7 +149,7 @@ DAMはHDMI出力に音声が乗っていないので、音声が入らない場�
 
 ### 4. 本体背面の音声出力からRCAケーブルを介して音声を抜く
 
-MAX GO以降であればHDMI経由で音声も出るので、この工程は不要。
+JOYSOUND MAX GO以降であればHDMI経由で音声も出るので、この工程は不要。
 
 元から挿してあるのがアンプに音声を供給しているもの。サブ出力に接続すれば、スピーカー等からの音をそのままに音声を抜ける。
 
@@ -159,7 +159,7 @@ MAX GO以降であればHDMI経由で音声も出るので、この工程は不�
 
 ### 5. 録画ボタンをﾎﾟﾁｰしてキャプチャする
 
-Portable 2で単体録画している場合、録画データは接続しているmicroSDカードに保存される。
+Live Gamer Portable 2で単体録画している場合、録画データは接続しているmicroSDカードに保存される。
 
 GV-HDRECは音声入力がゴミなのでやめたほうがいい。映像はちゃんと取れる。
 
