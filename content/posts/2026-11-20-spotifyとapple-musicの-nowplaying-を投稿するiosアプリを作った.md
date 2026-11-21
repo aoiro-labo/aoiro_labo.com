@@ -23,7 +23,7 @@ tags:
 
 手元のMacにはXcodeが入っていないので、ビルドはGitHub Actionsに任せ、署名なしの .ipa を作ってSideStore / LiveContainer でiPhoneに入れる方式にした。開発はAI（Muse）に壁打ちしながら、都度こちらで実機確認して進めた。
 
-{{< link title="最終的にアプリにしたほうが多少は使いやすいという結論に" url="https://x.com/aoiro_labo/status/2123623813191733301" description="2026-11-20 のポスト" icon="twitter" >}}
+{{< x user="aoiro_labo" id="2123623813191733301" >}}
 
 ## 既にあるのに、なぜ作ったのか
 
@@ -34,6 +34,14 @@ tags:
 {{< link title="なうぷれ NowPlaying - 再生中の音楽を共有" url="https://apps.apple.com/jp/app/%E3%81%AA%E3%81%86%E3%81%B7%E3%82%8C-nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E5%85%B1%E6%9C%89/id6760329811" description="App Store" icon="link" >}}
 
 AndroidにはNowPlaying4Droidという理想形もある。ただ、そもそもSpotifyに対応したものが殆どない。大半は端末内で再生中の曲を読む方式で、Spotifyの再生は端末内からは拾えない。広告が多かったり、課金しないと機能に制限がかかったりするものも多い。曲のURLを付けられないものも多い。文面も、#Nowplaying の綴りだったり、アーティストの区切りや「 - Single」まで付くアルバム表記だったりが、自分の形式とは違う。どれも自分の使い方には合わなかった。
+
+参考に、挙げた3つのアプリで同じ曲（Luna say maybe）を開いた画面。
+
+{{< masonry maxColumns="3" >}}
+![再生中の曲とジャケ写が表示された既存アプリの画面。Xでシェアするボタンと使い方ガイドがある](https://images.aoiro-labo.com/blog/nowplaying-existing-1.jpg "既存アプリの画面 1")
+![再生中の曲名が表示された既存アプリの画面。ジャケ写の位置は音符のイラストで、下部に広告がある](https://images.aoiro-labo.com/blog/nowplaying-existing-2.jpg "既存アプリの画面 2")
+![円形に切り抜かれたジャケ写と、生成された投稿文が表示された既存アプリの画面。投稿先のボタンが並んでいる](https://images.aoiro-labo.com/blog/nowplaying-existing-3.jpg "既存アプリの画面 3")
+{{< /masonry >}}
 
 - 出発点がショートカットだった。既製品を探して乗り換える前に、自分の道具の方が先に育っていた。アプリはその延長で、文面マクロの仕様はショートカット版から引き継いでいる
 - 文面の形式。#NowPlaying の後に曲名、アーティストはクレジット全員、最後にアルバム名でURLはなし、という自分の形式をそのまま使いたかった
@@ -103,12 +111,12 @@ flowchart LR
 
 順位に頼るのをやめて、アルバム名の一致で盤を特定してから曲を引く、という順番にしたのが効いた。ほかにMusicBrainzとYouTube Music、再生元（Spotify等）のジャケ写も候補にできて、優先順位は設定で並び替えできる。候補ピッカーから手で選ぶこともできるし、「正解として報告」でIssueに送る導線も付けた。
 
-同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Apple Musicで表示される本来のジャケ写（中）、修正後のアプリ（右）。
+同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Spotifyで表示される本来のジャケ写（中）、修正後のアプリ（右）。
 
 {{< masonry maxColumns="3" >}}
-![カラオケ版のジャケ写を掴んだ状態](https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg "カラオケ版を掴んだ状態")
-![Apple Musicで表示される本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-applemusic-geki.jpg "本来のジャケ写（Apple Music）")
-![修正後、正しいジャケ写になったアプリ](https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg "修正後")
+![カラオケ版のジャケ写を選んでしまったアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg "カラオケ版を掴んだ状態")
+![Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-spotify-geki.jpg "本来のジャケ写（Spotify）")
+![修正後、正しいジャケ写が表示されているアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg "修正後")
 {{< /masonry >}}
 
 ### 文面の組み立て
@@ -123,11 +131,11 @@ flowchart LR
 
 実際の画面はこんな感じで、投稿文と文字数、履歴が並ぶ。
 
-![投稿文と履歴の画面](https://images.aoiro-labo.com/blog/nowplaying-post-history.jpg "投稿文と履歴の画面")
+![生成された投稿文と、取得履歴が並ぶアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-post-history.jpg "投稿文と履歴")
 
 実際に投稿した例がこれ。「ワールドイズマイン」はショートカット時代にジャケ写とURLが壊れた曲で、アプリでは正しい盤のものが出るようになった。
 
-{{< link title="#NowPlaying ワールドイズマイン (かぐや&月見ヤチヨ ver.) [CPK! Remix]" url="https://x.com/aoiro_labo/status/2123615772572618844" description="2026-11-20 のポスト" icon="twitter" >}}
+{{< x user="aoiro_labo" id="2123615772572618844" >}}
 
 ### そのほか
 
@@ -139,8 +147,8 @@ flowchart LR
 
 Spotifyは公式のWeb APIがあるので、再生情報をサーバー側から引っ張って解決できた。Apple側はそうはいかない。開発中にぶつかった制約を並べると、だいたいAppleの仕様の話になる。
 
-{{< link title="SpotifyはAPIから再生情報を引っ張ってることで解決 Appleは全体的にクソ、もっと汎用性のある仕様にしやがれください" url="https://x.com/aoiro_labo/status/2123636617365844440" description="2026-11-20 のポスト" icon="twitter" >}}
-{{< link title="Appleのエコシステムは融通が効かなさすぎて嫌い" url="https://x.com/aoiro_labo/status/2123637077967573322" description="2026-11-20 のポスト" icon="twitter" >}}
+{{< x user="aoiro_labo" id="2123636617365844440" >}}
+{{< x user="aoiro_labo" id="2123637077967573322" >}}
 
 ### 端末内の再生曲はApple Musicしか取れない
 
@@ -172,7 +180,7 @@ MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作�
 
 現行はv1.8.1で、 .ipa もリリースに付いている。リポジトリは公開している。
 
-{{< link title="一通り整えたのでパブリックリポジトリにした" url="https://x.com/aoiro_labo/status/2123783147074842997" description="2026-11-20 のポスト" icon="twitter" >}}
-{{< link title="SpotifyとAppleMusicで再生している曲をTwitterで共有するための文言とジャケ写をテンプレから生成して共有できるやつ" url="https://x.com/aoiro_labo/status/2123784780236149198" description="2026-11-20 のポスト" icon="twitter" >}}
+{{< x user="aoiro_labo" id="2123783147074842997" >}}
+{{< x user="aoiro_labo" id="2123784780236149198" >}}
 
 残っているのは、X API用の開発者アプリの作成（developer.x.com側でアプリ作成とRead and Write権限、アクセストークンの発行が要る）と、SideStoreで通常インストールしたときのウィジェットの確認くらい。ウィジェットはLiveContainer内では拡張が登録されないので未確認のまま。
