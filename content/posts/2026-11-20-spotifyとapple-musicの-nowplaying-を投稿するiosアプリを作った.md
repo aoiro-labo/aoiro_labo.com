@@ -116,7 +116,7 @@ flowchart LR
 
 {{< masonry maxColumns="3" >}}
 ![カラオケ版のジャケ写を選んでしまったアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg "カラオケ版を掴んだ状態")
-![Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-spotify-geki.jpg "本来のジャケ写（Spotify）")
+![Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-geki-spotify.jpg "本来のジャケ写（Spotify）")
 ![修正後、正しいジャケ写が表示されているアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg "修正後")
 {{< /masonry >}}
 
