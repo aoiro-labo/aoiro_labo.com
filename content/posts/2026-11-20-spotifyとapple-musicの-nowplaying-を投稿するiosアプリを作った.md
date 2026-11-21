@@ -112,11 +112,11 @@ flowchart LR
 
 順位に頼るのをやめて、アルバム名の一致で盤を特定してから曲を引く、という順番にしたのが効いた。ほかにMusicBrainzとYouTube Music、再生元（Spotify等）のジャケ写も候補にできて、優先順位は設定で並び替えできる。候補ピッカーから手で選ぶこともできるし、「正解として報告」でIssueに送る導線も付けた。
 
-同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Apple Musicで表示される本来のジャケ写（中）、修正後のアプリ（右）。
+同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Spotifyで表示される本来のジャケ写（中）、修正後のアプリ（右）。
 
 {{< masonry maxColumns="3" >}}
 ![カラオケ版のジャケ写を選んでしまったアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg "カラオケ版を掴んだ状態")
-![Apple Musicで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-applemusic-geki.jpg "本来のジャケ写（Apple Music）")
+![Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写](https://images.aoiro-labo.com/blog/nowplaying-spotify-geki.jpg "本来のジャケ写（Spotify）")
 ![修正後、正しいジャケ写が表示されているアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg "修正後")
 {{< /masonry >}}
 
