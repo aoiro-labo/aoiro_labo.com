@@ -47,7 +47,7 @@
   <meta itemprop="description" content="各サービスの自分のアカウントへのリンク">
   <meta itemprop="datePublished" content="2026-11-21T00:00:00+09:00">
   <meta itemprop="dateModified" content="2026-11-21T00:00:00+09:00">
-  <meta itemprop="wordCount" content="116">
+  <meta itemprop="wordCount" content="115">
   <meta itemprop="image" content="http://localhost:1313/images/og-default.jpg">
 
 
@@ -191,6 +191,10 @@
 
 
 
+
+  
+    <link rel="stylesheet" href="/css/custom/cover-display.css" />
+  
 
   
     <link rel="stylesheet" href="/css/custom/toc-accordion.css" />
@@ -945,8 +949,8 @@
 
   
   <article class="prose prose-neutral dark:prose-invert max-w-none">
-    <h2 id="ents_disabled-true">ents_disabled: true</h2>
-<p>自分のアカウントへのリンク�<div class="link-card-group"><div class="link-card">
+    <p>自分のアカウントへのリンクをまとめたもの。</p>
+<p><div class="link-card-group"><div class="link-card">
   <a href="https://x.com/aoiro_labo" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
     <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
       
@@ -965,7 +969,8 @@
 </svg>
     </div>
   </a>
-</div></div>�<div class="link-card-group"><div class="link-card">
+</div></div>
+<div class="link-card-group"><div class="link-card">
   <a href="https://www.youtube.com/@aoiro_labo" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
     <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
       
@@ -984,7 +989,8 @@
 </svg>
     </div>
   </a>
-</div></div>�<div class="link-card-group"><div class="link-card">
+</div></div>
+<div class="link-card-group"><div class="link-card">
   <a href="https://github.com/aoiro-labo" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
     <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
       
@@ -1003,7 +1009,8 @@
 </svg>
     </div>
   </a>
-</div></div>�<div class="link-card-group"><div class="link-card">
+</div></div>
+<div class="link-card-group"><div class="link-card">
   <a href="https://note.com/aoiro_labo" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
     <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
       
@@ -1022,7 +1029,8 @@
 </svg>
     </div>
   </a>
-</div></div>�<div class="link-card-group"><div class="link-card">
+</div></div>
+<div class="link-card-group"><div class="link-card">
   <a href="https://www.last.fm/user/Aoi_Tomoe" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
     <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
       
@@ -1041,173 +1049,10 @@
 </svg>
     </div>
   </a>
-</div></div>�</p>
+</div></div></p>
 
   </article>
-  <section
-    id="comments"
-    class="bg-card border-border mx-auto mt-12 max-w-4xl rounded-2xl border p-8 px-4 shadow-sm">
-    <div class="bg-card">
-      <h2
-        class="text-foreground mb-6 flex items-center gap-3 text-2xl font-bold">
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
-</svg>
-
-        コメント
-      </h2>
-
-      <div class="comments-container">
-
-
-
-
-
-  <div id="giscus-comments" class="giscus-container">
-    <script
-      src="https://giscus.app/client.js"
-      data-repo="aoiro-labo/aoiro_labo.com"
-      data-repo-id="R_kgDOQm-1Kw"
-      data-category="Announcements"
-      data-category-id="DIC_kwDOQm-1K84C0ZGJ"
-      data-mapping="pathname"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="bottom"
-      data-theme="preferred_color_scheme"
-      data-lang="ja"
-      data-loading="lazy"
-      crossorigin="anonymous"
-      async></script>
-  </div>
-
   
-  <script>
-    (function() {
-      'use strict';
-
-      
-      function getCurrentTheme() {
-        
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          return savedTheme;
-        }
-        
-        
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        
-        
-        if (document.documentElement.classList.contains('dark')) {
-          return 'dark';
-        }
-        
-        
-        return 'light';
-      }
-
-      
-      function updateGiscusTheme() {
-        const iframe = document.querySelector('#giscus-comments iframe.giscus-frame');
-        if (!iframe) return;
-
-        const theme = getCurrentTheme();
-        
-        
-        iframe.contentWindow.postMessage({
-          giscus: {
-            setConfig: {
-              theme: theme
-            }
-          }
-        }, 'https://giscus.app');
-      }
-
-      
-      function initializeGiscusTheme() {
-        
-        const checkIframe = setInterval(() => {
-          const iframe = document.querySelector('#giscus-comments iframe.giscus-frame');
-          if (iframe) {
-            clearInterval(checkIframe);
-            
-            
-            iframe.addEventListener('load', () => {
-              updateGiscusTheme();
-            });
-            
-            
-            if (iframe.contentWindow && iframe.contentWindow.postMessage) {
-              updateGiscusTheme();
-            }
-          }
-        }, 100);
-
-        
-        setTimeout(() => {
-          clearInterval(checkIframe);
-        }, 5000);
-      }
-
-      
-      document.addEventListener('themeChanged', updateGiscusTheme);
-
-      
-      window.addEventListener('storage', (e) => {
-        if (e.key === 'theme') {
-          updateGiscusTheme();
-        }
-      });
-
-      
-      if (window.matchMedia) {
-        const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        darkModeQuery.addEventListener('change', () => {
-          updateGiscusTheme();
-        });
-      }
-
-      
-      const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-            updateGiscusTheme();
-          }
-        });
-      });
-
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-      });
-
-      
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-          updateGiscusTheme();
-        }
-      });
-
-      
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeGiscusTheme);
-      } else {
-        initializeGiscusTheme();
-      }
-
-      
-      window.addEventListener('popstate', () => {
-        setTimeout(initializeGiscusTheme, 100);
-      });
-    })();
-  </script>
-
-</div>
-    </div>
-  </section>
 
     </main>
 
@@ -1243,11 +1088,7 @@
       id="toc-sidebar-content"
       class="toc-sidebar-scroll overflow-y-auto pr-2"
       style="max-height: calc(80vh - 3rem);">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#ents_disabled-true">ents_disabled: true</a></li>
-  </ul>
-</nav>
+      <nav id="TableOfContents"></nav>
     </nav>
   </aside>
 
@@ -1385,7 +1226,7 @@
       <div class="text-muted-foreground text-sm text-center md:text-left">
         <p class="mb-2">
           &copy; 2026 aoiro-labo.
-          全著作権所有.
+          All rights reserved.
         </p>
         <p class="flex flex-wrap items-center justify-center gap-1 md:justify-start">
           <span>Powered by</span>
@@ -1662,11 +1503,7 @@
         aria-label="目次ナビゲーション">
           
           <div id="toc-content">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#ents_disabled-true">ents_disabled: true</a></li>
-  </ul>
-</nav>
+            <nav id="TableOfContents"></nav>
           </div>
       </nav>
     </div>
