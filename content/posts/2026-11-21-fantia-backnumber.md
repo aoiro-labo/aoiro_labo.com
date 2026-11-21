@@ -1,7 +1,7 @@
 ---
 title: "Fantiaの期間限定制とバックナンバー有償制は滅びろ"
 date: 2026-11-21T19:35:00+09:00
-draft: true
+draft: false
 summary: "Fantiaの、加入期間中の投稿しか見られなくて過去分はバックナンバーで別売り、という仕様への不満"
 categories:
     - 雑記
