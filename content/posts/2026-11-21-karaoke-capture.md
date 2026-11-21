@@ -38,11 +38,11 @@ categories: ["雑記"]
 
 ### キャプチャボード
 
-使ったのはAVerMediaのLive Gamer Portable 2（AVT-C878）。
+当方で検証済みなのは、AVerMediaのLive Gamer Portable 2（AVT-C878）とLive Gamer EXTREME 3の2つ。一番直近の収録はEXTREME 3でやっている。
 
 基本的に、音声入力とパススルー出力に対応しているキャプチャボードを使用するのが好ましい。
 
-上記は電源およびPCとの接続をMicroUSB Type-B（2.0）から供給するタイプなので、キャプボ単体で録画する場合は別途アダプターも必要。PC経由の場合はケーブルで繋いでOBS Studio等のソフトを利用する。
+Portable 2は電源およびPCとの接続をMicroUSB Type-B（2.0）から供給するタイプなので、キャプボ単体で録画する場合は別途アダプターも必要。PC経由の場合はケーブルで繋いでOBS Studio等のソフトを利用する。EXTREME 3はPC経由のみ。
 
 なお、同じAVerMediaでもLive Gamer EXTREME 3などは、Assist Central ProでHDCP検出をオフにした状態でゴニョゴニョしないとHDCP Protectionに阻まれるので注意。
 
@@ -133,7 +133,7 @@ MAX GO以降であればHDMI経由で音声も出るので、この工程は不�
 
 ### 5. 録画ボタンをﾎﾟﾁｰしてキャプチャする
 
-キャプボで録画している場合、録画データは接続しているmicroSDカードに保存される。
+Portable 2で単体録画している場合、録画データは接続しているmicroSDカードに保存される。
 
 GV-HDRECは音声入力がゴミなのでやめたほうがいい。映像はちゃんと取れる。
 
