@@ -27,15 +27,11 @@ tags:
 
 ## 既にあるのに、なぜ作ったのか
 
-再生中の曲を投稿するアプリ自体は既にある。iOSだとこの辺。
-
-{{< link title="NowPlaying - 再生中の音楽をツイート" url="https://apps.apple.com/jp/app/nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E3%83%84%E3%82%A4%E3%83%BC%E3%83%88/id482604258" description="App Store" icon="link" >}}
-{{< link title="NowPlaying - 起動するだけでポスト" url="https://apps.apple.com/jp/app/nowplaying-%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91%E3%81%A7%E3%83%9D%E3%82%B9%E3%83%88/id1289764391" description="App Store" icon="link" >}}
-{{< link title="なうぷれ NowPlaying - 再生中の音楽を共有" url="https://apps.apple.com/jp/app/%E3%81%AA%E3%81%86%E3%81%B7%E3%82%8C-nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E5%85%B1%E6%9C%89/id6760329811" description="App Store" icon="link" >}}
+再生中の曲を投稿するアプリ自体は既にある。
 
 AndroidにはNowPlaying4Droidという理想形もある。ただ、そもそもSpotifyに対応したものが殆どない。大半は端末内で再生中の曲を読む方式で、Spotifyの再生は端末内からは拾えない。広告が多かったり、課金しないと機能に制限がかかったりするものも多い。曲のURLを付けられないものも多い。文面も、#Nowplaying の綴りや、アーティストの区切り、「 - Single」まで付くアルバム表記など、自分の形式とは違う。どれも自分の使い方には合わなかった。
 
-参考に、挙げた3つのアプリで同じ曲（Luna say maybe）を開いた画面を並べておく。
+参考に、既存のアプリ3つで同じ曲（Luna say maybe）を開いた画面を並べておく。
 
 {{< masonry maxColumns="3" >}}
 ![再生中の曲とジャケ写が表示された既存アプリの画面。Xでシェアするボタンと使い方ガイドがある](https://images.aoiro-labo.com/blog/nowplaying-existing-1.jpg "既存アプリの画面 1")
