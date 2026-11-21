@@ -24,6 +24,11 @@ main:
     weight: 50
     params:
       icon: archive
+  - name: 動画
+    pageRef: /videos
+    weight: 25
+    params:
+      icon: youtube
 
 # footer menu
 footer:
@@ -55,6 +60,11 @@ social:
     weight: 20
     params:
       icon: twitter
+  - name: YouTube
+    url: https://www.youtube.com/@aoiro_labo
+    weight: 30
+    params:
+      icon: youtube
   - name: Email
     url: mailto:contact@aoiro-labo.com
     weight: 40
