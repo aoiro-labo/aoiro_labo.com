@@ -151,9 +151,12 @@ flowchart LR
 
 ### 投稿まわり
 
-基本は共有シート。直接投稿も付けていて、X API（OAuth 1.0a、ジャケ写付き）、Bluesky（アプリパスワード）、MastodonとMisskey（インスタンスとトークンを設定）はアプリからそのまま送れる。Xはアプリを開いて投稿画面に渡すこともできる。認証情報は全部アプリ内の設定に保存する形で、リポジトリには含めていない。
+基本は共有シート。直接投稿も付けていて、X API（OAuth 1.0a、ジャケ写付き）、Bluesky（アプリパスワード）、MastodonとMisskey（インスタンスとトークンを設定）はアプリからそのまま送れる。Xはアプリを開いて投稿画面に渡すこともできる。
 
-設定画面はこんな感じで、取得元やURLの付け方を選ぶ。トークン類は伏せてある。
+> [!IMPORTANT]
+> 認証情報について。Spotifyのrefresh tokenや、X API・Bluesky・Mastodon・Misskeyのトークン類は、この端末のアプリ内の設定にだけ保存される。ソースコードやリポジトリに含める作りにはしていない。この記事の設定画面などのスクリーンショットでも、キー類はマスクしてある。
+
+設定画面はこんな感じで、取得元やURLの付け方を選ぶ。
 
 ![設定画面。Spotifyの認証情報（マスク済み）、取得元の選択、URLの付け方](https://images.aoiro-labo.com/blog/nowplaying-settings.jpg "設定画面")
 
@@ -165,7 +168,7 @@ flowchart LR
 - ジャケ写は、iTunesの100pxのURLを1200pxに差し替えて高画質で取る設定がある
 - 設定とトークンはApp Group経由でウィジェットとも共有している
 
-Last.fmまわりは、APIアカウントを作るところから。キー類はマスクしてある。
+Last.fmまわりは、APIアカウントを作るところから。
 
 {{< masonry maxColumns="2" >}}
 ![Last.fmのAPIアカウント作成完了画面（キー類はマスク済み）](https://images.aoiro-labo.com/blog/nowplaying-lastfm-api-account.jpg "Last.fm APIアカウント作成")
@@ -200,7 +203,6 @@ MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作�
 > [!NOTE]
 > entitlement（com.apple.mediaremote.now-playing-read-access）の無いアプリには、再生中でも info が nil で返ってくる。サイドロードでは付けられないし、TrollStoreもiOS 17.0までで手元のiOS 27では使えない。この方法は使えないと確定した。
 
-プローブのコードは死にコードとして残っている。
 
 ### 金の話
 
@@ -219,6 +221,5 @@ MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作�
 {{< x user="aoiro_labo" id="2123783147074842997" >}}
 {{< x user="aoiro_labo" id="2123784780236149198" >}}
 
-残っているのは、X API用の開発者アプリの作成（developer.x.com側でアプリ作成とRead and Write権限、アクセストークンの発行が要る）と、SideStoreで通常インストールしたときのウィジェットの確認くらい。ウィジェットはLiveContainer内では拡張が登録されないので未確認のまま。
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
