@@ -50,13 +50,16 @@
     {{ partial "content/post-meta.html" . }}
   </header>
 
+  <!-- 共有ボタン（上部） -->
+  {{ partial "content/share-buttons.html" (dict "context" . "top" true) }}
+
   <!-- 文章内容 -->
   <article class="prose prose-neutral dark:prose-invert mb-12 max-w-none">
     {{ .Content }}
   </article>
 
   <!-- 共有ボタン -->
-  {{ partial "content/share-buttons.html" . }}
+  {{ partial "content/share-buttons.html" (dict "context" .) }}
 
   <!-- 许可证信息 -->
   {{ partial "content/post-license.html" . }}
