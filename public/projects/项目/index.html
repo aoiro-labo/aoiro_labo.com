@@ -33,11 +33,11 @@
   <meta property="og:locale" content="ja">
   <meta property="og:type" content="article">
     <meta property="article:section" content="projects">
-    <meta property="og:image" content="http://localhost:1313/images/og-default.avif">
+    <meta property="og:image" content="http://localhost:1313/images/og-default.jpg">
 
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/og-default.avif">
+  <meta name="twitter:image" content="http://localhost:1313/images/og-default.jpg">
   <meta name="twitter:title" content="项目">
   <meta name="twitter:description" content="探索我的项目作品集，从 Web 开发到 AI 应用">
 
@@ -45,7 +45,7 @@
   <meta itemprop="name" content="项目">
   <meta itemprop="description" content="探索我的项目作品集，从 Web 开发到 AI 应用">
   <meta itemprop="wordCount" content="44">
-  <meta itemprop="image" content="http://localhost:1313/images/og-default.avif">
+  <meta itemprop="image" content="http://localhost:1313/images/og-default.jpg">
 
 
 
@@ -164,7 +164,7 @@
 
   window.HUGO_GALLERY_CONFIG = {
     justified_gallery:  false ,
-    lightbox:  false ,
+    lightbox:  true ,
     justified: "{\"calculateitemsheight\":false,\"gutter\":30,\"lastrow\":\"center\",\"maxrowscount\":999999,\"resizedebounce\":100,\"rowheight\":300,\"rowheighttolerance\":0.25,\"transitionduration\":\"0.3s\"}",
     lightbox_options: "{\"descposition\":\"bottom\",\"draggable\":true,\"height\":\"80vh\",\"loop\":true,\"preload\":true,\"touchnavigation\":true,\"width\":\"80vw\",\"zoomable\":true}"
   };
@@ -198,6 +198,8 @@
 
 
 
+  <link rel="stylesheet" href="/css/glightbox.min.css">
+
 
 
       <script src="/js/main.js"></script>
@@ -224,6 +226,8 @@
 
 
 
+  <script src="/js/glightbox.min.js"></script>
+
 
 
 
@@ -234,6 +238,8 @@
 
 
 
+
+        <script src="/js/gallery.js" defer></script>
 
 
 
@@ -411,12 +417,14 @@
       
       <div class="flex items-center">
         
-          
           <a
             href="/"
-            class="bg-primary text-primary-foreground hover:bg-primary/90 flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold transition-transform duration-200 hover:scale-105"
+            class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full transition-transform duration-200 hover:scale-105"
             aria-label="aoiro-labo">
-            A
+            <img
+              src="/images/avatar.jpg"
+              alt="aoiro-labo"
+              class="h-full w-full object-cover" />
           </a>
         
       </div>
@@ -1253,6 +1261,50 @@
               <span
                 >
                   RSS Feed
+                </span
+              >
+            </a>
+          
+            
+            
+            
+              
+                
+              
+            
+            <a
+              href="/links/"
+              
+              class="nav-link hover:text-primary hover:bg-primary/10 text-muted-foreground flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
+              
+                <svg class="h-5 w-5" aria-label="Links" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
+              
+              <span
+                >
+                  Links
+                </span
+              >
+            </a>
+          
+            
+            
+            
+              
+                
+              
+            
+            <a
+              href="/privacy/"
+              
+              class="nav-link hover:text-primary hover:bg-primary/10 text-muted-foreground flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
+              
+                <svg class="h-5 w-5" aria-label="Privacy" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+              
+              <span
+                >
+                  Privacy
                 </span
               >
             </a>

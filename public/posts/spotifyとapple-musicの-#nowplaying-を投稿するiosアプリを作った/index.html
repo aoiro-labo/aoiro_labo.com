@@ -11,7 +11,7 @@
 
 <title>SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った | aoiro-labo</title>
 
-<meta name="description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約など。" />
+<meta name="description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。" />
 <meta name="keywords" content="iOS, Swift, GitHub Actions, Spotify" />
 <meta name="author" content="aoiro" />
 <meta name="language" content="ja-JP" />
@@ -29,7 +29,7 @@
 <meta property="og:url" content="http://localhost:1313/posts/spotify%E3%81%A8apple-music%E3%81%AE-%23nowplaying-%E3%82%92%E6%8A%95%E7%A8%BF%E3%81%99%E3%82%8Bios%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F/">
   <meta property="og:site_name" content="aoiro-labo">
   <meta property="og:title" content="SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った">
-  <meta property="og:description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約など。">
+  <meta property="og:description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。">
   <meta property="og:locale" content="ja">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -39,21 +39,21 @@
     <meta property="article:tag" content="Swift">
     <meta property="article:tag" content="GitHub Actions">
     <meta property="article:tag" content="Spotify">
-    <meta property="og:image" content="http://localhost:1313/images/og-default.avif">
+    <meta property="og:image" content="http://localhost:1313/images/og-default.jpg">
 
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/og-default.avif">
+  <meta name="twitter:image" content="http://localhost:1313/images/og-default.jpg">
   <meta name="twitter:title" content="SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った">
-  <meta name="twitter:description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約など。">
+  <meta name="twitter:description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。">
 
 
   <meta itemprop="name" content="SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った">
-  <meta itemprop="description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約など。">
+  <meta itemprop="description" content="ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。">
   <meta itemprop="datePublished" content="2026-11-21T00:00:00+09:00">
   <meta itemprop="dateModified" content="2026-11-21T00:00:00+09:00">
-  <meta itemprop="wordCount" content="4472">
-  <meta itemprop="image" content="http://localhost:1313/images/og-default.avif">
+  <meta itemprop="wordCount" content="5728">
+  <meta itemprop="image" content="http://localhost:1313/images/og-default.jpg">
   <meta itemprop="keywords" content="IOS,Swift,GitHub Actions,Spotify">
 
 
@@ -173,7 +173,7 @@
 
   window.HUGO_GALLERY_CONFIG = {
     justified_gallery:  false ,
-    lightbox:  false ,
+    lightbox:  true ,
     justified: "{\"calculateitemsheight\":false,\"gutter\":30,\"lastrow\":\"center\",\"maxrowscount\":999999,\"resizedebounce\":100,\"rowheight\":300,\"rowheighttolerance\":0.25,\"transitionduration\":\"0.3s\"}",
     lightbox_options: "{\"descposition\":\"bottom\",\"draggable\":true,\"height\":\"80vh\",\"loop\":true,\"preload\":true,\"touchnavigation\":true,\"width\":\"80vw\",\"zoomable\":true}"
   };
@@ -207,6 +207,8 @@
 
 
 
+  <link rel="stylesheet" href="/css/glightbox.min.css">
+
 
 
       <script src="/js/main.js"></script>
@@ -233,6 +235,8 @@
 
 
 
+  <script src="/js/glightbox.min.js"></script>
+
 
 
 
@@ -245,15 +249,11 @@
 
   <script src="/js/macy.js"></script>
   
-    
-    
-    
-      <script src="/js/glightbox.min.js"></script>
-    
-  
 
 
 
+
+        <script src="/js/gallery.js" defer></script>
 
 
 
@@ -431,12 +431,14 @@
       
       <div class="flex items-center">
         
-          
           <a
             href="/"
-            class="bg-primary text-primary-foreground hover:bg-primary/90 flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold transition-transform duration-200 hover:scale-105"
+            class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full transition-transform duration-200 hover:scale-105"
             aria-label="aoiro-labo">
-            A
+            <img
+              src="/images/avatar.jpg"
+              alt="aoiro-labo"
+              class="h-full w-full object-cover" />
           </a>
         
       </div>
@@ -975,7 +977,7 @@
   
   
     <div class="text-muted-foreground mb-6 text-lg leading-relaxed">
-      ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約など。
+      ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。
     </div>
   
 
@@ -1008,7 +1010,7 @@
 </svg>
 
           <span
-            >9 分</span
+            >12 分</span
           >
         </div>
       
@@ -1021,7 +1023,7 @@
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
 </svg>
 
-          <span>4472 文字</span>
+          <span>5728 文字</span>
         </div>
       
 
@@ -1126,256 +1128,16 @@
 
 </p>
 <h2 id="経緯">経緯</h2>
-<p>元はiOSショートカット版で、SpotifyのWeb APIから再生中の曲を取り、文面を作ってXの投稿画面に渡すものだった。v10まで作り込んで実用になっていたが、ショートカットでは「ウィジェットに今の曲を出す」みたいなことができない。話が広がって、ちゃんとしたアプリにすることにした。</p>
-<p>手元のMacにはXcodeが入っていないので、ビルドはGitHub Actionsに任せ、署名なしの .ipa を作ってSideStore / LiveContainer でiPhoneに入れる方式にした。開発はAI（Muse）に壁打ちしながら、都度こちらで実機確認して進めた。</p>
-<div class="link-card-group"><div class="link-card">
-  <a href="https://x.com/aoiro_labo/status/2123623813191733301" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="twitter" alt="最終的にアプリにしたほうが多少は使いやすいという結論に" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">最終的にアプリにしたほうが多少は使いやすいという結論に</h3>
-      <p class="link-card-content">2026-11-20 のポスト</p>
-      <div class="link-card-url">x.com/aoiro_labo/status/2123623813191733301</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div>
+<p>元はiOSショートカット版で、SpotifyのWeb APIから再生中の曲を取り、文面を作ってXの投稿画面に渡すものだった。v10まで作り込んで実用レベルに達していたが、ショートカットでは「ウィジェットに今の曲を出す」みたいなことができない。話が広がって、ちゃんとしたアプリにすることにした。</p>
+<p>手元のMacにはXcodeが入っていないので、ビルドはGitHub Actionsに任せ、署名なしの.ipaを作ってSideStore / LiveContainerでiPhoneに入れる方式にした。開発はAI（Muse）に壁打ちしながら、都度こちらで実機確認して進めた。v1.0の初回ビルドから現行のv1.8.1まで、作業はほぼ2026年11月20日の1日に集中している。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">最終的にアプリにしたほうが多少は使いやすいという結論に <a href="https://t.co/8FHPaT0taB">https://t.co/8FHPaT0taB</a> <a href="https://t.co/Odm5BiA6Qp">pic.twitter.com/Odm5BiA6Qp</a></p>&mdash; aoiro (@aoiro_labo) <a href="https://x.com/aoiro_labo/status/2123623813191733301?ref_src=twsrc%5Etfw">November 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+
 <h2 id="既にあるのになぜ作ったのか">既にあるのに、なぜ作ったのか</h2>
-<p>再生中の曲を投稿するアプリ自体は既にある。iOSだとこの辺。</p>
-<p><div class="link-card-group"><div class="link-card">
-  <a href="https://apps.apple.com/jp/app/nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E3%83%84%E3%82%A4%E3%83%BC%E3%83%88/id482604258" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="link" alt="NowPlaying - 再生中の音楽をツイート" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">NowPlaying - 再生中の音楽をツイート</h3>
-      <p class="link-card-content">App Store</p>
-      <div class="link-card-url">apps.apple.com/jp/app/nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E3%83%84%E3%82%A4%E3%83%BC%E3%83%88/id482604258</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div>
-<div class="link-card-group"><div class="link-card">
-  <a href="https://apps.apple.com/jp/app/nowplaying-%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91%E3%81%A7%E3%83%9D%E3%82%B9%E3%83%88/id1289764391" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="link" alt="NowPlaying - 起動するだけでポスト" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">NowPlaying - 起動するだけでポスト</h3>
-      <p class="link-card-content">App Store</p>
-      <div class="link-card-url">apps.apple.com/jp/app/nowplaying-%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91%E3%81%A7%E3%83%9D%E3%82%B9%E3%83%88/id1289764391</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div>
-<div class="link-card-group"><div class="link-card">
-  <a href="https://apps.apple.com/jp/app/%E3%81%AA%E3%81%86%E3%81%B7%E3%82%8C-nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E5%85%B1%E6%9C%89/id6760329811" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="link" alt="なうぷれ NowPlaying - 再生中の音楽を共有" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">なうぷれ NowPlaying - 再生中の音楽を共有</h3>
-      <p class="link-card-content">App Store</p>
-      <div class="link-card-url">apps.apple.com/jp/app/%E3%81%AA%E3%81%86%E3%81%B7%E3%82%8C-nowplaying-%E5%86%8D%E7%94%9F%E4%B8%AD%E3%81%AE%E9%9F%B3%E6%A5%BD%E3%82%92%E5%85%B1%E6%9C%89/id6760329811</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div></p>
-<p>AndroidにはNowPlaying4Droidという理想形もある。ただ、そもそもSpotifyに対応したものが殆どない。大半は端末内で再生中の曲を読む方式で、Spotifyの再生は端末内からは拾えない。広告が多かったり、課金しないと機能に制限がかかったりするものも多い。曲のURLを付けられないものも多い。文面も、#Nowplaying の綴りだったり、アーティストの区切りや「 - Single」まで付くアルバム表記だったりが、自分の形式とは違う。どれも自分の使い方には合わなかった。</p>
-<ul>
-<li>出発点がショートカットだった。既製品を探して乗り換える前に、自分の道具の方が先に育っていた。アプリはその延長で、文面マクロの仕様はショートカット版から引き継いでいる</li>
-<li>文面の形式。#NowPlaying の後に曲名、アーティストはクレジット全員、最後にアルバム名でURLはなし、という自分の形式をそのまま使いたかった</li>
-<li>ジャケ写のマッチング。「検索の1件目」で済ませる方式ではカラオケ版が混ざる問題が残る。ここは自分で方式を決めたかった</li>
-<li>投稿先（Xアプリ／X API／Bluesky／Mastodon／Misskey）とLast.fmのスクロブルまで、自分の使い方に寄せたかった</li>
-</ul>
-<p>作る手段があったのも大きい。AIに壁打ちしながら都度実機で確認する形で、仕様を自分で決めて作れるところまで来ていた。</p>
-<h2 id="ビルドの流れ">ビルドの流れ</h2>
-
-
-
-<pre class="mermaid">
-  flowchart LR
-    A[&#34;ソースをpush&#34;] --&gt; B[&#34;GitHub Actions&lt;br/&gt;macos-15 でビルド&#34;]
-    B --&gt; C[&#34;NowPlaying.ipa&#34;]
-    C --&gt; D[&#34;Artifacts / リリース&#34;]
-    D --&gt; E[&#34;LiveContainerで実行&#34;]
-</pre>
-
-<ul>
-<li>ソースはSwift + SwiftUI。プロジェクトファイルはXcodeGenの project.yml から生成する</li>
-<li>v* のタグを打つと、リリースにも .ipa が添付される</li>
-<li>署名なしなのでApp Storeには出せないし、SideStoreで通常インストールする場合は7日ごとの更新が要る</li>
-</ul>
-<h2 id="バージョンごとの流れ">バージョンごとの流れ</h2>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">バージョン</th>
-          <th style="text-align: left">主な内容</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">v1.0</td>
-          <td style="text-align: left">初回ビルド成功。LiveContainerに入れて、Spotify / Apple Music 両方の取得を確認</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.1</td>
-          <td style="text-align: left">autoの優先順位を修正</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.2</td>
-          <td style="text-align: left">配布用の整備。設定の一般化、日英ローカライズ、READMEとライセンス</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.3</td>
-          <td style="text-align: left">MediaRemoteを直接叩くプローブを追加（後述の理由で不採用が確定）</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.4</td>
-          <td style="text-align: left">直接投稿を追加。X API（OAuth 1.0a、画像付き）、Bluesky、Mastodon、Misskey</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.5</td>
-          <td style="text-align: left">文面の編集欄、Xの重み付け文字数カウント、取得履歴（20件）、フォーマットプリセット、App Shortcuts、コントロールセンター用ウィジェット（iOS 18+）</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.5.1</td>
-          <td style="text-align: left">LiveContainerでバージョンが「1.0」表示＆アイコン真っ白だった問題に対処</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.6.0</td>
-          <td style="text-align: left">UIをカード基調に刷新。Last.fm連携（取得元として追加＋スクロブル）</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.6.1〜1.6.5</td>
-          <td style="text-align: left">取得／投稿ボタンの下部固定、履歴の重複排除、設定画面の整理、ジャケ写の間違い報告</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.7.0</td>
-          <td style="text-align: left">ジャケ写のマッチングを段階制に。MusicBrainz追加、候補ピッカー</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.7.2</td>
-          <td style="text-align: left">ジャケ写をアルバム検索＋lookup方式に変更（後述）</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.8.0</td>
-          <td style="text-align: left">YouTube Musicをデータソースに追加。ジャケ写ソースの優先順位を設定で並び替え可能に</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.8.1</td>
-          <td style="text-align: left">SNS等のアイコンを公式ブランドロゴ（Simple Icons）に差し替え</td>
-      </tr>
-  </tbody>
-</table>
-<h2 id="工夫したところ">工夫したところ</h2>
-<h3 id="auto判定はこの端末を優先">auto判定は「この端末」を優先</h3>
-<p>取得元はSpotify / Apple Music / Last.fm から選べる。autoのときは「この端末で再生中のもの」を優先する。他の端末で一時停止しているSpotifyを拾ってしまうことがあったので、/me/player のデバイス名と端末名を突き合わせて判定している。</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">優先</th>
-          <th style="text-align: left">条件</th>
-          <th style="text-align: left">取得元</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">1</td>
-          <td style="text-align: left">この端末で再生中</td>
-          <td style="text-align: left">Spotify</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">2</td>
-          <td style="text-align: left">再生中</td>
-          <td style="text-align: left">Apple Music</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">3</td>
-          <td style="text-align: left">この端末で一時停止</td>
-          <td style="text-align: left">Spotify</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">4</td>
-          <td style="text-align: left">一時停止中の曲がある</td>
-          <td style="text-align: left">Apple Music</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">5</td>
-          <td style="text-align: left">他の端末で再生・停止</td>
-          <td style="text-align: left">Spotify</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="ジャケ写のマッチング">ジャケ写のマッチング</h3>
-<p>ここが一番苦労した。最初はiTunes検索の先頭の結果をそのまま使っていて、カラオケ版のジャケ写を掴むことが多かった。「檄! 帝国華撃団 - 改」でカラオケ版になったのがきっかけで、<a href="https://github.com/aoiro-labo/nowplaying-ios/issues/1"target="_blank"
-  class="inline-flex items-center gap-1"
->Issue #1<svg class="h-3 w-3 flex-shrink-0" id="external-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-</a> が立った。</p>
-<p>厄介だったのは、検索の並びが環境で変わること。こちらの回線ではカラオケ盤が大量に上位に来るので、検証環境では再現しないまま「直った」ように見えてしまう。</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">バージョン</th>
-          <th style="text-align: left">方式</th>
-          <th style="text-align: left">結果</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">初期〜v1.6</td>
-          <td style="text-align: left">iTunes検索の先頭を採用</td>
-          <td style="text-align: left">カラオケ版を掴むことがある</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.7.0</td>
-          <td style="text-align: left">曲名・アルバム・アーティストの段階制マッチング＋候補ピッカー</td>
-          <td style="text-align: left">まだカラオケ盤が残る</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.7.1</td>
-          <td style="text-align: left">検索を2クエリ×25件に増量＋カラオケ除外</td>
-          <td style="text-align: left">逆にカラオケが増えた</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">v1.7.2</td>
-          <td style="text-align: left">アルバム検索でコレクションを特定し、lookupで収録曲から選択</td>
-          <td style="text-align: left">実機で正しいジャケ写になった</td>
-      </tr>
-  </tbody>
-</table>
-<p>順位に頼るのをやめて、アルバム名の一致で盤を特定してから曲を引く、という順番にしたのが効いた。ほかにMusicBrainzとYouTube Music、再生元（Spotify等）のジャケ写も候補にできて、優先順位は設定で並び替えできる。候補ピッカーから手で選ぶこともできるし、「正解として報告」でIssueに送る導線も付けた。</p>
-<p>同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Apple Musicで表示される本来のジャケ写（中）、修正後のアプリ（右）。</p>
+<p>再生中の曲を投稿するアプリ自体は既にある。2011年から続く老舗もあれば、2026年3月リリースの新しいものもある。</p>
+<p>Androidには、メイン機だった頃に長らくお世話になっていたNowPlaying4Droidという理想形もある。既定の文面が「#NowPlaying 曲名 - アーティスト (アルバム名)」で、自分の形式とほぼ同じだ。iOS側は事情が違って、Spotifyの再生を直接読めるものがない。大半は端末内で再生中の曲を読む方式で、Spotifyは対象外になる。なうぷれはSpotify対応を謳うけど、共有シート経由の取り込みで、再生そのものを読んでいるわけじゃない。iOSの3つはどれも広告が入っていて、課金の形も広告除去のサブスクや投稿チケット制などバラバラ。曲のURLは、なうぷれ以外は付けられない（老舗の方に付くのはYouTubeの検索URL）。文面も、実際の出力が「#Nowplaying Love To Sing 2016 - myice92 (EP II)」という具合に綴りが違ったり、区切りが「 / 」だったり、アルバム名が原題のまま入ったりと、自分の形式とは違う。どれも自分の使い方には合わなかった。</p>
+<p>参考に、既存のアプリ3つで同じ曲（Luna say maybe）を開いた画面を並べておく。</p>
 
 <style>
   
@@ -1436,37 +1198,49 @@
      data-use-transform="true"
      data-center="true"
      data-max-columns="3"
-     data-lightbox="false">
+     data-lightbox="true">
 
   <div class="masonry-container">
-    <div class="masonry-item"><img
-    src="https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg"
-    alt="カラオケ版のジャケ写を掴んだ状態"
-    title="カラオケ版を掴んだ状態"
+    <div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-existing-1.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-1"data-description="<h4>既存アプリの画面 1</h4><p>再生中の曲とジャケ写が表示された既存アプリの画面。Xでシェアするボタンと使い方ガイドがある</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-existing-1.jpg"
+    alt="再生中の曲とジャケ写が表示された既存アプリの画面。Xでシェアするボタンと使い方ガイドがある"
+    title="既存アプリの画面 1"
     
     loading="lazy"
     decoding="async"
-    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg"
-    data-gallery-alt="カラオケ版のジャケ写を掴んだ状態"
-    data-gallery-title="カラオケ版を掴んだ状態" /></div><div class="masonry-item"><img
-    src="https://images.aoiro-labo.com/blog/nowplaying-applemusic-geki.jpg"
-    alt="Apple Musicで表示される本来のジャケ写"
-    title="本来のジャケ写（Apple Music）"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-existing-1.jpg"
+    data-gallery-alt="再生中の曲とジャケ写が表示された既存アプリの画面。Xでシェアするボタンと使い方ガイドがある"
+    data-gallery-title="既存アプリの画面 1" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-existing-2.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-1"data-description="<h4>既存アプリの画面 2</h4><p>再生中の曲名が表示された既存アプリの画面。ジャケ写の位置は音符のイラストで、下部に広告がある</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-existing-2.jpg"
+    alt="再生中の曲名が表示された既存アプリの画面。ジャケ写の位置は音符のイラストで、下部に広告がある"
+    title="既存アプリの画面 2"
     
     loading="lazy"
     decoding="async"
-    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-applemusic-geki.jpg"
-    data-gallery-alt="Apple Musicで表示される本来のジャケ写"
-    data-gallery-title="本来のジャケ写（Apple Music）" /></div><div class="masonry-item"><img
-    src="https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg"
-    alt="修正後、正しいジャケ写になったアプリ"
-    title="修正後"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-existing-2.jpg"
+    data-gallery-alt="再生中の曲名が表示された既存アプリの画面。ジャケ写の位置は音符のイラストで、下部に広告がある"
+    data-gallery-title="既存アプリの画面 2" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-existing-3.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-1"data-description="<h4>既存アプリの画面 3</h4><p>ジャケ写と、生成された投稿文が表示された既存アプリの画面。投稿先のボタンが並んでいる</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-existing-3.jpg"
+    alt="ジャケ写と、生成された投稿文が表示された既存アプリの画面。投稿先のボタンが並んでいる"
+    title="既存アプリの画面 3"
     
     loading="lazy"
     decoding="async"
-    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg"
-    data-gallery-alt="修正後、正しいジャケ写になったアプリ"
-    data-gallery-title="修正後" /></div></div>
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-existing-3.jpg"
+    data-gallery-alt="ジャケ写と、生成された投稿文が表示された既存アプリの画面。投稿先のボタンが並んでいる"
+    data-gallery-title="既存アプリの画面 3" /></a></div></div>
 </div>
 
 
@@ -1477,7 +1251,708 @@
     columns:  3 ,
     gutter:  20 ,
     maxColumns: "3",
-    lightbox:  false ,
+    lightbox:  true ,
+    animate: "true",
+    useTransform: "true",
+    center: "true"
+  };
+  
+  console.log('Initializing masonry gallery:', containerId, config);
+  
+  function initMasonryGallery() {
+    const container = document.getElementById(containerId);
+    if (!container) {
+      console.error('Masonry container not found:', containerId);
+      return;
+    }
+    
+    const masonryContainer = container.querySelector('.masonry-container');
+    if (!masonryContainer) {
+      console.error('Masonry inner container not found');
+      return;
+    }
+    
+    
+    if (typeof Macy === 'undefined') {
+      console.error('Macy.js not loaded');
+      return;
+    }
+    
+    console.log('Found container and Macy, initializing...');
+    
+    
+    try {
+      const macyInstance = Macy({
+        container: masonryContainer,
+        trueOrder: false,
+        waitForImages: true,
+        useOwnImageLoader: false,
+        debug: false,
+        mobileFirst: true,
+        columns: config.columns,
+        margin: {
+          x: config.gutter,
+          y: config.gutter
+        },
+        breakAt: {
+          1400: Math.min(config.maxColumns, config.columns),
+          1200: Math.min(config.maxColumns, config.columns),
+          940: Math.min(config.maxColumns, config.columns),  
+          768: Math.min(3, config.columns),
+          520: Math.min(2, config.columns),
+          400: 1
+        }
+      });
+      
+      console.log('Macy initialized successfully for', containerId);
+      
+      
+      const images = masonryContainer.querySelectorAll('img');
+      let loadedImages = 0;
+      const totalImages = images.length;
+      
+      function onImageLoad() {
+        loadedImages++;
+        console.log(`Image ${loadedImages}/${totalImages} loaded`);
+        
+        if (loadedImages === totalImages) {
+          setTimeout(() => {
+            if (macyInstance && macyInstance.reCalculate) {
+              macyInstance.reCalculate(true);
+              console.log('Macy layout recalculated after all images loaded');
+            }
+          }, 100);
+        }
+      }
+      
+      images.forEach(img => {
+        if (img.complete) {
+          onImageLoad();
+        } else {
+          img.addEventListener('load', onImageLoad);
+          img.addEventListener('error', onImageLoad);
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error initializing Macy:', error);
+    }
+    
+    
+    if (config.lightbox) {
+      if (typeof GLightbox !== 'undefined') {
+        try {
+          
+          let globalLightboxConfig = window.HUGO_GALLERY_CONFIG?.lightbox_options || {};
+          
+          if (typeof globalLightboxConfig === 'string') {
+            try {
+              globalLightboxConfig = JSON.parse(globalLightboxConfig);
+            } catch (e) {
+              console.error('Error parsing masonry GLightbox config:', e);
+              globalLightboxConfig = {};
+            }
+          }          
+          const lightbox = GLightbox({
+            selector: `#${containerId} .glightbox`,
+            touchNavigation: globalLightboxConfig.touchnavigation ?? globalLightboxConfig.touchNavigation ?? true,
+            loop: globalLightboxConfig.loop ?? true,
+            draggable: globalLightboxConfig.draggable ?? true,
+            zoomable: globalLightboxConfig.zoomable ?? true,
+            preload: globalLightboxConfig.preload ?? true,
+            width: globalLightboxConfig.width || '90vw',
+            height: globalLightboxConfig.height || '90vh',
+            descPosition: globalLightboxConfig.descposition || globalLightboxConfig.descPosition || 'bottom',
+            onOpen: () => {
+              console.log('GLightbox opened for', containerId);
+            }
+          });
+          
+          console.log('GLightbox initialized successfully for', containerId, 'with global config');
+          
+        } catch (error) {
+          console.error('Error initializing GLightbox:', error);
+        }
+      } else {
+        console.error('GLightbox not loaded but lightbox is enabled');
+      }
+    }
+  }
+  
+  
+  function waitForLibraries() {
+    let attempts = 0;
+    const maxAttempts = 50;
+    
+    function check() {
+      attempts++;
+      
+      const macyReady = typeof Macy !== 'undefined';
+      const lightboxReady = !config.lightbox || typeof GLightbox !== 'undefined';
+      
+      if (macyReady && lightboxReady) {
+        initMasonryGallery();
+      } else if (attempts < maxAttempts) {
+        setTimeout(check, 100);
+      } else {
+        console.error('Timeout waiting for libraries. Macy:', macyReady, 'GLightbox:', lightboxReady);
+      }
+    }
+    
+    check();
+  }
+  
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForLibraries);
+  } else {
+    setTimeout(waitForLibraries, 50);
+  }
+})();
+</script>
+<ul>
+<li>出発点がショートカットだった。既製品を探して乗り換える前に、自分の道具の方が先に育っていた。アプリはその延長で、文面マクロの仕様はショートカット版から引き継いでいる</li>
+<li>文面の形式。#NowPlaying の後に曲名、アーティストはクレジット全員、最後にアルバム名でURLはなし、という自分の形式をそのまま使いたかった</li>
+<li>ジャケ写のマッチング。「検索の1件目」で済ませる方式ではカラオケ版が混ざる問題が残る。ここは自分で方式を決めたかった</li>
+<li>投稿先（Xアプリ／X API／Bluesky／Mastodon／Misskey）とLast.fmのスクロブルまで、自分の使い方に寄せたかった</li>
+</ul>
+<p>作る手段があったのも大きい。AIに壁打ちしながら作る形で、仕様を自分で決められるところまで来ていた。</p>
+<h2 id="ビルドの流れ">ビルドの流れ</h2>
+
+
+
+<pre class="mermaid">
+  flowchart LR
+    A[&#34;ソースをpush&#34;] --&gt; B[&#34;GitHub Actions&lt;br/&gt;macos-15 でビルド&#34;]
+    B --&gt; C[&#34;NowPlaying.ipa&#34;]
+    C --&gt; D[&#34;Artifacts / リリース&#34;]
+    D --&gt; E[&#34;LiveContainerで実行&#34;]
+</pre>
+
+<ul>
+<li>ソースはSwift + SwiftUI。プロジェクトファイルはXcodeGenの project.yml から生成する</li>
+<li>v* のタグを打つと、リリースにも.ipaが添付される</li>
+<li>署名なしなのでApp Storeには出せないし、SideStoreで通常インストールする場合は7日ごとの更新が要る</li>
+</ul>
+<h2 id="バージョン履歴">バージョン履歴</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">バージョン</th>
+          <th style="text-align: left">主な内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">v1.0</td>
+          <td style="text-align: left">初回ビルド成功。LiveContainerに入れて、Spotify / Apple Music 両方の取得を確認</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.1</td>
+          <td style="text-align: left">autoの優先順位を修正</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.2</td>
+          <td style="text-align: left">配布用の整備。設定の一般化、日英ローカライズ、READMEとライセンス</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.3</td>
+          <td style="text-align: left">MediaRemoteを直接叩くプローブを追加（後述の理由で不採用が確定）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.4</td>
+          <td style="text-align: left">直接投稿を追加。X API（OAuth 1.0a、画像付き）、Bluesky、Mastodon、Misskey</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.5</td>
+          <td style="text-align: left">文面の編集欄、Xの重み付け文字数カウント、取得履歴（20件）、フォーマットプリセット、App Shortcuts、コントロールセンター用ウィジェット（iOS 18+）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.5.1</td>
+          <td style="text-align: left">LiveContainerでバージョンが「1.0」表示で、アイコン真っ白だった問題に対処</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.6.0</td>
+          <td style="text-align: left">UIをカード基調に刷新。Last.fm連携（取得元として追加＋スクロブル）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.6.1〜1.6.5</td>
+          <td style="text-align: left">取得／投稿ボタンの下部固定、履歴の重複排除、設定画面の整理、ジャケ写の間違い報告</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.7.0</td>
+          <td style="text-align: left">ジャケ写のマッチングを段階制に。MusicBrainz追加、候補ピッカー</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.7.1</td>
+          <td style="text-align: left">ジャケ写の検索増量＋カラオケ除外（逆効果、後述）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.7.2</td>
+          <td style="text-align: left">ジャケ写をアルバム検索＋lookup方式に変更（後述）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.8.0</td>
+          <td style="text-align: left">YouTube Musicをデータソースに追加。ジャケ写ソースの優先順位を設定で並び替え可能に</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.8.1</td>
+          <td style="text-align: left">SNS等のアイコンを公式ブランドロゴ（Simple Icons）に差し替え</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="工夫したところ">工夫したところ</h2>
+<h3 id="この端末を優先するauto判定">「この端末」を優先するauto判定</h3>
+<p>取得元はSpotify / Apple Music / Last.fm から選べる。Last.fmはautoの対象外で、選んだときだけ使う。autoのときは「この端末で再生中のもの」を優先する。他の端末で一時停止しているSpotifyを拾ってしまうことがあったので、/me/player のデバイス名と端末名を突き合わせて判定している。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">優先</th>
+          <th style="text-align: left">条件</th>
+          <th style="text-align: left">取得元</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">Spotifyがこの端末で再生中</td>
+          <td style="text-align: left">Spotify</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">Apple Musicが再生中</td>
+          <td style="text-align: left">Apple Music</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">3</td>
+          <td style="text-align: left">Spotifyがこの端末で一時停止</td>
+          <td style="text-align: left">Spotify</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">4</td>
+          <td style="text-align: left">Apple Musicが一時停止中</td>
+          <td style="text-align: left">Apple Music</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">5</td>
+          <td style="text-align: left">他の端末で再生・停止中</td>
+          <td style="text-align: left">Spotify</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="ジャケ写のマッチング">ジャケ写のマッチング</h3>
+<p>ここが一番苦労した。最初はiTunes検索の先頭の結果をそのまま使っていて、カラオケ版のジャケ写を掴むことが多かった。「檄! 帝国華撃団 - 改」でカラオケ版になったのがきっかけで、アプリの報告機能を試すついでに、自分で <a href="https://github.com/aoiro-labo/nowplaying-ios/issues/1"target="_blank"
+  class="inline-flex items-center gap-1"
+>Issue #1<svg class="h-3 w-3 flex-shrink-0" id="external-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+</a> を立てた。</p>
+<p>厄介だったのは、検索の並びが環境で変わること。手元の回線ではカラオケ盤が大量に上位に来る一方、検証環境では再現しないので、「直った」ように見えてしまう。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">バージョン</th>
+          <th style="text-align: left">方式</th>
+          <th style="text-align: left">結果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">初期〜v1.6</td>
+          <td style="text-align: left">iTunes検索の先頭を採用</td>
+          <td style="text-align: left">カラオケ版を掴むことがある</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.7.0</td>
+          <td style="text-align: left">曲名・アルバム・アーティストの段階制マッチング＋候補ピッカー</td>
+          <td style="text-align: left">まだカラオケ盤が残る</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.7.1</td>
+          <td style="text-align: left">検索を2クエリ×25件に増量＋カラオケ除外</td>
+          <td style="text-align: left">逆にカラオケが増えた</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">v1.7.2</td>
+          <td style="text-align: left">アルバム検索でコレクションを特定し、lookupで収録曲から選択</td>
+          <td style="text-align: left">実機で正しいジャケ写になった</td>
+      </tr>
+  </tbody>
+</table>
+<p>順位に頼るのをやめて、アルバム名の一致で盤を特定してから曲を引く、という順番にしたのが効いた。比較のときは、アルバム名の末尾の「 - EP」「 - Single」「 - Album」を落とし、全角記号を半角に寄せてスペースを抜いて比べている。ほかにMusicBrainzとYouTube Music、再生元（Spotify等）のジャケ写も候補にできて、優先順位は設定で並び替えできて、既定はiTunes → MusicBrainz → YouTube Music → 再生元の順。候補ピッカーから手で選ぶこともできるし、「正解として報告」でIssueに送る導線も付けた。</p>
+<p>同じ「檄! 帝国華撃団 - 改」で、カラオケ版を掴んだ状態（左）、Spotifyで表示される本来のジャケ写（中）、修正後のアプリ（右）。</p>
+
+<style>
+  
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 {
+  width: 100%;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .masonry-container {
+  width: 100%;
+  position: relative;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  box-sizing: border-box;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 0.5rem;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .glightbox {
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .glightbox:hover,
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .glightbox:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .masonry-item:hover img {
+  transform: scale(1.05);
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2 .masonry-item {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+</style>
+
+<div class="masonry-gallery" 
+     id="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2"
+     data-columns="3"
+     data-gutter="20"
+     data-animate="true"
+     data-use-transform="true"
+     data-center="true"
+     data-max-columns="3"
+     data-lightbox="true">
+
+  <div class="masonry-container">
+    <div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2"data-description="<h4>カラオケ版を掴んだ状態</h4><p>カラオケ版のジャケ写を選んでしまったアプリの画面</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg"
+    alt="カラオケ版のジャケ写を選んでしまったアプリの画面"
+    title="カラオケ版を掴んだ状態"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-geki-karaoke.jpg"
+    data-gallery-alt="カラオケ版のジャケ写を選んでしまったアプリの画面"
+    data-gallery-title="カラオケ版を掴んだ状態" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-geki-spotify.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2"data-description="<h4>本来のジャケ写（Spotify）</h4><p>Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-geki-spotify.jpg"
+    alt="Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写"
+    title="本来のジャケ写（Spotify）"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-geki-spotify.jpg"
+    data-gallery-alt="Spotifyで表示される「檄! 帝国華撃団 - 改」の本来のジャケ写"
+    data-gallery-title="本来のジャケ写（Spotify）" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2"data-description="<h4>修正後</h4><p>修正後、正しいジャケ写が表示されているアプリの画面</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg"
+    alt="修正後、正しいジャケ写が表示されているアプリの画面"
+    title="修正後"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg"
+    data-gallery-alt="修正後、正しいジャケ写が表示されているアプリの画面"
+    data-gallery-title="修正後" /></a></div></div>
+</div>
+
+
+<script>
+(function() {
+  const containerId = 'masonry-498fa9e32ce827b1c3adc0a1a9f06f15-2';
+  const config = {
+    columns:  3 ,
+    gutter:  20 ,
+    maxColumns: "3",
+    lightbox:  true ,
+    animate: "true",
+    useTransform: "true",
+    center: "true"
+  };
+  
+  console.log('Initializing masonry gallery:', containerId, config);
+  
+  function initMasonryGallery() {
+    const container = document.getElementById(containerId);
+    if (!container) {
+      console.error('Masonry container not found:', containerId);
+      return;
+    }
+    
+    const masonryContainer = container.querySelector('.masonry-container');
+    if (!masonryContainer) {
+      console.error('Masonry inner container not found');
+      return;
+    }
+    
+    
+    if (typeof Macy === 'undefined') {
+      console.error('Macy.js not loaded');
+      return;
+    }
+    
+    console.log('Found container and Macy, initializing...');
+    
+    
+    try {
+      const macyInstance = Macy({
+        container: masonryContainer,
+        trueOrder: false,
+        waitForImages: true,
+        useOwnImageLoader: false,
+        debug: false,
+        mobileFirst: true,
+        columns: config.columns,
+        margin: {
+          x: config.gutter,
+          y: config.gutter
+        },
+        breakAt: {
+          1400: Math.min(config.maxColumns, config.columns),
+          1200: Math.min(config.maxColumns, config.columns),
+          940: Math.min(config.maxColumns, config.columns),  
+          768: Math.min(3, config.columns),
+          520: Math.min(2, config.columns),
+          400: 1
+        }
+      });
+      
+      console.log('Macy initialized successfully for', containerId);
+      
+      
+      const images = masonryContainer.querySelectorAll('img');
+      let loadedImages = 0;
+      const totalImages = images.length;
+      
+      function onImageLoad() {
+        loadedImages++;
+        console.log(`Image ${loadedImages}/${totalImages} loaded`);
+        
+        if (loadedImages === totalImages) {
+          setTimeout(() => {
+            if (macyInstance && macyInstance.reCalculate) {
+              macyInstance.reCalculate(true);
+              console.log('Macy layout recalculated after all images loaded');
+            }
+          }, 100);
+        }
+      }
+      
+      images.forEach(img => {
+        if (img.complete) {
+          onImageLoad();
+        } else {
+          img.addEventListener('load', onImageLoad);
+          img.addEventListener('error', onImageLoad);
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error initializing Macy:', error);
+    }
+    
+    
+    if (config.lightbox) {
+      if (typeof GLightbox !== 'undefined') {
+        try {
+          
+          let globalLightboxConfig = window.HUGO_GALLERY_CONFIG?.lightbox_options || {};
+          
+          if (typeof globalLightboxConfig === 'string') {
+            try {
+              globalLightboxConfig = JSON.parse(globalLightboxConfig);
+            } catch (e) {
+              console.error('Error parsing masonry GLightbox config:', e);
+              globalLightboxConfig = {};
+            }
+          }          
+          const lightbox = GLightbox({
+            selector: `#${containerId} .glightbox`,
+            touchNavigation: globalLightboxConfig.touchnavigation ?? globalLightboxConfig.touchNavigation ?? true,
+            loop: globalLightboxConfig.loop ?? true,
+            draggable: globalLightboxConfig.draggable ?? true,
+            zoomable: globalLightboxConfig.zoomable ?? true,
+            preload: globalLightboxConfig.preload ?? true,
+            width: globalLightboxConfig.width || '90vw',
+            height: globalLightboxConfig.height || '90vh',
+            descPosition: globalLightboxConfig.descposition || globalLightboxConfig.descPosition || 'bottom',
+            onOpen: () => {
+              console.log('GLightbox opened for', containerId);
+            }
+          });
+          
+          console.log('GLightbox initialized successfully for', containerId, 'with global config');
+          
+        } catch (error) {
+          console.error('Error initializing GLightbox:', error);
+        }
+      } else {
+        console.error('GLightbox not loaded but lightbox is enabled');
+      }
+    }
+  }
+  
+  
+  function waitForLibraries() {
+    let attempts = 0;
+    const maxAttempts = 50;
+    
+    function check() {
+      attempts++;
+      
+      const macyReady = typeof Macy !== 'undefined';
+      const lightboxReady = !config.lightbox || typeof GLightbox !== 'undefined';
+      
+      if (macyReady && lightboxReady) {
+        initMasonryGallery();
+      } else if (attempts < maxAttempts) {
+        setTimeout(check, 100);
+      } else {
+        console.error('Timeout waiting for libraries. Macy:', macyReady, 'GLightbox:', lightboxReady);
+      }
+    }
+    
+    check();
+  }
+  
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForLibraries);
+  } else {
+    setTimeout(waitForLibraries, 50);
+  }
+})();
+</script>
+<p>ジャケ写の長押しメニューと、候補ピッカーはこんな感じ。</p>
+
+<style>
+  
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 {
+  width: 100%;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .masonry-container {
+  width: 100%;
+  position: relative;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  box-sizing: border-box;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 0.5rem;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .glightbox {
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .glightbox:hover,
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .glightbox:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .masonry-item:hover img {
+  transform: scale(1.05);
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3 .masonry-item {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+</style>
+
+<div class="masonry-gallery" 
+     id="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3"
+     data-columns="3"
+     data-gutter="20"
+     data-animate="true"
+     data-use-transform="true"
+     data-center="true"
+     data-max-columns="2"
+     data-lightbox="true">
+
+  <div class="masonry-container">
+    <div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-artwork-menu.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3"data-description="<h4>ジャケ写の長押しメニュー</h4><p>ジャケ写の長押しメニュー。「ジャケ写を選ぶ」と「ジャケ写の間違いを報告」がある</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-artwork-menu.jpg"
+    alt="ジャケ写の長押しメニュー。「ジャケ写を選ぶ」と「ジャケ写の間違いを報告」がある"
+    title="ジャケ写の長押しメニュー"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-artwork-menu.jpg"
+    data-gallery-alt="ジャケ写の長押しメニュー。「ジャケ写を選ぶ」と「ジャケ写の間違いを報告」がある"
+    data-gallery-title="ジャケ写の長押しメニュー" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-artwork-picker.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3"data-description="<h4>候補ピッカー</h4><p>ジャケ写の候補ピッカー。自動選択と候補の一覧から選べる</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-artwork-picker.jpg"
+    alt="ジャケ写の候補ピッカー。自動選択と候補の一覧から選べる"
+    title="候補ピッカー"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-artwork-picker.jpg"
+    data-gallery-alt="ジャケ写の候補ピッカー。自動選択と候補の一覧から選べる"
+    data-gallery-title="候補ピッカー" /></a></div></div>
+</div>
+
+
+<script>
+(function() {
+  const containerId = 'masonry-498fa9e32ce827b1c3adc0a1a9f06f15-3';
+  const config = {
+    columns:  3 ,
+    gutter:  20 ,
+    maxColumns: "2",
+    lightbox:  true ,
     animate: "true",
     useTransform: "true",
     center: "true"
@@ -1926,97 +2401,45 @@
   }
 })();
 </script>
-<p>プリセットと編集欄は一本化してあって、編集すると選択中のプリセット自体が書き換わる。</p>
-<p>実際の画面はこんな感じで、投稿文と文字数、履歴が並ぶ。</p>
+<p>プリセットと編集欄は一本化してあって、編集すると選択中のプリセット自体が書き換わる。文字数はXの重み付けで数えていて、280字に収まるかはその場で分かる。</p>
+<p>設定画面の文面セクションはこんな感じ。</p>
 <p><figure class="image-figure not-prose my-8">
   <div class="image-container">
-    <img src="https://images.aoiro-labo.com/blog/nowplaying-post-history.jpg" alt="投稿文と履歴の画面" loading="lazy" />
+    <img src="https://images.aoiro-labo.com/blog/nowplaying-format-editor.jpg" alt="設定の文面セクション。フォーマットの編集欄とプリセットの一覧" loading="lazy" />
   </div>
-  <figcaption class="image-caption">投稿文と履歴の画面</figcaption>
+  <figcaption class="image-caption">フォーマットの編集</figcaption>
+</figure>
+</p>
+<p>実際の画面はこんな感じで、投稿文と履歴が並ぶ。</p>
+<p><figure class="image-figure not-prose my-8">
+  <div class="image-container">
+    <img src="https://images.aoiro-labo.com/blog/nowplaying-post-history.jpg" alt="生成された投稿文と、取得履歴が並ぶアプリの画面" loading="lazy" />
+  </div>
+  <figcaption class="image-caption">投稿文と履歴</figcaption>
+</figure>
+</p>
+<p>履歴は長押しで投稿文のコピーや削除ができる。</p>
+<p><figure class="image-figure not-prose my-8">
+  <div class="image-container">
+    <img src="https://images.aoiro-labo.com/blog/nowplaying-history-menu.jpg" alt="取得履歴の一覧と、長押しメニュー（投稿文をコピー／削除）" loading="lazy" />
+  </div>
+  <figcaption class="image-caption">履歴と長押しメニュー</figcaption>
 </figure>
 </p>
 <p>実際に投稿した例がこれ。「ワールドイズマイン」はショートカット時代にジャケ写とURLが壊れた曲で、アプリでは正しい盤のものが出るようになった。</p>
-<div class="link-card-group"><div class="link-card">
-  <a href="https://x.com/aoiro_labo/status/2123615772572618844" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="twitter" alt="#NowPlaying ワールドイズマイン (かぐや&amp;月見ヤチヨ ver.) [CPK! Remix]" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">#NowPlaying ワールドイズマイン (かぐや&amp;月見ヤチヨ ver.) [CPK! Remix]</h3>
-      <p class="link-card-content">2026-11-20 のポスト</p>
-      <div class="link-card-url">x.com/aoiro_labo/status/2123615772572618844</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div>
-<h3 id="そのほか">そのほか</h3>
-<ul>
-<li>Spotifyのrefresh tokenはローテーションで新しいものが返ってくることがあるので、返ってきたら保存し直す</li>
-<li>Last.fmは取得時に updateNowPlaying を送り、投稿のタイミングで scrobble する</li>
-<li>履歴は同じ曲＋同じ文面なら全体から重複を除いて先頭に移す。ジャケ写のサムネイルが無い場合は前のものを引き継ぐ</li>
-</ul>
-<h2 id="apple-musicとiosの制約">Apple MusicとiOSの制約</h2>
-<p>Spotifyは公式のWeb APIがあるので、再生情報をサーバー側から引っ張って解決できた。Apple側はそうはいかない。開発中にぶつかった制約を並べると、だいたいAppleの仕様の話になる。</p>
-<p><div class="link-card-group"><div class="link-card">
-  <a href="https://x.com/aoiro_labo/status/2123636617365844440" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="twitter" alt="SpotifyはAPIから再生情報を引っ張ってることで解決 Appleは全体的にクソ、もっと汎用性のある仕様にしやがれください" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">SpotifyはAPIから再生情報を引っ張ってることで解決 Appleは全体的にクソ、もっと汎用性のある仕様にしやがれください</h3>
-      <p class="link-card-content">2026-11-20 のポスト</p>
-      <div class="link-card-url">x.com/aoiro_labo/status/2123636617365844440</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div>
-<div class="link-card-group"><div class="link-card">
-  <a href="https://x.com/aoiro_labo/status/2123637077967573322" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="twitter" alt="Appleのエコシステムは融通が効かなさすぎて嫌い" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">Appleのエコシステムは融通が効かなさすぎて嫌い</h3>
-      <p class="link-card-content">2026-11-20 のポスト</p>
-      <div class="link-card-url">x.com/aoiro_labo/status/2123637077967573322</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div></p>
-<h3 id="端末内の再生曲はapple-musicしか取れない">端末内の再生曲はApple Musicしか取れない</h3>
-<p>iOSでは、他のアプリが今何を再生しているかを知る公開APIがない。MediaPlayerで取れるのはミュージックアプリ（Apple Music）の再生曲だけで、Spotifyアプリの再生状態は端末内からは見えない。だからSpotifyはWeb API経由、という設計になっている。YouTube Musicに至っては再生状態を見る公式API自体がないので、v1.8.0で足したのもジャケ写などのメタデータ取得だけ。</p>
-<h3 id="itunesメディアというプレースホルダ">「iTunesメディア」というプレースホルダ</h3>
-<p>Apple Musicの「現在の曲」は、状況によって「iTunesメディア」という名前で詳細が空のプレースホルダを返すことがある。アーティスト名が空なら採用しない、という健全性ゲートを入れた。同じような状態でも正常／プレースホルダ／エラーの3通りを返すので、ショートカット版の頃から引きずっている問題でもある。</p>
-<h3 id="mediaremoteの壁">MediaRemoteの壁</h3>
-<p>MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作って試した。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://x.com/hashtag/NowPlaying?src=hash&amp;ref_src=twsrc%5Etfw">#NowPlaying</a> ワールドイズマイン (かぐや&amp;月見ヤチヨ ver.) [CPK! Remix] / ryo (supercell), かぐや(cv.夏吉ゆうこ) &amp; 月見ヤチヨ(cv.早見沙織) (Ex-Otogibanashi - EP)<a href="https://t.co/3WR3PflifZ">https://t.co/3WR3PflifZ</a> <a href="https://t.co/bClODz8QH3">pic.twitter.com/bClODz8QH3</a></p>&mdash; aoiro (@aoiro_labo) <a href="https://x.com/aoiro_labo/status/2123615772572618844?ref_src=twsrc%5Etfw">November 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+
+<h3 id="投稿まわり">投稿まわり</h3>
+<p>基本は共有シート。直接投稿も付けていて、X API（OAuth 1.0a、ジャケ写付き）、Bluesky（アプリパスワード）、MastodonとMisskey（インスタンスとトークンを設定）はアプリからそのまま送れる。Xはアプリを開いて投稿画面に渡すこともできる。</p>
 <div
-    class="alert alert-note my-6 overflow-hidden rounded-lg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md"
-    style="background-color: color-mix(in srgb, var(--color-note) 10%, transparent);
-              border-left-color: var(--color-note);
-              --hover-bg: color-mix(in srgb, var(--color-note) 15%, transparent);"
+    class="alert alert-important my-6 overflow-hidden rounded-lg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md"
+    style="background-color: color-mix(in srgb, var(--color-important) 10%, transparent);
+              border-left-color: var(--color-important);
+              --hover-bg: color-mix(in srgb, var(--color-important) 15%, transparent);"
     onmouseover="this.style.backgroundColor = this.style.getPropertyValue('--hover-bg')"
-    onmouseout="this.style.backgroundColor = 'color-mix(in srgb, var(--color-note) 10%, transparent)'"
+    onmouseout="this.style.backgroundColor = 'color-mix(in srgb, var(--color-important) 10%, transparent)'"
     role="alert"
     aria-labelledby="alert-0-title">
     
@@ -2028,7 +2451,7 @@
         <h4
           id="alert-0-title"
           class="m-0 font-semibold text-foreground/90">
-          注意
+          重要
         </h4>
       </div>
 
@@ -2039,6 +2462,396 @@
     
     <div
       id="alert-0-content"
+      class="alert-content  px-6 pb-6">
+      <div class="prose prose-sm text-foreground/90 max-w-none">
+        <p>認証情報について。Spotifyのrefresh tokenや、X API・Bluesky・Mastodon・Misskeyのトークン類は、この端末のアプリ内の設定にだけ保存される。ソースコードやリポジトリに含める作りにはしていない。この記事の設定画面などのスクリーンショットでも、キー類はマスクしてある。</p>
+      </div>
+    </div>
+  </div><script>
+function toggleAlert(alertId) {
+  const content = document.getElementById(alertId + '-content');
+  const chevron = document.getElementById(alertId + '-chevron');
+  const header = content.previousElementSibling;
+  
+  if (content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    chevron.style.transform = 'rotate(0deg)';
+    header.setAttribute('aria-expanded', 'true');
+  } else {
+    content.classList.add('hidden');
+    chevron.style.transform = 'rotate(-90deg)';
+    header.setAttribute('aria-expanded', 'false');
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const collapsedAlerts = document.querySelectorAll('.alert-content.hidden');
+  collapsedAlerts.forEach(function(content) {
+    const alertId = content.id.replace('-content', '');
+    const chevron = document.getElementById(alertId + '-chevron');
+    if (chevron) {
+      chevron.style.transform = 'rotate(-90deg)';
+    }
+  });
+});
+</script>
+
+<p>設定画面はこんな感じで、取得元やURLの付け方を選ぶ。</p>
+<p><figure class="image-figure not-prose my-8">
+  <div class="image-container">
+    <img src="https://images.aoiro-labo.com/blog/nowplaying-settings.jpg" alt="設定画面。Spotifyの認証情報（マスク済み）、取得元の選択、URLの付け方" loading="lazy" />
+  </div>
+  <figcaption class="image-caption">設定画面</figcaption>
+</figure>
+</p>
+<h3 id="そのほか">そのほか</h3>
+<ul>
+<li>Spotifyのrefresh tokenはローテーションで新しいものが返ってくることがあるので、返ってきたら保存し直す</li>
+<li>Last.fmは取得時に updateNowPlaying を送り、投稿のタイミングでスクロブルする</li>
+<li>履歴は同じ曲＋同じ文面なら全体から重複を除いて先頭に移す。ジャケ写のサムネイルが無い場合は前のものを引き継ぐ</li>
+<li>ジャケ写は、iTunesの100pxのURLを1200pxに差し替えて高画質で取る設定がある</li>
+<li>設定とトークンはApp Group経由でウィジェットとも共有している</li>
+</ul>
+<p>Last.fmまわりは、APIアカウントを作るところから。</p>
+
+<style>
+  
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 {
+  width: 100%;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .masonry-container {
+  width: 100%;
+  position: relative;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  box-sizing: border-box;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 0.5rem;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .glightbox {
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .glightbox:hover,
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .glightbox:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .masonry-item:hover img {
+  transform: scale(1.05);
+}
+
+#masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4 .masonry-item {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+</style>
+
+<div class="masonry-gallery" 
+     id="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4"
+     data-columns="3"
+     data-gutter="20"
+     data-animate="true"
+     data-use-transform="true"
+     data-center="true"
+     data-max-columns="2"
+     data-lightbox="true">
+
+  <div class="masonry-container">
+    <div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-lastfm-api-account.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4"data-description="<h4>Last.fm APIアカウント作成</h4><p>Last.fmのAPIアカウント作成完了画面（キー類はマスク済み）</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-api-account.jpg"
+    alt="Last.fmのAPIアカウント作成完了画面（キー類はマスク済み）"
+    title="Last.fm APIアカウント作成"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-api-account.jpg"
+    data-gallery-alt="Last.fmのAPIアカウント作成完了画面（キー類はマスク済み）"
+    data-gallery-title="Last.fm APIアカウント作成" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-request.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4"data-description="<h4>Last.fmの接続許可</h4><p>Last.fmの接続許可画面。NowPlayingからのアクセス要求</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-request.jpg"
+    alt="Last.fmの接続許可画面。NowPlayingからのアクセス要求"
+    title="Last.fmの接続許可"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-request.jpg"
+    data-gallery-alt="Last.fmの接続許可画面。NowPlayingからのアクセス要求"
+    data-gallery-title="Last.fmの接続許可" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-done.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4"data-description="<h4>Last.fm認証完了</h4><p>Last.fmの認証完了画面</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-done.jpg"
+    alt="Last.fmの認証完了画面"
+    title="Last.fm認証完了"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-done.jpg"
+    data-gallery-alt="Last.fmの認証完了画面"
+    data-gallery-title="Last.fm認証完了" /></a></div><div class="masonry-item"><a href="https://images.aoiro-labo.com/blog/nowplaying-lastfm-settings.jpg" 
+             class="glightbox"
+             data-gallery="masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4"data-description="<h4>Last.fm設定</h4><p>アプリのLast.fm設定（APIキーはマスク済み）。接続済みでスクロブル連携がオン</p>">
+            
+            <img
+    src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-settings.jpg"
+    alt="アプリのLast.fm設定（APIキーはマスク済み）。接続済みでスクロブル連携がオン"
+    title="Last.fm設定"
+    
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="https://images.aoiro-labo.com/blog/nowplaying-lastfm-settings.jpg"
+    data-gallery-alt="アプリのLast.fm設定（APIキーはマスク済み）。接続済みでスクロブル連携がオン"
+    data-gallery-title="Last.fm設定" /></a></div></div>
+</div>
+
+
+<script>
+(function() {
+  const containerId = 'masonry-498fa9e32ce827b1c3adc0a1a9f06f15-4';
+  const config = {
+    columns:  3 ,
+    gutter:  20 ,
+    maxColumns: "2",
+    lightbox:  true ,
+    animate: "true",
+    useTransform: "true",
+    center: "true"
+  };
+  
+  console.log('Initializing masonry gallery:', containerId, config);
+  
+  function initMasonryGallery() {
+    const container = document.getElementById(containerId);
+    if (!container) {
+      console.error('Masonry container not found:', containerId);
+      return;
+    }
+    
+    const masonryContainer = container.querySelector('.masonry-container');
+    if (!masonryContainer) {
+      console.error('Masonry inner container not found');
+      return;
+    }
+    
+    
+    if (typeof Macy === 'undefined') {
+      console.error('Macy.js not loaded');
+      return;
+    }
+    
+    console.log('Found container and Macy, initializing...');
+    
+    
+    try {
+      const macyInstance = Macy({
+        container: masonryContainer,
+        trueOrder: false,
+        waitForImages: true,
+        useOwnImageLoader: false,
+        debug: false,
+        mobileFirst: true,
+        columns: config.columns,
+        margin: {
+          x: config.gutter,
+          y: config.gutter
+        },
+        breakAt: {
+          1400: Math.min(config.maxColumns, config.columns),
+          1200: Math.min(config.maxColumns, config.columns),
+          940: Math.min(config.maxColumns, config.columns),  
+          768: Math.min(3, config.columns),
+          520: Math.min(2, config.columns),
+          400: 1
+        }
+      });
+      
+      console.log('Macy initialized successfully for', containerId);
+      
+      
+      const images = masonryContainer.querySelectorAll('img');
+      let loadedImages = 0;
+      const totalImages = images.length;
+      
+      function onImageLoad() {
+        loadedImages++;
+        console.log(`Image ${loadedImages}/${totalImages} loaded`);
+        
+        if (loadedImages === totalImages) {
+          setTimeout(() => {
+            if (macyInstance && macyInstance.reCalculate) {
+              macyInstance.reCalculate(true);
+              console.log('Macy layout recalculated after all images loaded');
+            }
+          }, 100);
+        }
+      }
+      
+      images.forEach(img => {
+        if (img.complete) {
+          onImageLoad();
+        } else {
+          img.addEventListener('load', onImageLoad);
+          img.addEventListener('error', onImageLoad);
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error initializing Macy:', error);
+    }
+    
+    
+    if (config.lightbox) {
+      if (typeof GLightbox !== 'undefined') {
+        try {
+          
+          let globalLightboxConfig = window.HUGO_GALLERY_CONFIG?.lightbox_options || {};
+          
+          if (typeof globalLightboxConfig === 'string') {
+            try {
+              globalLightboxConfig = JSON.parse(globalLightboxConfig);
+            } catch (e) {
+              console.error('Error parsing masonry GLightbox config:', e);
+              globalLightboxConfig = {};
+            }
+          }          
+          const lightbox = GLightbox({
+            selector: `#${containerId} .glightbox`,
+            touchNavigation: globalLightboxConfig.touchnavigation ?? globalLightboxConfig.touchNavigation ?? true,
+            loop: globalLightboxConfig.loop ?? true,
+            draggable: globalLightboxConfig.draggable ?? true,
+            zoomable: globalLightboxConfig.zoomable ?? true,
+            preload: globalLightboxConfig.preload ?? true,
+            width: globalLightboxConfig.width || '90vw',
+            height: globalLightboxConfig.height || '90vh',
+            descPosition: globalLightboxConfig.descposition || globalLightboxConfig.descPosition || 'bottom',
+            onOpen: () => {
+              console.log('GLightbox opened for', containerId);
+            }
+          });
+          
+          console.log('GLightbox initialized successfully for', containerId, 'with global config');
+          
+        } catch (error) {
+          console.error('Error initializing GLightbox:', error);
+        }
+      } else {
+        console.error('GLightbox not loaded but lightbox is enabled');
+      }
+    }
+  }
+  
+  
+  function waitForLibraries() {
+    let attempts = 0;
+    const maxAttempts = 50;
+    
+    function check() {
+      attempts++;
+      
+      const macyReady = typeof Macy !== 'undefined';
+      const lightboxReady = !config.lightbox || typeof GLightbox !== 'undefined';
+      
+      if (macyReady && lightboxReady) {
+        initMasonryGallery();
+      } else if (attempts < maxAttempts) {
+        setTimeout(check, 100);
+      } else {
+        console.error('Timeout waiting for libraries. Macy:', macyReady, 'GLightbox:', lightboxReady);
+      }
+    }
+    
+    check();
+  }
+  
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForLibraries);
+  } else {
+    setTimeout(waitForLibraries, 50);
+  }
+})();
+</script>
+<h2 id="apple-musicとiosの制約">Apple MusicとiOSの制約</h2>
+<p>Spotifyは公式のWeb APIがあるので、再生情報をサーバー側から引っ張って解決できた。Apple側はそうはいかない。開発中にぶつかった制約を並べると、だいたいAppleの仕様の話になる。</p>
+<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">SpotifyはAPIから再生情報を引っ張ってることで解決<br>Appleは全体的にクソ、もっと汎用性のある仕様にしやがれください <a href="https://t.co/XGcBvhnR6T">https://t.co/XGcBvhnR6T</a> <a href="https://t.co/uGmwCfKV6w">pic.twitter.com/uGmwCfKV6w</a></p>&mdash; aoiro (@aoiro_labo) <a href="https://x.com/aoiro_labo/status/2123636617365844440?ref_src=twsrc%5Etfw">November 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Appleのエコシステムは融通が効かなさすぎて嫌い<br>デバイス内で再生中の曲はAppleMusicしか取れないし何をしようにも永続的に金取ろうとしてくるし自社製品以外で開発させる気ないし</p>&mdash; aoiro (@aoiro_labo) <a href="https://x.com/aoiro_labo/status/2123637077967573322?ref_src=twsrc%5Etfw">November 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+</p>
+<h3 id="端末内の再生曲はapple-musicしか取れない">端末内の再生曲はApple Musicしか取れない</h3>
+<p>iOSでは、他のアプリが今何を再生しているかを知る公開APIがない。MediaPlayerで取れるのはミュージックアプリ（Apple Music）の再生曲だけで、Spotifyアプリの再生状態は端末内からは見えない。だからSpotifyはWeb API経由、という設計になっている。既存アプリでも事情は同じで、なうぷれはSpotifyやYouTube Musicの曲を共有シート経由で取り込む方式になっている。YouTube Musicに至っては再生状態を見る公式API自体がないので、v1.8.0で足したのもジャケ写などのメタデータ取得だけだった。</p>
+<h3 id="itunesメディアというプレースホルダ">「iTunesメディア」というプレースホルダ</h3>
+<p>Apple Musicの「現在の曲」は、状況によって「iTunesメディア」という名前で詳細が空のプレースホルダを返すことがある。アーティスト名が空なら採用しない、という健全性ゲートを入れた。同じような状態でも正常／プレースホルダ／エラーの3通りを返すので、ショートカット版の頃から引きずっている問題でもある。</p>
+<p>ショートカット版で実際に化けたときの投稿画面がこれ。曲名が「iTunesメディア」になり、アーティストとアルバムが空になっている。</p>
+<p><figure class="image-figure not-prose my-8">
+  <div class="image-container">
+    <img src="https://images.aoiro-labo.com/blog/nowplaying-itunes-media.jpg" alt="プレースホルダで化けたショートカット版の投稿画面。曲名が「iTunesメディア」で、アーティストとアルバムが空になっている" loading="lazy" />
+  </div>
+  <figcaption class="image-caption">プレースホルダで化けた投稿文（ショートカット版）</figcaption>
+</figure>
+</p>
+<h3 id="mediaremoteの壁">MediaRemoteの壁</h3>
+<p>MediaRemote.frameworkを直接叩いて再生情報を取るプローブを作って試した。</p>
+<div
+    class="alert alert-note my-6 overflow-hidden rounded-lg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md"
+    style="background-color: color-mix(in srgb, var(--color-note) 10%, transparent);
+              border-left-color: var(--color-note);
+              --hover-bg: color-mix(in srgb, var(--color-note) 15%, transparent);"
+    onmouseover="this.style.backgroundColor = this.style.getPropertyValue('--hover-bg')"
+    onmouseout="this.style.backgroundColor = 'color-mix(in srgb, var(--color-note) 10%, transparent)'"
+    role="alert"
+    aria-labelledby="alert-1-title">
+    
+    <div
+      class=" flex items-center justify-between px-6 py-6"
+      >
+      <div class="flex items-center gap-3">
+        
+        <h4
+          id="alert-1-title"
+          class="m-0 font-semibold text-foreground/90">
+          注意
+        </h4>
+      </div>
+
+      
+      
+    </div>
+
+    
+    <div
+      id="alert-1-content"
       class="alert-content  px-6 pb-6">
       <div class="prose prose-sm text-foreground/90 max-w-none">
         <p>entitlement（com.apple.mediaremote.now-playing-read-access）の無いアプリには、再生中でも info が nil で返ってくる。サイドロードでは付けられないし、TrollStoreもiOS 17.0までで手元のiOS 27では使えない。この方法は使えないと確定した。</p>
@@ -2074,57 +2887,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<p>プローブのコードは死にコードとして残っている。</p>
 <h3 id="金の話">金の話</h3>
-<p>まともに配布しようとするとApple Developer Program（年99ドル）が要る。やめればアプリも消える。無料の範囲だと署名の有効期限が7日で、SideStoreで更新し続けるしかない。個人で使うだけの道具に年額を払う気はないので、野良 .ipa のままにしている。</p>
+<p>まともに配布しようとするとApple Developer Program（年99ドル）が要る。やめればアプリも消える。無料の範囲だと署名の有効期限が7日で、SideStoreで更新し続けるしかない。個人で使うだけの道具に年額を払う気はないので、野良.ipaのままにしている。</p>
 <h2 id="ハマったところミス">ハマったところ・ミス</h2>
 <ul>
-<li>開発側のミスで、Trackの初期化を思い込みで書いてビルドを落としたことがある。既存の型は実物を見てから書く、という当たり前の話</li>
-<li>LiveContainerではバージョンが「1.0」と表示されたまま＆アイコンが真っ白、という問題があった。project.yml にバージョンを明示して、アプリアイコンのアセットを入れて対処した（v1.5.1）</li>
+<li>開発側のミスで、Trackの初期化を思い込みで書いてビルドを落としたことがある。既存の型は実物を見てから書く、という当たり前の話だった</li>
+<li>LiveContainerではバージョンが「1.0」と表示されたままで、アイコンが真っ白という問題があった。project.yml にバージョンを明示して、アプリアイコンのアセットを入れて対処した（v1.5.1）</li>
+<li>タグを打ってリリースを作っても .ipa が付いてこなかったことがある。ワークフローにリリースへの書き込み権限（contents: write）が無かったのが原因で、付けてからは付くようになった</li>
 </ul>
 <h2 id="今の状態">今の状態</h2>
-<p>現行はv1.8.1で、 .ipa もリリースに付いている。リポジトリは公開している。</p>
-<p><div class="link-card-group"><div class="link-card">
-  <a href="https://x.com/aoiro_labo/status/2123783147074842997" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="twitter" alt="一通り整えたのでパブリックリポジトリにした" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">一通り整えたのでパブリックリポジトリにした</h3>
-      <p class="link-card-content">2026-11-20 のポスト</p>
-      <div class="link-card-url">x.com/aoiro_labo/status/2123783147074842997</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div>
-<div class="link-card-group"><div class="link-card">
-  <a href="https://x.com/aoiro_labo/status/2123784780236149198" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 h-full">
-    <div class="flex-shrink-0 self-center w-12 h-12 rounded-full bg-muted border-2 border-border flex items-center justify-center">
-      
-        <img src="twitter" alt="SpotifyとAppleMusicで再生している曲をTwitterで共有するための文言とジャケ写をテンプレから生成して共有できるやつ" class="w-12 h-12 rounded-full object-cover border-2 border-border" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <svg class="w-6 h-6 text-muted-foreground hidden" id="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
-      
-    </div>
-    <div class="flex-1 min-w-0">
-      <h3 class="link-card-title">SpotifyとAppleMusicで再生している曲をTwitterで共有するための文言とジャケ写をテンプレから生成して共有できるやつ</h3>
-      <p class="link-card-content">2026-11-20 のポスト</p>
-      <div class="link-card-url">x.com/aoiro_labo/status/2123784780236149198</div>
-    </div>
-    <div class="link-card-arrow">
-      <svg class="w-6 h-6 text-muted-foreground" id="link-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg>
-    </div>
-  </a>
-</div></div></p>
-<p>残っているのは、X API用の開発者アプリの作成（developer.x.com側でアプリ作成とRead and Write権限、アクセストークンの発行が要る）と、SideStoreで通常インストールしたときのウィジェットの確認くらい。ウィジェットはLiveContainer内では拡張が登録されないので未確認のまま。</p>
+<p>現行はv1.8.1で、.ipaもリリースに付いている。リポジトリは公開していて、ライセンスはMIT。</p>
+<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">一通り整えたのでパブリックリポジトリにした<br><br>aoiro-labo/nowplaying-ios: Post what you&#39;re listening to as # NowPlaying — from Spotify or Apple Music, with artwork.<a href="https://t.co/nNfxf0Atmb">https://t.co/nNfxf0Atmb</a></p>&mdash; aoiro (@aoiro_labo) <a href="https://x.com/aoiro_labo/status/2123783147074842997?ref_src=twsrc%5Etfw">November 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">SpotifyとAppleMusicで再生している曲をTwitterで共有するための文言とジャケ写をテンプレから生成して共有できるやつ<br>野良ipaなのでサイドローディングできる巻強でしか動かせません（金がないのでAppStoreにも出さない） <a href="https://t.co/reALuefb4K">https://t.co/reALuefb4K</a> <a href="https://t.co/hZbQgaNAKi">pic.twitter.com/hZbQgaNAKi</a></p>&mdash; aoiro (@aoiro_labo) <a href="https://x.com/aoiro_labo/status/2123784780236149198?ref_src=twsrc%5Etfw">November 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+</p>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
   </article>
 
@@ -2258,20 +3039,36 @@ document.addEventListener('DOMContentLoaded', function() {
       
       <div class="nav-item">
         
-          <div
-            class="bg-muted/30 border-border/50 flex min-h-[140px] flex-col justify-center rounded-xl border p-6">
-            <div class="mb-3 flex items-center justify-end gap-3">
-              <span class="text-muted-foreground/50 text-sm font-medium">
-                次の記事はありません
-              </span>
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <a
+            href="/posts/fantia%E3%81%AE%E6%9C%9F%E9%96%93%E9%99%90%E5%AE%9A%E5%88%B6%E3%81%A8%E3%83%90%E3%83%83%E3%82%AF%E3%83%8A%E3%83%B3%E3%83%90%E3%83%BC%E6%9C%89%E5%84%9F%E5%88%B6%E3%81%AF%E6%BB%85%E3%81%B3%E3%82%8D/"
+            class="group bg-card border-border hover:bg-primary/5 hover:border-primary/20 focus:ring-primary/20 flex min-h-[140px] flex-col justify-between rounded-xl border p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg focus:ring-2 focus:outline-none">
+            <div>
+              <div class="mb-3 flex items-center justify-end gap-3">
+                <span class="text-muted-foreground text-sm font-medium">
+                  次の記事
+                </span>
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 </svg>
+              </div>
+
+              <h3
+                class="text-foreground group-hover:text-primary mb-3 line-clamp-2 text-right text-lg leading-tight font-semibold transition-colors duration-200">
+                Fantiaの期間限定制とバックナンバー有償制は滅びろ
+              </h3>
             </div>
-            <p class="text-muted-foreground/50 text-right text-sm">
-              これが最新の記事です
-            </p>
-          </div>
+
+            <div
+              class="text-muted-foreground mt-auto flex items-center justify-end gap-2 text-xs">
+              <time datetime="2026-11-21">
+                11月21日
+              </time>
+              <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+
+            </div>
+          </a>
         
       </div>
     </div>
@@ -2497,12 +3294,13 @@ document.addEventListener('DOMContentLoaded', function() {
     <li><a href="#経緯">経緯</a></li>
     <li><a href="#既にあるのになぜ作ったのか">既にあるのに、なぜ作ったのか</a></li>
     <li><a href="#ビルドの流れ">ビルドの流れ</a></li>
-    <li><a href="#バージョンごとの流れ">バージョンごとの流れ</a></li>
+    <li><a href="#バージョン履歴">バージョン履歴</a></li>
     <li><a href="#工夫したところ">工夫したところ</a>
       <ul>
-        <li><a href="#auto判定はこの端末を優先">auto判定は「この端末」を優先</a></li>
+        <li><a href="#この端末を優先するauto判定">「この端末」を優先するauto判定</a></li>
         <li><a href="#ジャケ写のマッチング">ジャケ写のマッチング</a></li>
         <li><a href="#文面の組み立て">文面の組み立て</a></li>
+        <li><a href="#投稿まわり">投稿まわり</a></li>
         <li><a href="#そのほか">そのほか</a></li>
       </ul>
     </li>
@@ -2590,6 +3388,50 @@ document.addEventListener('DOMContentLoaded', function() {
               <span
                 >
                   RSS Feed
+                </span
+              >
+            </a>
+          
+            
+            
+            
+              
+                
+              
+            
+            <a
+              href="/links/"
+              
+              class="nav-link hover:text-primary hover:bg-primary/10 text-muted-foreground flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
+              
+                <svg class="h-5 w-5" aria-label="Links" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></svg>
+              
+              <span
+                >
+                  Links
+                </span
+              >
+            </a>
+          
+            
+            
+            
+              
+                
+              
+            
+            <a
+              href="/privacy/"
+              
+              class="nav-link hover:text-primary hover:bg-primary/10 text-muted-foreground flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
+              
+                <svg class="h-5 w-5" aria-label="Privacy" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+              
+              <span
+                >
+                  Privacy
                 </span
               >
             </a>
@@ -2893,12 +3735,13 @@ document.addEventListener('DOMContentLoaded', function() {
     <li><a href="#経緯">経緯</a></li>
     <li><a href="#既にあるのになぜ作ったのか">既にあるのに、なぜ作ったのか</a></li>
     <li><a href="#ビルドの流れ">ビルドの流れ</a></li>
-    <li><a href="#バージョンごとの流れ">バージョンごとの流れ</a></li>
+    <li><a href="#バージョン履歴">バージョン履歴</a></li>
     <li><a href="#工夫したところ">工夫したところ</a>
       <ul>
-        <li><a href="#auto判定はこの端末を優先">auto判定は「この端末」を優先</a></li>
+        <li><a href="#この端末を優先するauto判定">「この端末」を優先するauto判定</a></li>
         <li><a href="#ジャケ写のマッチング">ジャケ写のマッチング</a></li>
         <li><a href="#文面の組み立て">文面の組み立て</a></li>
+        <li><a href="#投稿まわり">投稿まわり</a></li>
         <li><a href="#そのほか">そのほか</a></li>
       </ul>
     </li>

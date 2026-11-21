@@ -23,9 +23,6 @@
     <loc>http://localhost:1313/posts/spotify%E3%81%A8apple-music%E3%81%AE-%23nowplaying-%E3%82%92%E6%8A%95%E7%A8%BF%E3%81%99%E3%82%8Bios%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F/</loc>
     <lastmod>2026-11-21T00:00:00+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/spotify%E3%81%A8apple-music%E3%81%AE-%23nowplaying-%E3%82%92%E6%8A%95%E7%A8%BF%E3%81%99%E3%82%8Bios%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F/</loc>
-    <lastmod>2026-11-21T00:00:00+09:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/swift/</loc>
     <lastmod>2026-11-21T00:00:00+09:00</lastmod>
   </url><url>
@@ -42,6 +39,12 @@
     <lastmod>2026-11-21T00:00:00+09:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/%E3%82%B5%E3%82%A4%E3%83%88%E9%81%8B%E5%96%B6/</loc>
+    <lastmod>2026-11-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/privacy/</loc>
+    <lastmod>2026-11-21T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/links/</loc>
     <lastmod>2026-11-21T00:00:00+09:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/%E9%96%8B%E7%99%BA/</loc>
