@@ -12,12 +12,12 @@ links:
 
 - name: "Cloudflare R2"
   url: "https://www.cloudflare.com/ja-jp/developer-platform/r2/"
-  icon: "https://www.google.com/search?q=https://www.cloudflare.com/favicon.ico"
+  icon: "https://www.cloudflare.com/favicon.ico"
   description: "エグレス料金無料の S3 互換オブジェクトストレージ"
 
 - name: "Giscus"
   url: "https://giscus.app/ja"
-  icon: "https://www.google.com/search?q=https://giscus.app/favicon.ico"
+  icon: "https://giscus.app/favicon.ico"
   description: "GitHub Discussions を利用したコメントシステム"
 
 - name: "GitHub"
@@ -27,12 +27,12 @@ links:
 ---
 ## aoiro-labo について
 
-放送、アニメ、バーチャル関係の趣味と、作業中に調べた技術情報を置いている個人ブログです。
-あとで自分が読み返せるように、検証した手順や結果を記録しています。
+放送、アニメ、バーチャル関係の趣味と、作業中に調べた技術情報を置いている個人ブログ。
+あとで自分が読み返せるように、検証した手順や結果を記録している。
 
 ## 技術スタック
 
-サイトはHugoで生成し、Cloudflare Pagesで公開しています。
+サイトはHugoで生成し、Cloudflare Pagesで公開している。
 
 - SSG: Hugo Extended
 - Theme: hugo-narrow (Minimalist 1-column theme)
@@ -42,4 +42,4 @@ links:
 - Design: Tailwind CSS 4.0
 
 ## 画像管理について
-記事の画像はCloudflare R2に保存し、images.aoiro-labo.comから配信しています。GitHubリポジトリには原則として画像を置きません。
+記事の画像はCloudflare R2に保存し、images.aoiro-labo.comから配信している。GitHubリポジトリには原則として画像を置かない。例外はサイト共通の画像で、アバター、ファビコン、OG画像、PWA用のアイコンはstatic/に置いてリポジトリで管理している。
