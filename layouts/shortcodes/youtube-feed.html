@@ -1,0 +1,44 @@
+{{- $feedURL := "https://www.youtube.com/feeds/videos.xml?channel_id=UCdJAC3Jn2oIp-DMvl_PIxMg" -}}
+{{- $videos := slice -}}
+{{- $xml := "" -}}
+{{- with try (resources.GetRemote $feedURL) -}}
+  {{- with .Err -}}
+    {{- warnf "youtube-feed: fetch failed: %s" . -}}
+  {{- else with .Value -}}
+    {{- $xml = .Content -}}
+  {{- end -}}
+{{- end -}}
+{{- if $xml -}}
+  {{- range $i, $chunk := split $xml "<entry>" -}}
+    {{- if gt $i 0 -}}
+      {{- $id := "" -}}
+      {{- $title := "" -}}
+      {{- $date := "" -}}
+      {{- with findRE `<yt:videoId>[^<]+</yt:videoId>` $chunk 1 }}{{ $id = replaceRE `<yt:videoId>([^<]+)</yt:videoId>` "$1" (index . 0) }}{{ end -}}
+      {{- with findRE `<title>[^<]*</title>` $chunk 1 }}{{ $title = replaceRE `<title>([^<]*)</title>` "$1" (index . 0) }}{{ end -}}
+      {{- with findRE `<published>[^<]+</published>` $chunk 1 }}{{ $date = substr (replaceRE `<published>([^<]+)</published>` "$1" (index . 0)) 0 10 }}{{ end -}}
+      {{- if $id -}}
+        {{- $videos = $videos | append (dict "id" $id "title" ($title | htmlUnescape) "date" $date) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $videos -}}
+  {{- $videos = slice
+    (dict "id" "ILMGTgsoHNs" "title" "途中経過　瞬間シンフォニー" "date" "2026-11-18")
+    (dict "id" "nq81jU_WztU" "title" "途中経過　細氷（M@STER VERSION）" "date" "2026-11-12")
+    (dict "id" "4WM3pS6e3yY" "title" "【MIDI再現】ヨドバシカメラの歌（マルチメディアAkibaバージョン）/ 原曲：リパブリック賛歌" "date" "2024-12-01")
+    (dict "id" "OKztxPnuTRc" "title" "【MIDI再現】SC-1903 / Nash Music Library（ハードオフの店内BGM）" "date" "2024-11-11")
+    (dict "id" "O6xeW8qON4E" "title" "【MIDI再現】BBC News Countdown 24 / David Lowe（英BBCニュース テーマ音楽）" "date" "2024-08-19")
+    (dict "id" "4DAH5taTDRQ" "title" "【MIDI再現】time-line / 榊原大（ANNニュース 旧テーマ音楽）" "date" "2024-03-16")
+  -}}
+{{- end -}}
+<div class="not-prose grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {{- range $videos }}
+  <a href="https://www.youtube.com/watch?v={{ .id }}" target="_blank" rel="noopener" class="group block">
+    <img src="https://i.ytimg.com/vi/{{ .id }}/hqdefault.jpg" alt="{{ .title }}" loading="lazy" class="w-full rounded-lg">
+    <div class="mt-2 text-sm font-medium leading-snug">{{ .title }}</div>
+    <div class="mt-1 text-xs opacity-60">{{ .date }}</div>
+  </a>
+  {{- end }}
+</div>
