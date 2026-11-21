@@ -116,6 +116,13 @@ flowchart LR
 ![修正後、正しいジャケ写が表示されているアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-geki-fixed.jpg "修正後")
 {{< /masonry >}}
 
+ジャケ写の長押しメニューと、候補ピッカーはこんな感じ。
+
+{{< masonry maxColumns="2" >}}
+![ジャケ写の長押しメニュー。「ジャケ写を選ぶ」と「ジャケ写の間違いを報告」がある](https://images.aoiro-labo.com/blog/nowplaying-artwork-menu.jpg "ジャケ写の長押しメニュー")
+![ジャケ写の候補ピッカー。自動選択と候補の一覧から選べる](https://images.aoiro-labo.com/blog/nowplaying-artwork-picker.jpg "候補ピッカー")
+{{< /masonry >}}
+
 ### 文面の組み立て
 
 文面は `{track}` `{artist}` `{album}` `{url}` のマクロで組み立てる。自分の既定はURLなしで、こうなる。
@@ -126,9 +133,17 @@ flowchart LR
 
 プリセットと編集欄は一本化してあって、編集すると選択中のプリセット自体が書き換わる。文字数はXの重み付けで数えていて、280字に収まるかはその場で分かる。
 
+設定画面の文面セクションはこんな感じ。
+
+![設定の文面セクション。フォーマットの編集欄とプリセットの一覧](https://images.aoiro-labo.com/blog/nowplaying-format-editor.jpg "フォーマットの編集")
+
 実際の画面はこんな感じで、投稿文と履歴が並ぶ。
 
 ![生成された投稿文と、取得履歴が並ぶアプリの画面](https://images.aoiro-labo.com/blog/nowplaying-post-history.jpg "投稿文と履歴")
+
+履歴は長押しで投稿文のコピーや削除ができる。
+
+![取得履歴の一覧と、長押しメニュー（投稿文をコピー／削除）](https://images.aoiro-labo.com/blog/nowplaying-history-menu.jpg "履歴と長押しメニュー")
 
 実際に投稿した例がこれ。「ワールドイズマイン」はショートカット時代にジャケ写とURLが壊れた曲で、アプリでは正しい盤のものが出るようになった。
 
@@ -138,6 +153,10 @@ flowchart LR
 
 基本は共有シート。直接投稿も付けていて、X API（OAuth 1.0a、ジャケ写付き）、Bluesky（アプリパスワード）、MastodonとMisskey（インスタンスとトークンを設定）はアプリからそのまま送れる。Xはアプリを開いて投稿画面に渡すこともできる。認証情報は全部アプリ内の設定に保存する形で、リポジトリには含めていない。
 
+設定画面はこんな感じで、取得元やURLの付け方を選ぶ。トークン類は伏せてある。
+
+![設定画面。Spotifyの認証情報（マスク済み）、取得元の選択、URLの付け方](https://images.aoiro-labo.com/blog/nowplaying-settings.jpg "設定画面")
+
 ### そのほか
 
 - Spotifyのrefresh tokenはローテーションで新しいものが返ってくることがあるので、返ってきたら保存し直す
@@ -145,6 +164,15 @@ flowchart LR
 - 履歴は同じ曲＋同じ文面なら全体から重複を除いて先頭に移す。ジャケ写のサムネイルが無い場合は前のものを引き継ぐ
 - ジャケ写は、iTunesの100pxのURLを1200pxに差し替えて高画質で取る設定がある
 - 設定とトークンはApp Group経由でウィジェットとも共有している
+
+Last.fmまわりは、APIアカウントを作るところから。キー類はマスクしてある。
+
+{{< masonry maxColumns="2" >}}
+![Last.fmのAPIアカウント作成完了画面（キー類はマスク済み）](https://images.aoiro-labo.com/blog/nowplaying-lastfm-api-account.jpg "Last.fm APIアカウント作成")
+![Last.fmの接続許可画面。NowPlayingからのアクセス要求](https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-request.jpg "Last.fmの接続許可")
+![Last.fmの認証完了画面](https://images.aoiro-labo.com/blog/nowplaying-lastfm-auth-done.jpg "Last.fm認証完了")
+![アプリのLast.fm設定（APIキーはマスク済み）。接続済みでスクロブル連携がオン](https://images.aoiro-labo.com/blog/nowplaying-lastfm-settings.jpg "Last.fm設定")
+{{< /masonry >}}
 
 ## Apple MusicとiOSの制約
 
