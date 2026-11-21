@@ -48,6 +48,17 @@ footer:
     params:
       icon: rss
 
+  - name: Links
+    pageRef: /links
+    weight: 40
+    params:
+      icon: link
+  - name: Privacy
+    pageRef: /privacy
+    weight: 50
+    params:
+      icon: info-circle
+
 # footer social link
 social:
   - name: GitHub
