@@ -1,5 +1,8 @@
 ---
 title: "SpotifyとApple Musicの #NowPlaying を投稿するiOSアプリを作った"
+slug: nowplaying-ios-app
+aliases:
+    - "/posts/spotifyとapple-musicの-#nowplaying-を投稿するiosアプリを作った/"
 date: 2026-11-21T00:00:00+09:00
 draft: false
 summary: "ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。"

@@ -1,5 +1,8 @@
 ---
 title: Markdown Syntax Test Document
+slug: markdown-syntax-test-document
+aliases:
+    - "/posts/markdown-syntax-test-document/"
 date: 2025-12-31T07:39:35.397Z
 draft: true
 summary: This is a test document containing various Markdown syntax to verify the completeness of prose styles.

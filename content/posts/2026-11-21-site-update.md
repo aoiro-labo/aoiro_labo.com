@@ -1,5 +1,8 @@
 ---
 title: サイトのアイコンとフォントを変えた
+slug: site-update
+aliases:
+    - "/posts/サイトのアイコンとフォントを変えた/"
 date: 2026-11-21T00:00:00+09:00
 draft: true
 summary: トップのアイコンをXのアバターに変えて、フォントをIBM Plex Sans JPにした。ついでにYouTubeへのリンクと動画ページも足した。

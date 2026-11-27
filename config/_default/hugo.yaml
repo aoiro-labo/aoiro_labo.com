@@ -11,7 +11,7 @@ enableEmoji: true
 enableRobotsTXT: true
 
 permalinks:
-  posts: /posts/:slug/
+  posts: /posts/:year/:month/:day/:slug/
   projects: /projects/:slug/
   pages: /:slug/
 

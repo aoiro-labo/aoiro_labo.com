@@ -24,6 +24,11 @@
           "type": "string"
         },
         {
+          "title": "slug",
+          "name": "slug",
+          "type": "string"
+        },
+        {
           "title": "date",
           "name": "date",
           "type": "datetime"

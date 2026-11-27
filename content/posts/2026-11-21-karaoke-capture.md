@@ -1,5 +1,8 @@
 ---
 title: "カラオケの画面をキャプチャする夢"
+slug: karaoke-capture
+aliases:
+    - "/posts/カラオケの画面をキャプチャする夢/"
 date: 2026-11-21T12:00:00+09:00
 draft: true
 summary: "カラオケ（DAMとJOYSOUND）の画面をキャプチャボードで録画する構成と手順。映像はHDMI分配器経由。音声はDAMならアンプのヘッドフォン端子などから別に取り、JOYSOUND MAX GO以降ならHDMIで一緒に取れる。"
