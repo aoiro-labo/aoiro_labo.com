@@ -1,0 +1,25 @@
+/* Site-wide mobile hardening: prevent horizontal blowouts in article bodies */
+.prose {
+  overflow-wrap: break-word;
+}
+.prose img,
+.prose video {
+  max-width: 100%;
+  height: auto;
+}
+.prose iframe {
+  max-width: 100%;
+}
+.prose table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.prose pre {
+  overflow-x: auto;
+}
+@media (max-width: 767px) {
+  .prose iframe {
+    width: 100%;
+  }
+}
