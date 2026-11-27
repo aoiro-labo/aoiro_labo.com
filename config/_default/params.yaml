@@ -177,7 +177,7 @@ analytics:
 
 # KaTeX
 katex:
-  enabled: true
+  enabled: false
   delimiters:
     - left: "$$"
       right: "$$"
@@ -194,7 +194,7 @@ katex:
 
 # Mermaid
 mermaid:
-  enabled: true
+  enabled: false
 
 # GLightbox
 lightbox:
