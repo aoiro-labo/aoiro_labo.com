@@ -1,0 +1,22 @@
+/* Top bar: icon-only by default, label expands on hover/focus (desktop) */
+@media (min-width: 768px) {
+  header nav a.nav-link {
+    gap: 0;
+  }
+  header nav a.nav-link > span {
+    max-width: 0;
+    margin-left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    transition: max-width 0.3s ease, opacity 0.25s ease, margin-left 0.3s ease;
+  }
+  header nav a.nav-link:hover > span,
+  header nav a.nav-link:focus-visible > span,
+  header nav a.nav-link:focus-within > span,
+  header nav a.nav-active-indicator > span {
+    max-width: 10rem;
+    margin-left: 0.5rem;
+    opacity: 1;
+  }
+}
