@@ -6,20 +6,55 @@
     <description>Recent content in Tags on aoiro-labo</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 21 Nov 2026 19:35:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 18:30:00 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Fantia</title>
-      <link>http://localhost:1313/tags/fantia/</link>
-      <pubDate>Sat, 21 Nov 2026 19:35:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/fantia/</guid>
+      <title>ASOBI CHANNEL</title>
+      <link>http://localhost:1313/tags/asobi-channel/</link>
+      <pubDate>Thu, 26 Nov 2026 18:30:00 +0900</pubDate>
+      <guid>http://localhost:1313/tags/asobi-channel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>アイドルマスター</title>
+      <link>http://localhost:1313/tags/%E3%82%A2%E3%82%A4%E3%83%89%E3%83%AB%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC/</link>
+      <pubDate>Thu, 26 Nov 2026 18:30:00 +0900</pubDate>
+      <guid>http://localhost:1313/tags/%E3%82%A2%E3%82%A4%E3%83%89%E3%83%AB%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC/</guid>
       <description></description>
     </item>
     <item>
       <title>サブスクリプション</title>
       <link>http://localhost:1313/tags/%E3%82%B5%E3%83%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3/</link>
-      <pubDate>Sat, 21 Nov 2026 19:35:00 +0900</pubDate>
+      <pubDate>Thu, 26 Nov 2026 18:30:00 +0900</pubDate>
       <guid>http://localhost:1313/tags/%E3%82%B5%E3%83%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DAM</title>
+      <link>http://localhost:1313/tags/dam/</link>
+      <pubDate>Sat, 21 Nov 2026 12:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/tags/dam/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>JOYSOUND</title>
+      <link>http://localhost:1313/tags/joysound/</link>
+      <pubDate>Sat, 21 Nov 2026 12:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/tags/joysound/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>カラオケ</title>
+      <link>http://localhost:1313/tags/%E3%82%AB%E3%83%A9%E3%82%AA%E3%82%B1/</link>
+      <pubDate>Sat, 21 Nov 2026 12:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/tags/%E3%82%AB%E3%83%A9%E3%82%AA%E3%82%B1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>キャプチャ</title>
+      <link>http://localhost:1313/tags/%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3/</link>
+      <pubDate>Sat, 21 Nov 2026 12:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/tags/%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3/</guid>
       <description></description>
     </item>
     <item>
