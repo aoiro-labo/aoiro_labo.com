@@ -79,7 +79,14 @@ def tokenize(text):
     for a in atoms:
         if merged and a==' ': merged[-1]+=a
         else: merged.append(a)
-    return [a for a in merged if a!='']
+    out=[]
+    for a in merged:
+        if a=='' : continue
+        if len(a)>1 and a.endswith('：'):
+            out.append(a[:-1]); out.append('：')
+        else:
+            out.append(a)
+    return out
 
 def split_brackets(atoms):
     out=[]
@@ -114,6 +121,8 @@ def classify(atoms, emph, hero):
     for a, forced in atoms:
         if forced=='sub':
             emit(a,'sub'); continue
+        if a=='：':
+            emit(a,'sub',glue=True); continue
         if a in COMPOUND:
             emit(a,'sub',glue=True); continue
         _pref = next((c for c in COMPOUND if a.startswith(c) and len(a)>len(c)), None)
@@ -183,6 +192,7 @@ def layout(items, widths, maxw, maxlines, balance_last=False, min_fill=0.0):
                     continue
                 slack=maxw-w
                 cost=slack*slack/700.0
+                if items[j][0]=='：': cost-=250
                 if min_fill and w < maxw*min_fill: cost+=400
                 rc, rest = solve(j+1, k-1)
                 if rest is None: continue
@@ -233,9 +243,10 @@ def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
         mx=max(style_of(cls, size, acc)[0].size for (text, cls, glue) in ln)
         baseline=y+mx
         x=x0
-        for (text, cls, glue) in ln:
+        for pos,(text, cls, glue) in enumerate(ln):
             fnt,col=style_of(cls, size, acc)
-            d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
+            if not (text=='：' and pos==len(ln)-1):
+                d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
             x+=widths[idx]; idx+=1
         y+=heights[li]
     return y
@@ -353,7 +364,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
     disp = title.replace('（','(').replace('）',')')
     bracket, disp = split_bracket_prefix(disp)
     disp = disp.replace('・', '･')
-    bracket_h = 30+22 if bracket else 0
+    bracket_h = 40+24 if bracket else 0
     acc = accent_for(cat)
     if cat and hero and cat == hero:
         cat = ''
@@ -412,7 +423,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             chosen=sols[min(sols)]
         else:
             chosen=None
-        if chosen is None or chosen[0] < 56:
+        if chosen is None or chosen[0] < 52:
             panel=None
             print('  image dropped (no room beside text):', out)
         else:
@@ -423,7 +434,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             if cat:
                 d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
             if bracket:
-                d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
+                d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 40), fill=SUBC); y += bracket_h
             draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
             y += block_h
             if tags:
@@ -509,7 +520,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             if cat:
                 d.text((gx, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
             if bracket:
-                d.text((gx, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
+                d.text((gx, y), bracket, font=ImageFont.truetype(BOLD, 40), fill=SUBC); y += bracket_h
             title_top = y
             draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
             d.text((gx + maxlw + 14, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
@@ -553,7 +564,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
     if cat:
         d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
     if bracket:
-        d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
+        d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 40), fill=SUBC); y += bracket_h
     draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
     y += block_h
     finish(d, img, cat, tags, acc, y, out)
