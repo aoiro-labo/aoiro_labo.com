@@ -487,12 +487,12 @@ def make(path, out, hero_override=None, emphasis_override=None):
             esmall=g.resize((320, int(320*g.size[1]/g.size[0]))).filter(ImageFilter.FIND_EDGES)
             if ImageStat.Stat(esmall).mean[0] >= 20:
                 bgimg=bgimg.filter(ImageFilter.GaussianBlur(3))
-            alpha=min(0.9, max(0.62, 1-52/max(mean,1)))
+            alpha=min(0.85, max(0.55, 1-70/max(mean,1)))
             dark=Image.new('RGB',(W,H),(10,15,26))
             img=Image.blend(bgimg, dark, alpha)
             grad=Image.new('L',(W,1))
             for gx in range(W):
-                grad.putpixel((gx,0), int(60+110*(1-gx/W)))
+                grad.putpixel((gx,0), int(50+100*(1-gx/W)))
             shade=Image.new('RGB',(W,H),(6,9,16))
             img=Image.composite(shade, img, grad.resize((W,H)))
             d=ImageDraw.Draw(img)

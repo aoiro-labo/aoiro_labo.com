@@ -3,7 +3,7 @@ title: "カラオケの画面をキャプチャする夢"
 slug: karaoke-capture
 cover: /images/cover-karaoke-capture.jpg
 cover_keyword: 夢
-cover_image: none
+cover_image: auto
 aliases:
     - "/posts/カラオケの画面をキャプチャする夢/"
 date: 2026-11-21T12:00:00+09:00

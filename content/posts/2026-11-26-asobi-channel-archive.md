@@ -3,7 +3,7 @@ title: "ASOBI CHANNEL終了と「引き続き視聴可能」だったアーカ�
 slug: asobi-channel-archive
 cover: /images/cover-asobi-channel-archive.jpg
 cover_keyword: 行き先
-cover_image: none
+cover_image: https://images.aoiro-labo.com/blog/asobi-portal-nov.jpg
 aliases:
     - "/posts/asobi-channel終了と引き続き視聴可能だったアーカイブの行き先/"
 date: 2026-11-26T18:30:00+09:00
