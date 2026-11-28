@@ -114,6 +114,7 @@ def classify(atoms, emph, hero):
         if len(a)>1 and a[-1] in PARTICLES and not a.endswith('から'):
             emit(a[:-1],'base'); emit(a[-1],'sub',glue=True); continue
         emit(a,'base')
+    out=[(t,c,(g or (t and t[0] in '」）)'))) for (t,c,g) in out]
     return out
 
 def split_emph(atoms, emph, hero):
@@ -277,22 +278,49 @@ def paste_panel(img, panel_img, x, y, pw, ph):
     d=ImageDraw.Draw(img)
     d.rounded_rectangle([x,y,x+pw,y+ph], radius=18, outline=(120,135,160), width=2)
 
+def split_bracket_prefix(disp):
+    if disp.startswith('【') and '】' in disp:
+        k=disp.index('】')+1
+        if k<=14:
+            return disp[:k], disp[k:]
+    return None, disp
+
+def paste_banner(img, src):
+    # right-side full-height bleed, fading into the background on its left edge
+    ph = H
+    pw = 470
+    scale=max(pw/src.size[0], ph/src.size[1])
+    nw,nh=int(src.size[0]*scale+0.5), int(src.size[1]*scale+0.5)
+    src=src.resize((nw,nh), Image.LANCZOS)
+    left=(nw-pw)//2; top=(nh-ph)//2
+    src=src.crop((left,top,left+pw,top+ph))
+    fade=260
+    mask=Image.new('L',(pw,ph),255)
+    md=ImageDraw.Draw(mask)
+    for x in range(fade):
+        v=int(255 * (x/fade)**1.4)
+        md.line([(x,0),(x,ph)], fill=v)
+    img.paste(src,(W-pw,0),mask)
+
 def make(path, out, hero_override=None, emphasis_override=None):
     title, cat, tags, kw, emph, cimg, slug = fm_of(path)
     hero = hero_override if hero_override is not None else kw
     if emphasis_override is not None: emph = emphasis_override
     disp = title.replace('（','(').replace('）',')')
+    bracket, disp = split_bracket_prefix(disp)
+    bracket_h = 30+22 if bracket else 0
     acc = accent_for(cat)
     img = background(acc)
     d = ImageDraw.Draw(img)
     cat_h = 34+30 if cat else 0
     chips_h = 48 if tags else 0
+    cat_h += bracket_h
 
     panel = pick_image(path, cimg)
     if panel is not None:
         items = classify(split_emph(tokenize(disp), emph, hero), emph, hero)
-        PW_, PH_ = 400, 330
-        col_w = W - MARGIN*2 - PW_ - 44
+        PW_, PH_ = 470, 630
+        col_w = W - MARGIN*2 - 430 - 30
         def solve_p(ml_target):
             for size_try in range(92, 39, -4):
                 widths=[]
@@ -301,7 +329,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
                 lt=layout(items, widths, col_w, ml_target, balance_last=True, min_fill=0.5)
                 if not lt or len(lt)!=ml_target: continue
                 hs=line_heights(lt, size_try, acc)
-                if cat_h + sum(hs) + (30 if tags else 0) + chips_h > PH_ + 150: continue
+                if cat_h + sum(hs) + (30 if tags else 0) + chips_h > H - 150: continue
                 return (size_try, lt, widths, hs)
             return None
         sols={}
@@ -312,14 +340,20 @@ def make(path, out, hero_override=None, emphasis_override=None):
             chosen=sols[3]
         else:
             chosen=sols[min(sols)]
+        if chosen[0] < 52:
+            panel=None
+            print('  image dropped (title too long for panel):', out)
         size, lines, widths, heights = chosen
         block_h=sum(heights)
         total = cat_h + block_h + (30 if tags else 0) + chips_h
         y = (H - total)//2 - 14
         if cat:
-            d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += cat_h
-        draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
-        paste_panel(img, panel, W-MARGIN-PW_, (H-PH_)//2 - 10, PW_, PH_)
+            d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
+        if bracket and panel is not None:
+            d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
+        if panel is not None:
+            draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
+            paste_banner(img, panel)
         y += block_h
         if tags:
             y += 30
@@ -332,11 +366,15 @@ def make(path, out, hero_override=None, emphasis_override=None):
                 d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
                 d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
                 x+=tw+34+14
-        d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
-        d.rectangle([0,H-10,W,H], fill=acc)
-        img.save(out, quality=90)
-        print('made (panel)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
-        return
+        if panel is not None:
+            d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
+            d.rectangle([0,H-10,W,H], fill=acc)
+            img.save(out, quality=90)
+            print('made (panel)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
+            return
+        # panel dropped: rebuild canvas and continue to flow layout
+        img = background(acc)
+        d = ImageDraw.Draw(img)
     zone = False
     if hero and disp.endswith(hero):
         # try zone composition: hero block on the right, white
@@ -366,7 +404,9 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += cat_h
+                d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
+            if bracket:
+                d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
             draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
             d.text((W-MARGIN-kw_w, y + block_h//2), hero, font=kw_font, fill=WHITE, anchor='lm')
             y += block_h
@@ -407,7 +447,9 @@ def make(path, out, hero_override=None, emphasis_override=None):
     total = cat_h + block_h + (30 if tags else 0) + chips_h
     y = (H - total)//2 - 14
     if cat:
-        d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += cat_h
+        d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
+    if bracket:
+        d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
     draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
     y += block_h
     finish(d, img, cat, tags, acc, y, out)
