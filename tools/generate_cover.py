@@ -231,7 +231,7 @@ def style_of(cls, size, acc):
     if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE
     if cls=='accent': return cover_font("SemiBold", int(size*1.15)), acc
     if cls=='sub': return cover_font("Regular", max(20,int(size*0.8))), SUBC
-    return cover_font("Medium", size), BASE
+    return cover_font("Bold", size), BASE
 
 def line_heights(lines, size, acc):
     hs=[]
