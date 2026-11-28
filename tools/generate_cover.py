@@ -257,7 +257,7 @@ def background(acc):
     return ImageChops.add(img, glow)
 
 def style_of(cls, size, acc):
-    if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE, False
+    if cls=='hero': return cover_font("Bold", int(size*1.58)), WHITE, False
     if cls=='accent': return cover_font("Bold", int(size*1.15)), acc, False
     if cls=='sub': return cover_font("SemiBold", max(20,int(size*0.8))), SUBC, True
     return cover_font("SemiBold", size), BASE, True
@@ -269,7 +269,7 @@ def line_heights(lines, size, acc):
         for (text, cls, glue) in ln:
             fnt,_,_=style_of(cls, size, acc)
             mx=max(mx, fnt.size)
-        hs.append(int(mx*1.38))
+        hs.append(int(mx*1.30))
     return hs
 
 def draw_lines(d, img, items, lines, widths, x0, y_top, size, acc, heights):
