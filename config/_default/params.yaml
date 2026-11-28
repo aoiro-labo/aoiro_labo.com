@@ -112,10 +112,10 @@ post:
   license:
     show: true
     author: "aoiro_labo"
-    name: "CC BY-NC-SA 4.0"
-    description: "この記事は CC BY-NC-SA 4.0 のもとで公開しています。出典を明記すれば、非営利目的での引用・改変・再配布ができます。"
-    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-    displayName: "CC BY-NC-SA 4.0"
+    name: "CC BY-SA 4.0"
+    description: "この記事は CC BY-SA 4.0 のもとで公開しています。出典を明記すれば、改変したものも同じライセンスで公開することを条件に、引用・改変・再配布（商用を含む）ができます。"
+    url: "https://creativecommons.org/licenses/by-sa/4.0/"
+    displayName: "CC BY-SA 4.0"
 
 # Comments
 comments:
