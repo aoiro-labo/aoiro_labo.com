@@ -101,6 +101,19 @@ ASOBI CHANNELは脆弱性への対応自体は完了し、「現在は安全に�
 ![「ASOBI CHANNEL」サービス終了のお知らせ。脆弱性への対応は完了し現在は安全に利用できるとしたうえで、2027年3月31日の終了を告知している](https://images.aoiro-labo.com/blog/asobi-channel-end.jpg "「ASOBI CHANNEL」サービス終了のお知らせ")
 出典：[「ASOBI CHANNEL」サービス終了のお知らせ（ASOBI CHANNEL）](https://asobichannel.asobistore.jp/information/wnlh-w2gbbf4)（[Wayback Machineの保存版](https://web.archive.org/web/20261128065927/https://asobichannel.asobistore.jp/information/wnlh-w2gbbf4)）
 
+### CHANNELの「PHP」とは何か
+
+公式のお知らせは「『ASOBI CHANNEL』で使用しているプログラム言語『PHP』」と書いている。ただ、レスポンスヘッダーやCookieから確認した範囲では、CHANNEL自体にPHPは使われていない。
+
+- ASOBI CHANNEL：フロントはNext.js、裏側のAPIはRuby on Rails。PHPは不使用
+- 電子書籍：フロントはVue 2、バックエンドはLaravel（PHP）
+- グッズ販売：Laravel（PHP）
+- ショップ側：CodeIgniter（PHP）
+
+PHPが動いていたのは、CHANNELそのものではなくASOBIの共通基盤のほうだ。ショップとグッズ販売はPHP2Shellの影響下にあったが、修正を適用できて10月29日に復旧した。公式の言う「CHANNELのPHP」は、この共通基盤を指したか、全体をまとめて「PHP」と書いたかだろう。
+
+同じLaravelでも結果が分かれた理由も、ここで見えてくる。グッズ側は比較的新しいPHPで動いていて公式の修正版を適用できた。電子書籍側はサポート切れのPHPの世代に残っていて、適用できる修正版自体がなかった。
+
 ## 実装から見えた設計の古さ
 
 「保守の継続が困難」という話の背景には、PHPの脆弱性以前からの設計の古さもある。ASOBI CHANNELと、同じ運営の配信サービスASOBISTAGE、電子書籍について、筆者が確認した範囲でも古さはいくつか確認できた。
