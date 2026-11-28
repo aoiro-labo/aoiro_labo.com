@@ -239,7 +239,7 @@ def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
         y+=heights[li]
     return y
 
-def finish(d, img, cat, tags, acc, y, out, x0=None):
+def finish(d, img, cat, tags, acc, y, out, x0=None, sx=None):
     if tags:
         y += 30
         tf=ImageFont.truetype(REG, 27)
@@ -251,7 +251,7 @@ def finish(d, img, cat, tags, acc, y, out, x0=None):
             d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
             d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
             x+=tw+34+14
-    d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
+    d.text((MARGIN if sx is None else sx, H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
     d.rectangle([0,H-10,W,H], fill=acc)
     img.save(out, quality=90)
 
@@ -443,7 +443,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             md.rounded_rectangle([0,0,nw,nh], radius=14, fill=255)
             img.paste(thumb,(px,py),mask)
             d.rounded_rectangle([px,py,px+nw,py+nh], radius=14, outline=(120,135,160), width=2)
-            d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
+            d.text((MARGIN if sx is None else sx, H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
             d.rectangle([0,H-10,W,H], fill=acc)
             img.save(out, quality=90)
             print('made (natural)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
@@ -503,7 +503,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
             d.text((gx + maxlw + 14, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
             y += block_h
-            finish(d, img, cat, tags, acc, y, out, x0=gx)
+            finish(d, img, cat, tags, acc, y, out, x0=gx, sx=gx)
             print('made (zone)', out, '| hero:', hero)
             return
     # full-width flow (hero inline if it is a suffix, else plain)
