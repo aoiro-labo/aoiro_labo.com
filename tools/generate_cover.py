@@ -41,6 +41,8 @@ def accent_for(cat):
 PARTICLES=set('はがをにへとのもや')
 CONJ={'そして','しかし','だから','でも','また','なお','すると','ただ'}
 AUX={'だった','でした','です','ます','ました','ない','なかった','でしょう','だろう','らしい','みたい','そう','たい'}
+COMPOUND={'による','により','によって','について','にたいして','として','ごとに','にかけて','にわたって'}
+NOSPLIT_END=('ごと','こと','もの','とき','ところ','ため','はず','まま','だけ','ほど','くらい','ぐらい','など','わけ','かた')
 
 def tokenize(text):
     atoms=[]; i=0; n=len(text)
@@ -90,15 +92,41 @@ def split_brackets(atoms):
         if a: out.append((a,None))
     return out
 
+def merge_compounds(atoms):
+    out=[]; i=0
+    while i<len(atoms):
+        a=atoms[i]
+        if i+1<len(atoms):
+            b=atoms[i+1]
+            cand=a+b
+            steal = (b=='に' and i+2<len(atoms) and atoms[i+2].startswith('よ'))
+            if (cand in COMPOUND or (a=='に' and b.startswith('よ')) or (a.endswith('ごと') and b=='に' and not steal) or (a=='に' and b.startswith('つい')) or (a=='と' and b.startswith('して'))):
+                out.append(cand); i+=2; continue
+        out.append(a); i+=1
+    return out
+
 def classify(atoms, emph, hero):
     # returns list of (text, cls): cls in base/sub/accent/hero ; glue=True means a line must not start with it
-    atoms = split_brackets(atoms)
+    atoms = split_brackets(merge_compounds(atoms))
     out=[]
     def emit(text, cls, glue=False):
         if text: out.append((text, cls, glue))
     for a, forced in atoms:
         if forced=='sub':
             emit(a,'sub'); continue
+        if a in COMPOUND:
+            emit(a,'sub',glue=True); continue
+        _pref = next((c for c in COMPOUND if a.startswith(c) and len(a)>len(c)), None)
+        if _pref:
+            emit(_pref,'sub',glue=True)
+            a = a[len(_pref):]
+            if a in emph:
+                emit(a,'accent'); continue
+            if len(a)>1 and a[-1] in PARTICLES and not a.endswith(NOSPLIT_END):
+                emit(a[:-1],'base'); emit(a[-1],'sub',glue=True); continue
+            emit(a,'base'); continue
+        if a and all(ch in PARTICLES for ch in a):
+            emit(a,'sub',glue=True); continue
         if a==hero:
             emit(a,'hero'); continue
         if a in emph:
@@ -111,7 +139,7 @@ def classify(atoms, emph, hero):
             continue
         if a in CONJ or a in AUX:
             emit(a,'sub',glue=True); continue
-        if len(a)>1 and a[-1] in PARTICLES and not a.endswith('から'):
+        if len(a)>1 and a[-1] in PARTICLES and not a.endswith('から') and not a.endswith(NOSPLIT_END) and not a.endswith('ごとに'):
             emit(a[:-1],'base'); emit(a[-1],'sub',glue=True); continue
         emit(a,'base')
     out=[(t,c,(g or (t and t[0] in '」）)'))) for (t,c,g) in out]
@@ -128,6 +156,8 @@ def split_emph(atoms, emph, hero):
                 if e in rest: hit=e; break
             if not hit: out.append(rest); break
             pre,_,post = rest.partition(hit)
+            if pre.endswith('「') and post.startswith('」'):
+                pre=pre[:-1]; post=post[1:]; hit='「'+hit+'」'
             if pre: out.append(pre)
             out.append(hit); rest=post
     return out
