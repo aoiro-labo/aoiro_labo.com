@@ -21,3 +21,6 @@ public/resources/
 *.mp4
 *.mov
 public/
+
+# cover generator fonts (download locally)
+tools/fonts/
