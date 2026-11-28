@@ -246,7 +246,8 @@ def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
         for pos,(text, cls, glue) in enumerate(ln):
             fnt,col=style_of(cls, size, acc)
             if not (text=='：' and pos==len(ln)-1):
-                d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
+                sw = max(1, int(size*0.03)) if cls=='accent' else 0
+                d.text((x, baseline), text, font=fnt, fill=col, anchor='ls', stroke_width=sw, stroke_fill=col)
             x+=widths[idx]; idx+=1
         y+=heights[li]
     return y
