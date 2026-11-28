@@ -6,7 +6,7 @@ aliases:
 date: 2026-11-21T00:00:00+09:00
 draft: false
 summary: "ショートカットで作っていた #NowPlaying 投稿ツールをiOSアプリにした。GitHub Actionsで署名なしビルドする流れ、ジャケ写マッチングの改善、Apple MusicとiOSの制約。"
-cover: "/images/cover-nowplaying.jpg"
+cover: "/images/cover-nowplaying-ios-app.jpg"
 images:
     - "/images/cover-nowplaying.jpg"
 categories:
