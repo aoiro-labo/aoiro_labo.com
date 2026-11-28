@@ -358,10 +358,20 @@ def make(path, out, hero_override=None, emphasis_override=None):
     chips_h = 48 if tags else 0
     cat_h += bracket_h
 
-    panel = pick_image(path, cimg) if cimg!='bg' else None
-    if cimg=='bg':
+    if cimg=='none':
+        pic = None
+    elif cimg=='bg':
         pic = ns_pick(path)
-        if pic is not None:
+    elif cimg=='auto':
+        pic = ns_pick(path)
+    elif cimg:
+        pic = load_image(cimg)
+    else:
+        pic = None
+    use_bg = pic is not None and (cimg=='bg' or (cimg=='auto' and pic.size[0]>=1600 and pic.size[1]>=900))
+    panel = None if use_bg else (pic if cimg in ('auto',) or (cimg and cimg not in ('none','bg')) else None)
+    if use_bg:
+        if True:
             scale=max(W/pic.size[0], H/pic.size[1])
             nw,nh=int(pic.size[0]*scale+0.5), int(pic.size[1]*scale+0.5)
             bgimg=pic.resize((nw,nh), Image.LANCZOS).crop(((nw-W)//2,(nh-H)//2,(nw-W)//2+W,(nh-H)//2+H))
