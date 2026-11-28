@@ -474,14 +474,29 @@ def make(path, out, hero_override=None, emphasis_override=None):
             zone=True
             heights=line_heights(lines, size, acc)
             block_h=sum(heights)
+            kw_w_max = kw_w
+            # size the hero so its ink height matches the left text block height
+            _f100=ImageFont.truetype(BOLD, 100)
+            _bb=d.textbbox((0,0), hero, font=_f100)
+            _ratio=(_bb[3]-_bb[1])/100.0
+            ksize=max(60, int(block_h*0.96/_ratio))
+            while ksize>60:
+                kw_font=ImageFont.truetype(BOLD, ksize)
+                kw_w=d.textlength(hero, font=kw_font)
+                if kw_w <= kw_w_max: break
+                ksize-=8
+            kw_font=ImageFont.truetype(BOLD, ksize)
+            kw_w=d.textlength(hero, font=kw_font)
+            kw_bb=d.textbbox((0,0), hero, font=kw_font)
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
                 d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
             if bracket:
                 d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
+            title_top = y
             draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
-            d.text((W-MARGIN-kw_w, y + block_h//2), hero, font=kw_font, fill=WHITE, anchor='lm')
+            d.text((W-MARGIN-kw_w, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
             y += block_h
             finish(d, img, cat, tags, acc, y, out)
             print('made (zone)', out, '| hero:', hero)
