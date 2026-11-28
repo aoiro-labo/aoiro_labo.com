@@ -1,0 +1,14 @@
+/* Complements to BudouX: distribute heading lines evenly, avoid a very
+   short last line in paragraphs, strict kinsoku, and trim full-width
+   punctuation spacing at line starts where supported. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+article.prose p {
+  text-wrap: pretty;
+}
+article.prose {
+  line-break: strict;
+  text-spacing-trim: trim-start;
+  hanging-punctuation: first;
+}
