@@ -265,11 +265,11 @@ def finish(d, img, cat, tags, acc, y, out, x0=None, sx=None):
         x=MARGIN if x0 is None else x0
         for tg in tags[:5]:
             label='#'+tg
-            tw=d.textlength(label, font=tf)
-            if x+tw+34 > W-MARGIN: break
-            d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
-            d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
-            x+=tw+34+14
+            bb=d.textbbox((0,0), label, font=tf); iw=bb[2]-bb[0]; ih=bb[3]-bb[1]; pw=iw+34
+            if x+pw > W-MARGIN: break
+            d.rounded_rectangle([x,y,x+pw,y+48], radius=24, outline=(120,135,160), width=2)
+            d.text((x+(pw-iw)/2-bb[0], y+(48-ih)/2-bb[1]), label, font=tf, fill=(203,213,225))
+            x+=pw+14
     d.text((MARGIN if sx is None else sx, H-72), 'aoiro-labo.com', font=cover_font("Regular", 30), fill=(148,170,200))
     d.rectangle([0,H-10,W,H], fill=acc)
     img.save(out, quality=90)
@@ -450,11 +450,11 @@ def make(path, out, hero_override=None, emphasis_override=None):
                 x=MARGIN
                 for tg in tags[:5]:
                     label='#'+tg
-                    tw=d.textlength(label, font=tf)
-                    if x+tw+34 > MARGIN+col_w: break
-                    d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
-                    d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
-                    x+=tw+34+14
+                    bb=d.textbbox((0,0), label, font=tf); iw=bb[2]-bb[0]; ih=bb[3]-bb[1]; pw=iw+34
+                    if x+pw > MARGIN+col_w: break
+                    d.rounded_rectangle([x,y,x+pw,y+48], radius=24, outline=(120,135,160), width=2)
+                    d.text((x+(pw-iw)/2-bb[0], y+(48-ih)/2-bb[1]), label, font=tf, fill=(203,213,225))
+                    x+=pw+14
             region_w = W - MARGIN - (MARGIN+col_w) - 24
             region_h = H - 190
             scale=min(region_w/panel.size[0], region_h/panel.size[1])
