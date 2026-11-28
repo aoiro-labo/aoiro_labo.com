@@ -27,8 +27,9 @@ def fm_of(path):
     kw=g(r'cover_keyword:\s*"?([^"\n]+)')
     emph=list_of('cover_emphasis')
     cimg=g(r'cover_image:\s*"?([^"\n]+)')
+    czone=g(r'cover_zone:\s*"?([^"\n]+)').lower() != 'false'
     slug=g(r'slug:\s*"?([^"\n]+)')
-    return title, cat, tags, kw, emph, cimg, slug
+    return title, cat, tags, kw, emph, cimg, slug, czone
 
 BOLD=r"C:\Windows\Fonts\YuGothB.ttc"
 REG=r"C:\Windows\Fonts\YuGothM.ttc"
@@ -422,7 +423,7 @@ def auto_pick(disp, cat):
     return cands
 
 def make(path, out, hero_override=None, emphasis_override=None):
-    title, cat, tags, kw, emph, cimg, slug = fm_of(path)
+    title, cat, tags, kw, emph, cimg, slug, czone = fm_of(path)
     hero = hero_override if hero_override is not None else kw
     if emphasis_override is not None: emph = emphasis_override
     disp = title.replace('（','(').replace('）',')')
@@ -556,7 +557,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             print('made (natural)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
             return
     zone = False
-    if hero and disp.endswith(hero):
+    if czone and hero and disp.endswith(hero):
         # try zone composition: hero block on the right, white
         ksize=300
         while ksize>90:
@@ -674,5 +675,5 @@ def make(path, out, hero_override=None, emphasis_override=None):
 
 if __name__ == '__main__':
     for p in sys.argv[1:]:
-        _t,_c,_tg,_k,_e,_ci,sl = fm_of(p)
+        _t,_c,_tg,_k,_e,_ci,sl,_cz = fm_of(p)
         make(p, rf'static\images\cover-{sl}.jpg')
