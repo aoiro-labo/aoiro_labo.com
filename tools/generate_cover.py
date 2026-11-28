@@ -127,9 +127,10 @@ def classify(atoms, emph, hero):
             emit(a,'base'); continue
         if a and all(ch in PARTICLES for ch in a):
             emit(a,'sub',glue=True); continue
-        if a==hero:
+        core = a[1:-1] if len(a)>=2 and ((a[0]=='\u300c' and a[-1]=='\u300d') or (a[0]=='\u300e' and a[-1]=='\u300f')) else a
+        if a==hero or (core!=a and core==hero):
             emit(a,'hero'); continue
-        if a in emph:
+        if a in emph or (core!=a and core in emph):
             emit(a,'accent'); continue
         if a.startswith('('):
             k=a.find(')')
@@ -278,6 +279,14 @@ def load_image(src):
         print('  img load failed:', src[:80], e)
         return None
 
+def bg_suitable(im):
+    # bright or busy images fight the title text; only dark, calm ones may go full-bg
+    from PIL import ImageStat
+    g = im.convert("L")
+    small = g.resize((320, max(1, int(320*g.size[1]/g.size[0]))))
+    edges = small.filter(ImageFilter.FIND_EDGES)
+    return ImageStat.Stat(g).mean[0] < 80 and ImageStat.Stat(edges).mean[0] < 20
+
 def ns_pick(path):
     return pick_image(path, 'auto')
 
@@ -346,6 +355,8 @@ def make(path, out, hero_override=None, emphasis_override=None):
     disp = disp.replace('・', '･')
     bracket_h = 30+22 if bracket else 0
     acc = accent_for(cat)
+    if cat and hero and cat == hero:
+        cat = ''
     img = background(acc)
     d = ImageDraw.Draw(img)
     cat_h = 34+30 if cat else 0
@@ -362,7 +373,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         pic = load_image(cimg)
     else:
         pic = None
-    use_bg = pic is not None and (cimg=='bg' or (cimg=='auto' and pic.size[0]>=1600 and pic.size[1]>=900))
+    use_bg = pic is not None and (cimg=='bg' or (cimg=='auto' and pic.size[0]>=1600 and pic.size[1]>=900 and bg_suitable(pic)))
     panel = None if use_bg else (pic if cimg in ('auto',) or (cimg and cimg not in ('none','bg')) else None)
     if use_bg:
         if True:
@@ -443,7 +454,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             md.rounded_rectangle([0,0,nw,nh], radius=14, fill=255)
             img.paste(thumb,(px,py),mask)
             d.rounded_rectangle([px,py,px+nw,py+nh], radius=14, outline=(120,135,160), width=2)
-            d.text((MARGIN if sx is None else sx, H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
+            d.text((MARGIN, H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
             d.rectangle([0,H-10,W,H], fill=acc)
             img.save(out, quality=90)
             print('made (natural)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
