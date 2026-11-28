@@ -557,7 +557,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         while ksize>90:
             kw_font=cover_font("Bold", ksize)
             kw_w=d.textlength(hero, font=kw_font)
-            if kw_w <= W*0.46: break
+            if kw_w <= W*0.36: break
             ksize-=12
         body = disp[:-len(hero)]
         items = classify(split_emph(tokenize(body), emph, ''), emph, '')
@@ -581,7 +581,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             _f100=cover_font("Bold", 100)
             _bb=d.textbbox((0,0), hero, font=_f100)
             _ratio=(_bb[3]-_bb[1])/100.0
-            ksize=max(60, int(block_h*0.96/_ratio))
+            ksize=max(60, int(block_h*0.85/_ratio))
             while ksize>60:
                 kw_font=cover_font("Bold", ksize)
                 kw_w=d.textlength(hero, font=kw_font)
