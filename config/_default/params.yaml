@@ -198,7 +198,7 @@ mermaid:
 
 # GLightbox
 lightbox:
-  enabled: true
+  enabled: false
   loop: true
   width: 80vw
   height: 80vh
