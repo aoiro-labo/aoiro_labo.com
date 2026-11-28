@@ -58,23 +58,37 @@
     });
     var nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
-    var lower = q.toLowerCase();
+    var lower = q.toLowerCase().replace(/\u200b/g, '');
+    if (!lower) return;
     nodes.forEach(function (node) {
       var text = node.nodeValue;
+      // BudouX inserts ZWSP at phrase boundaries; match on a ZWSP-free
+      // copy and map hit positions back to the original text.
+      var clean = '';
+      var map = [];
+      for (var ci = 0; ci < text.length; ci++) {
+        if (text.charCodeAt(ci) === 0x200b) continue;
+        map.push(ci);
+        clean += text[ci];
+      }
+      var hay = clean.toLowerCase();
       var frag = document.createDocumentFragment();
-      var idx = 0;
-      var hay = text.toLowerCase();
+      var cIdx = 0;
+      var oIdx = 0;
       var pos;
-      while ((pos = hay.indexOf(lower, idx)) !== -1) {
-        frag.appendChild(document.createTextNode(text.slice(idx, pos)));
+      while ((pos = hay.indexOf(lower, cIdx)) !== -1) {
+        var oStart = map[pos];
+        var oEnd = map[pos + lower.length - 1] + 1;
+        frag.appendChild(document.createTextNode(text.slice(oIdx, oStart)));
         var mark = document.createElement('mark');
         mark.className = 'page-find-hit';
-        mark.textContent = text.slice(pos, pos + q.length);
+        mark.textContent = text.slice(oStart, oEnd);
         frag.appendChild(mark);
         marks.push(mark);
-        idx = pos + q.length;
+        cIdx = pos + lower.length;
+        oIdx = oEnd;
       }
-      frag.appendChild(document.createTextNode(text.slice(idx)));
+      frag.appendChild(document.createTextNode(text.slice(oIdx)));
       node.parentNode.replaceChild(frag, node);
     });
     if (marks.length) {

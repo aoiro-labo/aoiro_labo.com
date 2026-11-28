@@ -9,4 +9,7 @@ const targets = document.querySelectorAll(
   ' article.prose li, article.prose td, article.prose th,' +
   ' article.prose p:not(li p)'
 );
-targets.forEach((el) => parser.applyToElement(el));
+targets.forEach((el) => {
+  if (el.textContent.includes('\u200b')) return; // already baked at build time
+  parser.applyToElement(el);
+});
