@@ -1,0 +1,7 @@
+{{- $id := .Get "id" | default (.Get 0) -}}
+{{- $title := .Get "title" | default (.Get 1) | default "YouTube動画" -}}
+<div class="lite-yt" data-yt-id="{{ $id }}" role="button" tabindex="0" aria-label="YouTube動画を再生：{{ $title }}">
+  <img src="https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg" alt="{{ $title }}" loading="lazy" />
+  <span class="lite-yt-play" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+  <span class="lite-yt-title">{{ $title }}</span>
+</div>

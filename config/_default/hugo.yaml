@@ -42,9 +42,9 @@ markup:
         mark:
           enable: true
         subscript:
-          enable: false
+          enable: true
         superscript:
-          enable: false   
+          enable: true   
       strikethrough: false 
   highlight:
     codeFences: true
