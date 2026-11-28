@@ -1,17 +1,28 @@
-// Minimal lightbox (~1KB): replaces GLightbox for article images
+// Minimal lightbox (~1.5KB): replaces GLightbox for article images
 (function () {
   var overlay = null, imgEl = null, capEl = null, countEl = null;
   var items = [], index = 0, touchX = null;
 
-  function collect(clicked) {
-    var links = Array.prototype.slice.call(
-      document.querySelectorAll('.prose a.glightbox, .prose a[href$=".jpg"], .prose a[href$=".jpeg"], .prose a[href$=".png"], .prose a[href$=".webp"], .prose a[href$=".gif"]')
-    );
-    items = links.map(function (a) {
-      var img = a.querySelector('img');
-      return { src: a.getAttribute('href'), cap: img ? (img.getAttribute('alt') || '') : '' };
+  function eligible(img) {
+    var a = img.closest('a');
+    if (a) {
+      var href = a.getAttribute('href') || '';
+      if (/\.(jpe?g|png|webp|gif)([?#].*)?$/i.test(href)) return { src: href, cap: img.getAttribute('alt') || '' };
+      return null; // image wrapped in a normal link: leave it alone
+    }
+    return { src: img.currentSrc || img.src, cap: img.getAttribute('alt') || '' };
+  }
+
+  function collect(clickedImg) {
+    items = [];
+    index = 0;
+    var imgs = document.querySelectorAll('.prose img');
+    Array.prototype.forEach.call(imgs, function (img) {
+      var it = eligible(img);
+      if (!it) return;
+      if (img === clickedImg) index = items.length;
+      items.push(it);
     });
-    index = Math.max(0, links.indexOf(clicked));
   }
 
   function build() {
@@ -63,9 +74,10 @@
     show();
   }
 
-  function open(a) {
+  function open(img) {
     if (!overlay) build();
-    collect(a);
+    collect(img);
+    if (!items.length) return;
     show();
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -77,10 +89,10 @@
   }
 
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('.prose a.glightbox, .prose a[href$=".jpg"], .prose a[href$=".jpeg"], .prose a[href$=".png"], .prose a[href$=".webp"], .prose a[href$=".gif"]');
-    if (a) {
-      e.preventDefault();
-      open(a);
-    }
+    var img = e.target.closest && e.target.closest('.prose img');
+    if (!img) return;
+    if (!eligible(img)) return;
+    e.preventDefault();
+    open(img);
   });
 })();
