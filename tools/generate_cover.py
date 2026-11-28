@@ -297,14 +297,6 @@ def load_image(src):
         print('  img load failed:', src[:80], e)
         return None
 
-def bg_suitable(im):
-    # bright or busy images fight the title text; only dark, calm ones may go full-bg
-    from PIL import ImageStat
-    g = im.convert("L")
-    small = g.resize((320, max(1, int(320*g.size[1]/g.size[0]))))
-    edges = small.filter(ImageFilter.FIND_EDGES)
-    return ImageStat.Stat(g).mean[0] < 80 and ImageStat.Stat(edges).mean[0] < 20
-
 def ns_pick(path):
     return pick_image(path, 'auto')
 
@@ -391,18 +383,24 @@ def make(path, out, hero_override=None, emphasis_override=None):
         pic = load_image(cimg)
     else:
         pic = None
-    use_bg = pic is not None and (cimg=='bg' or (cimg=='auto' and pic.size[0]>=1600 and pic.size[1]>=900 and bg_suitable(pic)))
+    use_bg = pic is not None
     panel = None if use_bg else (pic if cimg in ('auto',) or (cimg and cimg not in ('none','bg')) else None)
     if use_bg:
         if True:
             scale=max(W/pic.size[0], H/pic.size[1])
             nw,nh=int(pic.size[0]*scale+0.5), int(pic.size[1]*scale+0.5)
             bgimg=pic.resize((nw,nh), Image.LANCZOS).crop(((nw-W)//2,(nh-H)//2,(nw-W)//2+W,(nh-H)//2+H))
+            from PIL import ImageStat
+            g=bgimg.convert('L'); mean=ImageStat.Stat(g).mean[0]
+            esmall=g.resize((320, int(320*g.size[1]/g.size[0]))).filter(ImageFilter.FIND_EDGES)
+            if ImageStat.Stat(esmall).mean[0] >= 20:
+                bgimg=bgimg.filter(ImageFilter.GaussianBlur(3))
+            alpha=min(0.9, max(0.62, 1-52/max(mean,1)))
             dark=Image.new('RGB',(W,H),(10,15,26))
-            img=Image.blend(bgimg, dark, 0.62)
+            img=Image.blend(bgimg, dark, alpha)
             grad=Image.new('L',(W,1))
             for gx in range(W):
-                grad.putpixel((gx,0), int(150*(1-gx/W)))
+                grad.putpixel((gx,0), int(60+110*(1-gx/W)))
             shade=Image.new('RGB',(W,H),(6,9,16))
             img=Image.composite(shade, img, grad.resize((W,H)))
             d=ImageDraw.Draw(img)
