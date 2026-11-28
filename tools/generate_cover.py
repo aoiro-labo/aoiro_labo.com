@@ -402,6 +402,7 @@ def auto_pick(disp, cat):
         if len(core)>=6: sc+=15
         elif len(core)>=4: sc+=8
         if last and len(core)>=3: sc+=10
+        if last and len(core)>=2 and core[-1] in 'ろえ': sc+=55
         return sc
     n=len(merged)
     cands=[]
