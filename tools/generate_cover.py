@@ -115,10 +115,19 @@ def classify(atoms, emph, hero):
         if forced=='sub':
             emit(a,'sub'); continue
         if a in COMPOUND:
-            emit(a,'sub',glue=True); continue
+            if out and out[-1][1]=='base' and out[-1][0].endswith(NOSPLIT_END):
+                t0,c0,g0 = out[-1]
+                out[-1] = (t0+a, c0, g0)
+            else:
+                emit(a,'sub',glue=True)
+            continue
         _pref = next((c for c in COMPOUND if a.startswith(c) and len(a)>len(c)), None)
         if _pref:
-            emit(_pref,'sub',glue=True)
+            if out and out[-1][1]=='base' and out[-1][0].endswith(NOSPLIT_END):
+                t0,c0,g0 = out[-1]
+                out[-1] = (t0+_pref, c0, g0)
+            else:
+                emit(_pref,'sub',glue=True)
             a = a[len(_pref):]
             if a in emph:
                 emit(a,'accent'); continue
@@ -276,6 +285,9 @@ def load_image(src):
         print('  img load failed:', src[:80], e)
         return None
 
+def ns_pick(path):
+    return pick_image(path, 'auto')
+
 def pick_image(path, cimg):
     if cimg=='none': return None
     if cimg and cimg!='auto':
@@ -346,13 +358,26 @@ def make(path, out, hero_override=None, emphasis_override=None):
     chips_h = 48 if tags else 0
     cat_h += bracket_h
 
-    panel = pick_image(path, cimg)
+    panel = pick_image(path, cimg) if cimg!='bg' else None
+    if cimg=='bg':
+        pic = ns_pick(path)
+        if pic is not None:
+            scale=max(W/pic.size[0], H/pic.size[1])
+            nw,nh=int(pic.size[0]*scale+0.5), int(pic.size[1]*scale+0.5)
+            bgimg=pic.resize((nw,nh), Image.LANCZOS).crop(((nw-W)//2,(nh-H)//2,(nw-W)//2+W,(nh-H)//2+H))
+            dark=Image.new('RGB',(W,H),(10,15,26))
+            img=Image.blend(bgimg, dark, 0.62)
+            grad=Image.new('L',(W,1))
+            for gx in range(W):
+                grad.putpixel((gx,0), int(150*(1-gx/W)))
+            shade=Image.new('RGB',(W,H),(6,9,16))
+            img=Image.composite(shade, img, grad.resize((W,H)))
+            d=ImageDraw.Draw(img)
     if panel is not None:
         items = classify(split_emph(tokenize(disp), emph, hero), emph, hero)
-        PW_, PH_ = 470, 630
-        col_w = W - MARGIN*2 - 430 - 30
-        def solve_p(ml_target):
-            for size_try in range(92, 39, -4):
+        col_w = int((W - MARGIN*2) * 0.62)
+        def solve_n(ml_target):
+            for size_try in range(96, 39, -4):
                 widths=[]
                 for (text, cls, glue) in items:
                     fnt,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
@@ -363,48 +388,62 @@ def make(path, out, hero_override=None, emphasis_override=None):
                 return (size_try, lt, widths, hs)
             return None
         sols={}
-        for ml_t in (2,3,4):
-            s=solve_p(ml_t)
+        for ml_t in (2,3):
+            s=solve_n(ml_t)
             if s: sols[ml_t]=s
         if 2 in sols and 3 in sols and sols[2][0]<76 and sols[3][0]>=sols[2][0]:
             chosen=sols[3]
-        else:
+        elif sols:
             chosen=sols[min(sols)]
-        if chosen[0] < 52:
+        else:
+            chosen=None
+        if chosen is None or chosen[0] < 56:
             panel=None
-            print('  image dropped (title too long for panel):', out)
-        size, lines, widths, heights = chosen
-        block_h=sum(heights)
-        total = cat_h + block_h + (30 if tags else 0) + chips_h
-        y = (H - total)//2 - 14
-        if cat:
-            d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
-        if bracket and panel is not None:
-            d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
-        if panel is not None:
+            print('  image dropped (no room beside text):', out)
+        else:
+            size, lines, widths, heights = chosen
+            block_h=sum(heights)
+            total = cat_h + block_h + (30 if tags else 0) + chips_h
+            y = (H - total)//2 - 14
+            if cat:
+                d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
+            if bracket:
+                d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
             draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
-            paste_banner(img, panel)
-        y += block_h
-        if tags:
-            y += 30
-            tf=ImageFont.truetype(REG, 27)
-            x=MARGIN
-            for tg in tags[:5]:
-                label='#'+tg
-                tw=d.textlength(label, font=tf)
-                if x+tw+34 > MARGIN+col_w: break
-                d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
-                d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
-                x+=tw+34+14
-        if panel is not None:
+            y += block_h
+            if tags:
+                y += 30
+                tf=ImageFont.truetype(REG, 27)
+                x=MARGIN
+                for tg in tags[:5]:
+                    label='#'+tg
+                    tw=d.textlength(label, font=tf)
+                    if x+tw+34 > MARGIN+col_w: break
+                    d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
+                    d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
+                    x+=tw+34+14
+            region_w = W - MARGIN - (MARGIN+col_w) - 24
+            region_h = H - 190
+            scale=min(region_w/panel.size[0], region_h/panel.size[1])
+            nw,nh=int(panel.size[0]*scale), int(panel.size[1]*scale)
+            thumb=panel.resize((nw,nh), Image.LANCZOS)
+            px = W - MARGIN - nw
+            py = H - 120 - nh
+            shadow=Image.new('RGBA',(nw+16,nh+16),(0,0,0,0))
+            sd=ImageDraw.Draw(shadow)
+            sd.rounded_rectangle([8,10,nw+8,nh+12], radius=14, fill=(0,0,0,110))
+            shadow=shadow.filter(ImageFilter.GaussianBlur(6))
+            img.paste(shadow,(px-8,py-8),shadow)
+            mask=Image.new('L',(nw,nh),0)
+            md=ImageDraw.Draw(mask)
+            md.rounded_rectangle([0,0,nw,nh], radius=14, fill=255)
+            img.paste(thumb,(px,py),mask)
+            d.rounded_rectangle([px,py,px+nw,py+nh], radius=14, outline=(120,135,160), width=2)
             d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
             d.rectangle([0,H-10,W,H], fill=acc)
             img.save(out, quality=90)
-            print('made (panel)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
+            print('made (natural)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
             return
-        # panel dropped: rebuild canvas and continue to flow layout
-        img = background(acc)
-        d = ImageDraw.Draw(img)
     zone = False
     if hero and disp.endswith(hero):
         # try zone composition: hero block on the right, white
