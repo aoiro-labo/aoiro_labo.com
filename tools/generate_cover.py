@@ -27,9 +27,10 @@ def fm_of(path):
 
 BOLD=r"C:\Windows\Fonts\YuGothB.ttc"
 REG=r"C:\Windows\Fonts\YuGothM.ttc"
-PLEX_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
-def plex_font(weight, size):
-    p = os.path.join(PLEX_DIR, f"IBMPlexSansJP-{weight}.ttf")
+FONT_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-Bold.ttf","Bold":"ZenKakuGothicNew-Black.ttf"}
+def cover_font(weight, size):
+    p = os.path.join(FONT_DIR, ZEN_MAP[weight])
     if os.path.exists(p):
         return ImageFont.truetype(p, size)
     return ImageFont.truetype(BOLD if weight in ("Bold", "SemiBold") else REG, size)
@@ -227,10 +228,10 @@ def background(acc):
     return ImageChops.add(img, glow)
 
 def style_of(cls, size, acc):
-    if cls=='hero': return plex_font("Bold", int(size*1.45)), WHITE
-    if cls=='accent': return plex_font("SemiBold", int(size*1.15)), acc
-    if cls=='sub': return plex_font("Regular", max(20,int(size*0.8))), SUBC
-    return plex_font("Medium", size), BASE
+    if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE
+    if cls=='accent': return cover_font("SemiBold", int(size*1.15)), acc
+    if cls=='sub': return cover_font("Regular", max(20,int(size*0.8))), SUBC
+    return cover_font("Medium", size), BASE
 
 def line_heights(lines, size, acc):
     hs=[]
@@ -260,7 +261,7 @@ def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
 def finish(d, img, cat, tags, acc, y, out, x0=None, sx=None):
     if tags:
         y += 30
-        tf=plex_font("Regular", 27)
+        tf=cover_font("Regular", 27)
         x=MARGIN if x0 is None else x0
         for tg in tags[:5]:
             label='#'+tg
@@ -269,7 +270,7 @@ def finish(d, img, cat, tags, acc, y, out, x0=None, sx=None):
             d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
             d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
             x+=tw+34+14
-    d.text((MARGIN if sx is None else sx, H-72), 'aoiro-labo.com', font=plex_font("Regular", 30), fill=(148,170,200))
+    d.text((MARGIN if sx is None else sx, H-72), 'aoiro-labo.com', font=cover_font("Regular", 30), fill=(148,170,200))
     d.rectangle([0,H-10,W,H], fill=acc)
     img.save(out, quality=90)
 
@@ -438,14 +439,14 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                d.text((MARGIN, y), cat, font=plex_font("SemiBold", 34), fill=acc); y += 34+30
+                d.text((MARGIN, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
             if bracket:
-                d.text((MARGIN, y), bracket, font=plex_font("SemiBold", 40), fill=SUBC); y += bracket_h
+                d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
             draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
             y += block_h
             if tags:
                 y += 30
-                tf=plex_font("Regular", 27)
+                tf=cover_font("Regular", 27)
                 x=MARGIN
                 for tg in tags[:5]:
                     label='#'+tg
@@ -471,7 +472,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             md.rounded_rectangle([0,0,nw,nh], radius=14, fill=255)
             img.paste(thumb,(px,py),mask)
             d.rounded_rectangle([px,py,px+nw,py+nh], radius=14, outline=(120,135,160), width=2)
-            d.text((MARGIN, H-72), 'aoiro-labo.com', font=plex_font("Regular", 30), fill=(148,170,200))
+            d.text((MARGIN, H-72), 'aoiro-labo.com', font=cover_font("Regular", 30), fill=(148,170,200))
             d.rectangle([0,H-10,W,H], fill=acc)
             img.save(out, quality=90)
             print('made (natural)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
@@ -481,7 +482,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         # try zone composition: hero block on the right, white
         ksize=300
         while ksize>90:
-            kw_font=plex_font("Bold", ksize)
+            kw_font=cover_font("Bold", ksize)
             kw_w=d.textlength(hero, font=kw_font)
             if kw_w <= W*0.46: break
             ksize-=12
@@ -504,16 +505,16 @@ def make(path, out, hero_override=None, emphasis_override=None):
             block_h=sum(heights)
             kw_w_max = kw_w
             # size the hero so its ink height matches the left text block height
-            _f100=plex_font("Bold", 100)
+            _f100=cover_font("Bold", 100)
             _bb=d.textbbox((0,0), hero, font=_f100)
             _ratio=(_bb[3]-_bb[1])/100.0
             ksize=max(60, int(block_h*0.96/_ratio))
             while ksize>60:
-                kw_font=plex_font("Bold", ksize)
+                kw_font=cover_font("Bold", ksize)
                 kw_w=d.textlength(hero, font=kw_font)
                 if kw_w <= kw_w_max: break
                 ksize-=8
-            kw_font=plex_font("Bold", ksize)
+            kw_font=cover_font("Bold", ksize)
             kw_w=d.textlength(hero, font=kw_font)
             kw_bb=d.textbbox((0,0), hero, font=kw_font)
             line_ws=[]; _idx=0
@@ -524,9 +525,9 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                d.text((gx, y), cat, font=plex_font("SemiBold", 34), fill=acc); y += 34+30
+                d.text((gx, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
             if bracket:
-                d.text((gx, y), bracket, font=plex_font("SemiBold", 40), fill=SUBC); y += bracket_h
+                d.text((gx, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
             title_top = y
             draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
             d.text((gx + maxlw + 14, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
@@ -568,9 +569,9 @@ def make(path, out, hero_override=None, emphasis_override=None):
     total = cat_h + block_h + (30 if tags else 0) + chips_h
     y = (H - total)//2 - 14
     if cat:
-        d.text((MARGIN, y), cat, font=plex_font("SemiBold", 34), fill=acc); y += 34+30
+        d.text((MARGIN, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
     if bracket:
-        d.text((MARGIN, y), bracket, font=plex_font("SemiBold", 40), fill=SUBC); y += bracket_h
+        d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
     draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
     y += block_h
     finish(d, img, cat, tags, acc, y, out)
