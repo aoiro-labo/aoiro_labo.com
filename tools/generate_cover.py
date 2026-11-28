@@ -492,7 +492,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             for ln in lines:
                 line_ws.append(sum(widths[_idx:_idx+len(ln)])); _idx+=len(ln)
             maxlw=max(line_ws)
-            gx = max(MARGIN, (W - (maxlw + 48 + kw_w))//2)
+            gx = max(MARGIN, (W - (maxlw + 14 + kw_w))//2)
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
@@ -501,7 +501,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
                 d.text((gx, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
             title_top = y
             draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
-            d.text((gx + maxlw + 48, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
+            d.text((gx + maxlw + 14, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
             y += block_h
             finish(d, img, cat, tags, acc, y, out, x0=gx)
             print('made (zone)', out, '| hero:', hero)
