@@ -12,7 +12,7 @@ cover: "/images/cover-fantia-backnumber.jpg"
 images:
     - "/images/cover-fantia.jpg"
 categories:
-    - 雑記
+    - サブスク
 tags:
     - Fantia
     - サブスクリプション
