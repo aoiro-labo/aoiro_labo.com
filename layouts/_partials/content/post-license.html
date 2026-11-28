@@ -66,6 +66,7 @@
               class="text-primary hover:text-primary/80 transition-colors break-all hyphens-auto duration-200">
               {{ printf "%s://%s%s" $u.Scheme $u.Host $u.Path }}
             </a>
+            <button type="button" class="license-copy-btn" data-copy-url="{{ .Permalink }}">URLをコピー</button>
           </p>
 
           <!-- 许可证类型 -->

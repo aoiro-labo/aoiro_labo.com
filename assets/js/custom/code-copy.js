@@ -34,3 +34,19 @@ document.addEventListener('DOMContentLoaded', function () {
     host.appendChild(btn);
   });
 });
+
+// Copy-URL button in the license box
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('[data-copy-url]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy-url');
+      function done() {
+        btn.textContent = 'コピーしました';
+        setTimeout(function () { btn.textContent = 'URLをコピー'; }, 1500);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(done);
+      } else { done(); }
+    });
+  });
+});

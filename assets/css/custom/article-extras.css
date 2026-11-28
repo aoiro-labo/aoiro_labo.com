@@ -47,3 +47,17 @@ h4:hover .heading-anchor,
 .prose img {
   cursor: zoom-in;
 }
+
+.license-copy-btn {
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid currentColor;
+  opacity: 0.75;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.license-copy-btn:hover {
+  opacity: 1;
+}
