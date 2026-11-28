@@ -28,12 +28,33 @@ def fm_of(path):
 BOLD=r"C:\Windows\Fonts\YuGothB.ttc"
 REG=r"C:\Windows\Fonts\YuGothM.ttc"
 FONT_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
-ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-SemiBold.ttf","Bold":"ZenKakuGothicNew-Bold.ttf"}
+ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-Medium.ttf","Bold":"ZenKakuGothicNew-Bold.ttf"}
 def cover_font(weight, size):
     p = os.path.join(FONT_DIR, ZEN_MAP[weight])
     if os.path.exists(p):
         return ImageFont.truetype(p, size)
     return ImageFont.truetype(BOLD if weight in ("Bold", "SemiBold") else REG, size)
+
+def draw_semi(img, pos, text, size, fill, baseline=False):
+    # fabricated SemiBold: supersample the Medium mask and dilate it halfway toward Bold
+    ss=4
+    f=cover_font("Medium", size*ss)
+    w=int(f.getlength(text))+4*ss
+    h=size*2*ss
+    mask=Image.new('L', (w, h), 0)
+    md=ImageDraw.Draw(mask)
+    if baseline:
+        md.text((2*ss, size*ss), text, font=f, fill=255, anchor='ls')
+    else:
+        md.text((2*ss, 0), text, font=f, fill=255)
+    r=max(1, round(size*0.03))
+    mask=mask.filter(ImageFilter.MaxFilter(2*r+1))
+    mask=mask.resize((w//ss, h//ss), Image.LANCZOS)
+    layer=Image.new('RGB', mask.size, fill)
+    if baseline:
+        img.paste(layer, (int(pos[0])-2, int(pos[1])-size), mask)
+    else:
+        img.paste(layer, (int(pos[0])-2, int(pos[1])), mask)
 W,H=1200,630
 MARGIN=64
 WHITE=(248,250,252)
@@ -243,7 +264,7 @@ def line_heights(lines, size, acc):
         hs.append(int(mx*1.38))
     return hs
 
-def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
+def draw_lines(d, img, items, lines, widths, x0, y_top, size, acc, heights):
     y=y_top
     idx=0
     for li, ln in enumerate(lines):
@@ -253,7 +274,10 @@ def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
         for pos,(text, cls, glue) in enumerate(ln):
             fnt,col=style_of(cls, size, acc)
             if not (text=='：' and pos==len(ln)-1):
-                d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
+                if cls=='accent':
+                    draw_semi(img, (x, baseline), text, fnt.size, col, baseline=True)
+                else:
+                    d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
             x+=widths[idx]; idx+=1
         y+=heights[li]
     return y
@@ -437,10 +461,10 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                d.text((MARGIN, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
+                draw_semi(img, (MARGIN, y), cat, 34, acc); y += 34+30
             if bracket:
-                d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
-            draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
+                draw_semi(img, (MARGIN, y), bracket, 40, SUBC); y += bracket_h
+            draw_lines(d, img, items, lines, widths, MARGIN, y, size, acc, heights)
             y += block_h
             if tags:
                 y += 30
@@ -523,11 +547,11 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                d.text((gx, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
+                draw_semi(img, (gx, y), cat, 34, acc); y += 34+30
             if bracket:
-                d.text((gx, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
+                draw_semi(img, (gx, y), bracket, 40, SUBC); y += bracket_h
             title_top = y
-            draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
+            draw_lines(d, img, items, lines, widths, gx, y, size, acc, heights)
             d.text((gx + maxlw + 14, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
             y += block_h
             finish(d, img, cat, tags, acc, y, out, x0=gx, sx=gx)
@@ -567,10 +591,10 @@ def make(path, out, hero_override=None, emphasis_override=None):
     total = cat_h + block_h + (30 if tags else 0) + chips_h
     y = (H - total)//2 - 14
     if cat:
-        d.text((MARGIN, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
+        draw_semi(img, (MARGIN, y), cat, 34, acc); y += 34+30
     if bracket:
-        d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
-    draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
+        draw_semi(img, (MARGIN, y), bracket, 40, SUBC); y += bracket_h
+    draw_lines(d, img, items, lines, widths, MARGIN, y, size, acc, heights)
     y += block_h
     finish(d, img, cat, tags, acc, y, out)
     print('made (flow)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
