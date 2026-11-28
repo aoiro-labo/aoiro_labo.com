@@ -61,6 +61,12 @@ def draw_semi(img, pos, text, size, fill, baseline=False):
         img.paste(layer, (int(pos[0])-2, int(pos[1])-size), mask)
     else:
         img.paste(layer, (int(pos[0])-2, int(pos[1])), mask)
+
+def draw_cat(d, img, x, y, cat, acc):
+    draw_semi(img, (x, y), cat, 42, acc)
+    w = d.textlength(cat, font=cover_font("Medium", 42)) + 2
+    d.rectangle([x, y+52, x+w, y+55], fill=acc)
+    return 42+30
 W,H=1200,630
 MARGIN=64
 WHITE=(248,250,252)
@@ -455,7 +461,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         cat = ''
     img = background(acc)
     d = ImageDraw.Draw(img)
-    cat_h = 34+30 if cat else 0
+    cat_h = 42+30 if cat else 0
     chips_h = 48 if tags else 0
     cat_h += bracket_h
 
@@ -523,7 +529,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                draw_semi(img, (MARGIN, y), cat, 34, acc); y += 34+30
+                y += draw_cat(d, img, MARGIN, y, cat, acc)
             if bracket:
                 draw_semi(img, (MARGIN, y), bracket, 40, SUBC); y += bracket_h
             draw_lines(d, img, items, lines, widths, MARGIN, y, size, acc, heights)
@@ -626,7 +632,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                draw_semi(img, (gx, y), cat, 34, acc); y += 34+30
+                y += draw_cat(d, img, gx, y, cat, acc)
             if bracket:
                 draw_semi(img, (gx, y), bracket, 40, SUBC); y += bracket_h
             title_top = y
@@ -670,7 +676,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
     total = cat_h + block_h + (30 if tags else 0) + chips_h
     y = (H - total)//2 - 14
     if cat:
-        draw_semi(img, (MARGIN, y), cat, 34, acc); y += 34+30
+        y += draw_cat(d, img, MARGIN, y, cat, acc)
     if bracket:
         draw_semi(img, (MARGIN, y), bracket, 40, SUBC); y += bracket_h
     draw_lines(d, img, items, lines, widths, MARGIN, y, size, acc, heights)
