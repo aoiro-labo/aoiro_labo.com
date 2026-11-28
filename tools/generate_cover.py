@@ -115,19 +115,10 @@ def classify(atoms, emph, hero):
         if forced=='sub':
             emit(a,'sub'); continue
         if a in COMPOUND:
-            if out and out[-1][1]=='base' and out[-1][0].endswith(NOSPLIT_END):
-                t0,c0,g0 = out[-1]
-                out[-1] = (t0+a, c0, g0)
-            else:
-                emit(a,'sub',glue=True)
-            continue
+            emit(a,'sub',glue=True); continue
         _pref = next((c for c in COMPOUND if a.startswith(c) and len(a)>len(c)), None)
         if _pref:
-            if out and out[-1][1]=='base' and out[-1][0].endswith(NOSPLIT_END):
-                t0,c0,g0 = out[-1]
-                out[-1] = (t0+_pref, c0, g0)
-            else:
-                emit(_pref,'sub',glue=True)
+            emit(_pref,'sub',glue=True)
             a = a[len(_pref):]
             if a in emph:
                 emit(a,'accent'); continue
@@ -187,7 +178,7 @@ def layout(items, widths, maxw, maxlines, balance_last=False, min_fill=0.0):
             if j<n-1:
                 if items[j+1][2]:  # next is glue: cannot break here
                     continue
-                if items[j][0].endswith('・'):  # never break right after a nakaguro
+                if items[j][0].endswith(('・','･')):  # never break right after a nakaguro
                     continue
                 slack=maxw-w
                 cost=slack*slack/700.0
@@ -352,6 +343,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
     if emphasis_override is not None: emph = emphasis_override
     disp = title.replace('（','(').replace('）',')')
     bracket, disp = split_bracket_prefix(disp)
+    disp = disp.replace('・', '･')
     bracket_h = 30+22 if bracket else 0
     acc = accent_for(cat)
     img = background(acc)
