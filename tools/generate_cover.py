@@ -151,6 +151,8 @@ def classify(atoms, emph, hero):
             emit(a,'sub'); continue
         if a=='：':
             emit(a,'sub',glue=True); continue
+        if a.endswith(' ') and a.strip() and all(ch in PARTICLES for ch in a.strip()):
+            emit(a,'sub',glue=True); continue
         if a in COMPOUND:
             emit(a,'sub',glue=True); continue
         _pref = next((c for c in COMPOUND if a.startswith(c) and len(a)>len(c)), None)
