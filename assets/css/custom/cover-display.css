@@ -33,3 +33,13 @@ article.group img.object-cover {
     padding-right: 27rem;
   }
 }
+
+/* ホバーでサムネイルが薄れたり覆われたりする効果を切る
+   （テーマ側に group-hover:opacity-90 のパネルと、ホバーで被さる
+     グラデーション遮罩 div があるため） */
+article.group:hover div.absolute.right-0.w-80 {
+  opacity: 1;
+}
+article.group div.absolute.right-0.w-80.opacity-0 {
+  display: none;
+}
