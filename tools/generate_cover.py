@@ -249,17 +249,17 @@ def background(acc):
     return ImageChops.add(img, glow)
 
 def style_of(cls, size, acc):
-    if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE
-    if cls=='accent': return cover_font("SemiBold", int(size*1.15)), acc
-    if cls=='sub': return cover_font("Regular", max(20,int(size*0.8))), SUBC
-    return cover_font("Medium", size), BASE
+    if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE, False
+    if cls=='accent': return cover_font("SemiBold", int(size*1.15)), acc, True
+    if cls=='sub': return cover_font("SemiBold", max(20,int(size*0.8))), SUBC, True
+    return cover_font("SemiBold", size), BASE, True
 
 def line_heights(lines, size, acc):
     hs=[]
     for ln in lines:
         mx=size
         for (text, cls, glue) in ln:
-            fnt,_=style_of(cls, size, acc)
+            fnt,_,_=style_of(cls, size, acc)
             mx=max(mx, fnt.size)
         hs.append(int(mx*1.38))
     return hs
@@ -272,9 +272,9 @@ def draw_lines(d, img, items, lines, widths, x0, y_top, size, acc, heights):
         baseline=y+mx
         x=x0
         for pos,(text, cls, glue) in enumerate(ln):
-            fnt,col=style_of(cls, size, acc)
+            fnt,col,semi=style_of(cls, size, acc)
             if not (text=='：' and pos==len(ln)-1):
-                if cls=='accent':
+                if semi:
                     draw_semi(img, (x, baseline), text, fnt.size, col, baseline=True)
                 else:
                     d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
@@ -435,7 +435,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             for size_try in range(96, 39, -4):
                 widths=[]
                 for (text, cls, glue) in items:
-                    fnt,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
+                    fnt,_,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
                 lt=layout(items, widths, col_w, ml_target, balance_last=True, min_fill=0.5)
                 if not lt or len(lt)!=ml_target: continue
                 hs=line_heights(lt, size_try, acc)
@@ -515,7 +515,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         while size>=52:
             widths=[]
             for (text, cls, glue) in items:
-                fnt,_=style_of(cls, size, acc); widths.append(d.textlength(text, font=fnt))
+                fnt,_,_=style_of(cls, size, acc); widths.append(d.textlength(text, font=fnt))
             for ml in (2,3):
                 lines=layout(items, widths, col_w, ml)
                 if lines: break
@@ -564,7 +564,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         for size_try in range(100, 39, -4):
             widths=[]
             for (text, cls, glue) in items:
-                fnt,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
+                fnt,_,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
             lt=layout(items, widths, maxw, ml_target, balance_last=True, min_fill=0.58)
             if not lt or len(lt)!=ml_target: continue
             line_ws=[]; idx=0
