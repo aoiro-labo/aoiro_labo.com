@@ -382,6 +382,39 @@ def paste_banner(img, src):
         md.line([(x,0),(x,ph)], fill=v)
     img.paste(src,(W-pw,0),mask)
 
+def auto_pick(disp, cat):
+    # when cover_keyword / cover_emphasis are unset, pick from the title itself:
+    # quoted phrases first, then latin/katakana standouts, then long words
+    items = classify(split_emph(tokenize(disp), [], ''), [], '')
+    merged=[]
+    for (t,c,g) in items:
+        if merged and c=='base' and t.strip() and merged[-1][1]=='base' and re.fullmatch(r'[A-Za-z0-9#@ ]+', merged[-1][0]) and re.fullmatch(r'[A-Za-z0-9#@ ]+', t):
+            pt,pc,pg,pp = merged[-1]
+            merged[-1] = (pt + ('' if pt.endswith(' ') else ' ') + t, pc, pg, pp+[t.strip()])
+        else:
+            merged.append((t,c,g,[t.strip()]))
+    def score(core, last):
+        sc=0
+        if core.startswith(('「','『')): sc+=100
+        if '#' in core: sc+=25
+        if re.fullmatch(r'[A-Za-z0-9#@ ]+', core): sc+=40
+        elif re.fullmatch(r'[ァ-ヶー･]+', core): sc+=35
+        if len(core)>=6: sc+=15
+        elif len(core)>=4: sc+=8
+        if last and len(core)>=3: sc+=10
+        return sc
+    n=len(merged)
+    cands=[]
+    for i,(t,c,g,parts) in enumerate(merged):
+        if c!='base': continue
+        core=t.strip()
+        if not core or core==cat: continue
+        last = (i==n-1) or (i==n-2 and merged[-1][1]=='sub')
+        sc=score(core, last)
+        if sc>=30: cands.append((sc, i, core, parts))
+    cands.sort(key=lambda x:(-x[0], x[1]))
+    return cands
+
 def make(path, out, hero_override=None, emphasis_override=None):
     title, cat, tags, kw, emph, cimg, slug = fm_of(path)
     hero = hero_override if hero_override is not None else kw
@@ -391,6 +424,21 @@ def make(path, out, hero_override=None, emphasis_override=None):
     disp = disp.replace('・', '･')
     bracket_h = 40+24 if bracket else 0
     acc = accent_for(cat)
+    cands = auto_pick(disp, cat)
+    if not hero:
+        singles = [c for c in cands if len(c[3])==1]
+        if singles and singles[0][0]>=45:
+            hero = singles[0][2]
+            print('  auto hero:', hero)
+    if not emph and cands:
+        emph = []
+        taken = 0
+        for (sc,i,c,parts) in sorted(cands, key=lambda x:x[1]):
+            if taken>=2: break
+            if c.strip('「」『』')==hero.strip('「」『』'): continue
+            emph.extend(parts)
+            taken += 1
+        if emph: print('  auto accents:', emph)
     if cat and hero and cat == hero:
         cat = ''
     img = background(acc)
