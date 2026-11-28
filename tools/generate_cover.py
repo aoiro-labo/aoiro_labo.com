@@ -28,7 +28,7 @@ def fm_of(path):
 BOLD=r"C:\Windows\Fonts\YuGothB.ttc"
 REG=r"C:\Windows\Fonts\YuGothM.ttc"
 FONT_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
-ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-Bold.ttf","Bold":"ZenKakuGothicNew-Black.ttf"}
+ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-SemiBold.ttf","Bold":"ZenKakuGothicNew-Black.ttf"}
 def cover_font(weight, size):
     p = os.path.join(FONT_DIR, ZEN_MAP[weight])
     if os.path.exists(p):
