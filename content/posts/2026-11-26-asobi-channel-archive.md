@@ -46,10 +46,10 @@ tags:
 ポータルの案内の文言は「※アーカイブコンテンツ（過去配信分）は引き続きプレミアム会員向けコンテンツとしてご視聴いただけます」で、期限や条件の注記は付いていなかった。あわせて、プレミアム会員向けの新規コンテンツ自体は移管に伴って終了することも書かれている。「新しいものは終わるが、過去分は残る」という切り分けが、案内の前提だった。会員側から見れば、月額を払い続ける理由が「過去分を見られること」に絞られた案内でもある。その過去分に、期限は書かれていなかった。ASOBI CHANNEL側に残ったシャニラジのアーカイブは#394までで、YouTube側は#395から始まっている。
 
 ![アイドルマスターポータルの2026年6月1日のお知らせ。移管スケジュールと「アーカイブコンテンツ（過去配信分）は引き続きプレミアム会員向けコンテンツとしてご視聴いただけます」の注記](https://images.aoiro-labo.com/blog/asobi-portal-june.jpg "6月の移管のお知らせ（アイドルマスターポータル）")
-出典：[配信プラットフォーム移管のお知らせ（アイドルマスターポータル）](https://idolmaster-official.jp/news/01_18999)（[Wayback Machineの保存版](https://web.archive.org/web/20261128070007/https://idolmaster-official.jp/news/01_18999)）
+{{< source title="配信プラットフォーム移管のお知らせ（アイドルマスターポータル）" url="https://idolmaster-official.jp/news/01_18999" archive="https://web.archive.org/web/20261128070007/https://idolmaster-official.jp/news/01_18999" >}}
 
 ![アイドルマスター公式X（@imas_official）が2026年6月1日に投稿した、配信プラットフォーム移管のお知らせ](https://images.aoiro-labo.com/blog/asobi-tweet-june.jpg "アイドルマスター公式Xの移管お知らせポスト")
-出典：[アイドルマスター公式Xのポスト](https://x.com/imas_official/status/2061278908788723820)
+{{< source title="アイドルマスター公式Xのポスト" url="https://x.com/imas_official/status/2061278908788723820" >}}
 
 ### メンテ入りから終了発表まで
 
@@ -67,7 +67,7 @@ tags:
 この間、グッズ側だけが10月29日に戻り、CHANNELと電子書籍はメンテナンス表示のままだった。CHANNELが戻ったのは11月26日、終了発表と同時だった。
 
 ![「ASOBI STORE(電子書籍)」サービス終了のお知らせ。再開することなくサービスを終了すると書かれている](https://images.aoiro-labo.com/blog/asobi-ebook-end.jpg "「ASOBI STORE(電子書籍)」サービス終了のお知らせ")
-出典：[「ASOBI STORE(電子書籍)」サービス終了のお知らせ（ASOBI STORE）](https://shop.asobistore.jp/news/324)（[Wayback Machineの保存版](https://web.archive.org/web/20261128065947/https://shop.asobistore.jp/news/324)）
+{{< source title="「ASOBI STORE(電子書籍)」サービス終了のお知らせ（ASOBI STORE）" url="https://shop.asobistore.jp/news/324" archive="https://web.archive.org/web/20261128065947/https://shop.asobistore.jp/news/324" >}}
 
 ## PHP2Shellと「直さず終わらせる」判断
 
@@ -95,15 +95,15 @@ IPAも長期間更新していないシステムについて「開発時の資�
 結果はこうなった。電子書籍は「既存のシステム環境では、当該脆弱性への対応を行い、十分なセキュリティ水準を確保したうえでサービスを再開することが困難」とされ、メンテナンスから再開しないまま11月26日で終了した。終了扱いになった後も、サイトの表示は緊急メンテナンス画面のまま変わっていない。電子書籍のバックエンドはPHPのフレームワーク製で、動いていたPHP自体もサポート切れの世代だったと見られる。修正版が存在しない世代では、直す作業は丸ごと自前になる。停止期間の終わりは今も「未定」と表示が残っている。
 
 ![ASOBI STORE公式X（@asobistore）が2026年11月26日に投稿した、サービス終了のお知らせ](https://images.aoiro-labo.com/blog/asobi-tweet-end.jpg "ASOBI STORE公式Xのサービス終了のお知らせポスト")
-出典：[ASOBI STORE公式Xのポスト](https://x.com/asobistore/status/2125856329847759300)
+{{< source title="ASOBI STORE公式Xのポスト" url="https://x.com/asobistore/status/2125856329847759300" >}}
 
 ![電子書籍の緊急メンテナンスのお知らせページ。停止日程は2026年10月21日21:00から未定と表示されている](https://images.aoiro-labo.com/blog/asobi-ebook-maintenance.jpg "今も表示される緊急メンテナンスのお知らせ")
-出典：[ASOBI STORE(電子書籍)](https://book.asobistore.jp/)（現在はメンテナンスページに転送される。[Wayback Machineの保存版](https://web.archive.org/web/20261128070150/https://mainte.asobistore.jp/)）
+{{< source title="ASOBI STORE(電子書籍)" url="https://book.asobistore.jp/" archive="https://web.archive.org/web/20261128070150/https://mainte.asobistore.jp/" note="現在はメンテナンスページに転送される" >}}
 
 ASOBI CHANNELは脆弱性への対応自体は完了し、「現在は安全にご利用いただける状態」とされた。それでも「現在のシステム環境では、今後の保守・更新等を継続していくことが困難」として、2027年3月31日での終了が決まった。
 
 ![「ASOBI CHANNEL」サービス終了のお知らせ。脆弱性への対応は完了し現在は安全に利用できるとしたうえで、2027年3月31日の終了を告知している](https://images.aoiro-labo.com/blog/asobi-channel-end.jpg "「ASOBI CHANNEL」サービス終了のお知らせ")
-出典：[「ASOBI CHANNEL」サービス終了のお知らせ（ASOBI CHANNEL）](https://asobichannel.asobistore.jp/information/wnlh-w2gbbf4)（[Wayback Machineの保存版](https://web.archive.org/web/20261128065927/https://asobichannel.asobistore.jp/information/wnlh-w2gbbf4)）
+{{< source title="「ASOBI CHANNEL」サービス終了のお知らせ（ASOBI CHANNEL）" url="https://asobichannel.asobistore.jp/information/wnlh-w2gbbf4" archive="https://web.archive.org/web/20261128065927/https://asobichannel.asobistore.jp/information/wnlh-w2gbbf4" >}}
 
 ### CHANNELの「PHP」とは何か
 
@@ -209,7 +209,7 @@ Wayback Machineに本文が残らなかった理由を層ごとに並べると�
 同じ11月26日の発表でも、番組ごとにアーカイブの扱いは分かれた。
 
 ![アイドルマスターポータルの2026年11月26日のお知らせ。シャニラジのアーカイブは公開終了、初星学園放送部はYouTubeで順次再公開予定と書かれている](https://images.aoiro-labo.com/blog/asobi-portal-nov.jpg "番組アーカイブの取り扱いについて（アイドルマスターポータル）")
-出典：[番組アーカイブの取り扱いについて（アイドルマスターポータル）](https://idolmaster-official.jp/news/01_20431)（[Wayback Machineの保存版](https://web.archive.org/web/20261128070039/https://idolmaster-official.jp/news/01_20431)）
+{{< source title="番組アーカイブの取り扱いについて（アイドルマスターポータル）" url="https://idolmaster-official.jp/news/01_20431" archive="https://web.archive.org/web/20261128070039/https://idolmaster-official.jp/news/01_20431" >}}
 
 ### シャニラジは公開終了で再公開なし
 
