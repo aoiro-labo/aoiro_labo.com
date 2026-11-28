@@ -14,13 +14,18 @@ def fm_of(path):
     fm=t.split('---')[1]
     g=lambda pat: (re.search(pat, fm).group(1).strip() if re.search(pat, fm) else '')
     title=g(r'title:\s*"?([^"\n]+)')
-    cats=re.findall(r'categories:\s*\n((?:\s*-\s*.+\n)+)', fm)
-    cat=re.findall(r'-\s*"?([^"\n]+)', cats[0])[0].strip() if cats else ''
-    tg=re.findall(r'tags:\s*\n((?:\s*-\s*.+\n)+)', fm)
-    tags=[x.strip().strip('"') for x in re.findall(r'-\s*"?([^"\n]+)', tg[0])] if tg else []
+    def list_of(key):
+        m=re.search(key + r':\s*\[([^\]]*)\]', fm)
+        if m:
+            return [x.strip().strip('"').strip("'") for x in m.group(1).split(',') if x.strip()]
+        b=re.findall(key + r':\s*\n((?:\s*-\s*.+\n)+)', fm)
+        if b:
+            return [x.strip().strip('"') for x in re.findall(r'-\s*"?([^"\n]+)', b[0])]
+        return []
+    _cl=list_of('categories'); cat=_cl[0] if _cl else ''
+    tags=list_of('tags')
     kw=g(r'cover_keyword:\s*"?([^"\n]+)')
-    em=re.findall(r'cover_emphasis:\s*\n((?:\s*-\s*.+\n)+)', fm)
-    emph=[x.strip().strip('"') for x in re.findall(r'-\s*"?([^"\n]+)', em[0])] if em else []
+    emph=list_of('cover_emphasis')
     cimg=g(r'cover_image:\s*"?([^"\n]+)')
     slug=g(r'slug:\s*"?([^"\n]+)')
     return title, cat, tags, kw, emph, cimg, slug
@@ -561,22 +566,39 @@ def make(path, out, hero_override=None, emphasis_override=None):
             ksize-=12
         body = disp[:-len(hero)]
         items = classify(split_emph(tokenize(body), emph, ''), emph, '')
-        col_w = W - MARGIN*2 - int(kw_w) - 48
-        size=76; lines=None; widths=None
-        while size>=52:
-            widths=[]
+        cap_w = int(kw_w)
+        size=None; lines=None; widths=None; col_w=None; hero_w_cap=cap_w
+        # prefer a 2-line body: shrink the hero (down to 0.24W) before shrinking the type
+        for s_try in range(76, 57, -2):
+            w_try=[]
             for (text, cls, glue) in items:
-                fnt,_,_=style_of(cls, size, acc); widths.append(d.textlength(text, font=fnt))
-            for ml in (2,3):
-                lines=layout(items, widths, col_w, ml)
-                if lines: break
+                fnt,_,_=style_of(cls, s_try, acc); w_try.append(d.textlength(text, font=fnt))
+            hw = cap_w
+            while hw >= int(W*0.24):
+                cw = W - MARGIN*2 - hw - 48
+                ln = layout(items, w_try, cw, 2)
+                if ln:
+                    size, lines, widths, col_w, hero_w_cap = s_try, ln, w_try, cw, hw
+                    break
+                hw -= 24
             if lines: break
-            size-=4
+        if lines is None:
+            col_w = W - MARGIN*2 - cap_w - 48
+            size=76
+            while size>=52:
+                widths=[]
+                for (text, cls, glue) in items:
+                    fnt,_,_=style_of(cls, size, acc); widths.append(d.textlength(text, font=fnt))
+                for ml in (2,3):
+                    lines=layout(items, widths, col_w, ml)
+                    if lines: break
+                if lines: break
+                size-=4
         if lines:
             zone=True
             heights=line_heights(lines, size, acc)
             block_h=sum(heights)
-            kw_w_max = kw_w
+            kw_w_max = hero_w_cap
             # size the hero so its ink height matches the left text block height
             _f100=cover_font("Bold", 100)
             _bb=d.textbbox((0,0), hero, font=_f100)
