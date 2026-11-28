@@ -239,11 +239,11 @@ def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
         y+=heights[li]
     return y
 
-def finish(d, img, cat, tags, acc, y, out):
+def finish(d, img, cat, tags, acc, y, out, x0=None):
     if tags:
         y += 30
         tf=ImageFont.truetype(REG, 27)
-        x=MARGIN
+        x=MARGIN if x0 is None else x0
         for tg in tags[:5]:
             label='#'+tg
             tw=d.textlength(label, font=tf)
@@ -488,17 +488,22 @@ def make(path, out, hero_override=None, emphasis_override=None):
             kw_font=ImageFont.truetype(BOLD, ksize)
             kw_w=d.textlength(hero, font=kw_font)
             kw_bb=d.textbbox((0,0), hero, font=kw_font)
+            line_ws=[]; _idx=0
+            for ln in lines:
+                line_ws.append(sum(widths[_idx:_idx+len(ln)])); _idx+=len(ln)
+            maxlw=max(line_ws)
+            gx = max(MARGIN, (W - (maxlw + 48 + kw_w))//2)
             total = cat_h + block_h + (30 if tags else 0) + chips_h
             y = (H - total)//2 - 14
             if cat:
-                d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
+                d.text((gx, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += 34+30
             if bracket:
-                d.text((MARGIN, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
+                d.text((gx, y), bracket, font=ImageFont.truetype(BOLD, 30), fill=SUBC); y += bracket_h
             title_top = y
-            draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
-            d.text((W-MARGIN-kw_w, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
+            draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
+            d.text((gx + maxlw + 48, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
             y += block_h
-            finish(d, img, cat, tags, acc, y, out)
+            finish(d, img, cat, tags, acc, y, out, x0=gx)
             print('made (zone)', out, '| hero:', hero)
             return
     # full-width flow (hero inline if it is a suffix, else plain)
