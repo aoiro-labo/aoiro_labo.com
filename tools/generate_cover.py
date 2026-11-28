@@ -88,8 +88,8 @@ def tokenize(text):
     atoms=[]; i=0; n=len(text)
     while i<n:
         ch=text[i]
-        if ch=='「':
-            j=text.find('」', i)
+        if ch=='｢':
+            j=text.find('｣', i)
             if j!=-1 and j-i<=14:
                 seg=text[i:j+1]
                 if j+1<n and text[j+1] in 'はがをにへとのもや': seg+=text[j+1]; j+=1
@@ -113,7 +113,7 @@ def tokenize(text):
             c=text[j]; buf+=c; j+=1
             if c in 'はがをにへとのもや、。・：:！？!?': break
             if len(buf)>=12: break
-            if j<n and (text[j] in '「(' or re.match(r'[A-Za-z0-9#@ァ-ヶー]', text[j])): break
+            if j<n and (text[j] in '｢(' or re.match(r'[A-Za-z0-9#@ァ-ヶー]', text[j])): break
         atoms.append(buf); i=j
     merged=[]
     for a in atoms:
@@ -194,7 +194,7 @@ def classify(atoms, emph, hero):
         if len(a)>1 and a[-1] in PARTICLES and not a.endswith('から') and not a.endswith(NOSPLIT_END) and not a.endswith('ごとに'):
             emit(a[:-1],'base'); emit(a[-1],'sub',glue=True); continue
         emit(a,'base')
-    out=[(t,c,(g or (t and t[0] in '」）)'))) for (t,c,g) in out]
+    out=[(t,c,(g or (t and t[0] in '｣）)'))) for (t,c,g) in out]
     return out
 
 def split_emph(atoms, emph, hero):
@@ -208,8 +208,8 @@ def split_emph(atoms, emph, hero):
                 if e in rest: hit=e; break
             if not hit: out.append(rest); break
             pre,_,post = rest.partition(hit)
-            if pre.endswith('「') and post.startswith('」'):
-                pre=pre[:-1]; post=post[1:]; hit='「'+hit+'」'
+            if pre.endswith('｢') and post.startswith('｣'):
+                pre=pre[:-1]; post=post[1:]; hit='｢'+hit+'｣'
             if pre: out.append(pre)
             out.append(hit); rest=post
     return out
@@ -235,7 +235,7 @@ def layout(items, widths, maxw, maxlines, balance_last=False, min_fill=0.0):
                 m=j+1
                 while m<n and items[m][0].strip()=='':
                     m+=1
-                if m<n and (items[m][1]=='sub' or items[m][0].startswith(('、','。','）','」','』','】','・','･'))):
+                if m<n and (items[m][1]=='sub' or items[m][0].startswith(('、','。','）','｣','』','】','・','･'))):
                     continue  # a line must not start with a particle or closing mark
                 slack=maxw-w
                 cost=slack*slack/700.0
@@ -412,7 +412,7 @@ def auto_pick(disp, cat):
             merged.append((t,c,g,[t.strip()]))
     def score(core, last):
         sc=0
-        if core.startswith(('「','『')): sc+=100
+        if core.startswith(('｢','『')): sc+=100
         if '#' in core: sc+=25
         if re.fullmatch(r'[A-Za-z0-9#@ ]+', core): sc+=40
         elif re.fullmatch(r'[ァ-ヶー･]+', core): sc+=35
@@ -440,6 +440,9 @@ def make(path, out, hero_override=None, emphasis_override=None):
     disp = title.replace('（','(').replace('）',')')
     bracket, disp = split_bracket_prefix(disp)
     disp = disp.replace('・', '･')
+    disp = disp.replace('\u300c', '\uff62').replace('\u300d', '\uff63')
+    if hero: hero = hero.replace('\u300c', '\uff62').replace('\u300d', '\uff63')
+    emph = [e.replace('\u300c', '\uff62').replace('\u300d', '\uff63') for e in emph]
     bracket_h = 40+24 if bracket else 0
     acc = accent_for(cat)
     cands = auto_pick(disp, cat)
@@ -453,7 +456,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
         taken = 0
         for (sc,i,c,parts) in sorted(cands, key=lambda x:x[1]):
             if taken>=2: break
-            if c.strip('「」『』')==hero.strip('「」『』'): continue
+            if c.strip('｢｣『』')==hero.strip('｢｣『』'): continue
             emph.extend(parts)
             taken += 1
         if emph: print('  auto accents:', emph)
