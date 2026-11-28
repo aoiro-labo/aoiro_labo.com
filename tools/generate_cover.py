@@ -226,18 +226,12 @@ def line_heights(lines, size, acc):
     return hs
 
 def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
-    line_ws=[]; _i=0
-    for ln in lines:
-        line_ws.append(sum(widths[_i:_i+len(ln)])); _i+=len(ln)
-    maxlw=max(line_ws) if line_ws else 0
     y=y_top
     idx=0
     for li, ln in enumerate(lines):
         mx=max(style_of(cls, size, acc)[0].size for (text, cls, glue) in ln)
         baseline=y+mx
         x=x0
-        if len(lines)>=2 and li==len(lines)-1 and maxlw and line_ws[li] < maxlw*0.82:
-            x = x0 + (maxlw - line_ws[li])
         for (text, cls, glue) in ln:
             fnt,col=style_of(cls, size, acc)
             d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
