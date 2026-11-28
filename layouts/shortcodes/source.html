@@ -1,0 +1,14 @@
+{{- $title := .Get "title" -}}
+{{- $url := .Get "url" -}}
+{{- $archive := .Get "archive" -}}
+{{- $note := .Get "note" -}}
+<div class="source-line not-prose">
+  <span class="source-label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>出典</span>
+  <a class="source-chip" href="{{ $url }}" target="_blank" rel="noopener noreferrer">{{ $title }}</a>
+  {{- with $archive }}
+  <a class="source-chip" href="{{ . }}" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>Wayback保存版</a>
+  {{- end }}
+  {{- with $note }}
+  <span class="source-note">{{ . }}</span>
+  {{- end }}
+</div>
