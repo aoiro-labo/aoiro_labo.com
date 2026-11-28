@@ -250,7 +250,7 @@ def background(acc):
 
 def style_of(cls, size, acc):
     if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE, False
-    if cls=='accent': return cover_font("SemiBold", int(size*1.15)), acc, True
+    if cls=='accent': return cover_font("Bold", int(size*1.15)), acc, False
     if cls=='sub': return cover_font("SemiBold", max(20,int(size*0.8))), SUBC, True
     return cover_font("SemiBold", size), BASE, True
 
