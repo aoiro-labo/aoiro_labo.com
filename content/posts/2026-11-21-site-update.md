@@ -1,6 +1,11 @@
 ---
 title: サイトのアイコンとフォントを変えた
 slug: site-update
+cover: /images/cover-site-update.jpg
+cover_emphasis:
+  - アイコン
+  - フォント
+cover_image: none
 aliases:
     - "/posts/サイトのアイコンとフォントを変えた/"
 date: 2026-11-21T00:00:00+09:00

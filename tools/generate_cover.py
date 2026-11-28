@@ -1,0 +1,419 @@
+# 記事カバー画像ジェネレータ
+# 使い方: リポジトリ直下で  python tools/generate_cover.py content/posts/<記事>.md [複数可]
+# front matter の cover_keyword（最強調・白で最大）/ cover_emphasis（アクセント色）/
+# cover_image（auto=本文画像から自動選択 / none / URL・パス指定）を読み、
+# static/images/cover-<slug>.jpg を生成する。cover: の指定自体は front matter に書いておくこと。
+
+import sys, os, re
+sys.stdout.reconfigure(encoding="utf-8")
+os.chdir(r"C:\Users\aoiro\aoiro-labo")
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageChops
+
+def fm_of(path):
+    t=open(path,encoding='utf-8').read()
+    fm=t.split('---')[1]
+    g=lambda pat: (re.search(pat, fm).group(1).strip() if re.search(pat, fm) else '')
+    title=g(r'title:\s*"?([^"\n]+)')
+    cats=re.findall(r'categories:\s*\n((?:\s*-\s*.+\n)+)', fm)
+    cat=re.findall(r'-\s*"?([^"\n]+)', cats[0])[0].strip() if cats else ''
+    tg=re.findall(r'tags:\s*\n((?:\s*-\s*.+\n)+)', fm)
+    tags=[x.strip().strip('"') for x in re.findall(r'-\s*"?([^"\n]+)', tg[0])] if tg else []
+    kw=g(r'cover_keyword:\s*"?([^"\n]+)')
+    em=re.findall(r'cover_emphasis:\s*\n((?:\s*-\s*.+\n)+)', fm)
+    emph=[x.strip().strip('"') for x in re.findall(r'-\s*"?([^"\n]+)', em[0])] if em else []
+    cimg=g(r'cover_image:\s*"?([^"\n]+)')
+    slug=g(r'slug:\s*"?([^"\n]+)')
+    return title, cat, tags, kw, emph, cimg, slug
+
+BOLD=r"C:\Windows\Fonts\YuGothB.ttc"
+REG=r"C:\Windows\Fonts\YuGothM.ttc"
+W,H=1200,630
+MARGIN=64
+WHITE=(248,250,252)
+BASE=(240,244,248)
+SUBC=(196,205,219)
+CAT_COLORS={'開発':(168,140,250),'雑記':(246,173,58)}
+PALETTE=[(64,178,250),(52,211,153),(251,113,133),(96,165,250),(232,121,249)]
+def accent_for(cat):
+    if cat in CAT_COLORS: return CAT_COLORS[cat]
+    return PALETTE[sum(cat.encode('utf-8')) % len(PALETTE)] if cat else PALETTE[0]
+
+PARTICLES=set('はがをにへとのもや')
+CONJ={'そして','しかし','だから','でも','また','なお','すると','ただ'}
+AUX={'だった','でした','です','ます','ました','ない','なかった','でしょう','だろう','らしい','みたい','そう','たい'}
+
+def tokenize(text):
+    atoms=[]; i=0; n=len(text)
+    while i<n:
+        ch=text[i]
+        if ch=='「':
+            j=text.find('」', i)
+            if j!=-1 and j-i<=14:
+                seg=text[i:j+1]
+                if j+1<n and text[j+1] in 'はがをにへとのもや': seg+=text[j+1]; j+=1
+                atoms.append(seg); i=j+1; continue
+        if ch=='(':
+            j=text.find(')', i)
+            if j!=-1 and j-i<=18:
+                seg=text[i:j+1]
+                if j+1<n and text[j+1] in 'はがをにへとのもや': seg+=text[j+1]; j+=1
+                atoms.append(seg); i=j+1; continue
+        if re.match(r'[A-Za-z0-9#@]', ch):
+            j=i
+            while j<n and re.match(r'[A-Za-z0-9#@]', text[j]): j+=1
+            atoms.append(text[i:j]); i=j; continue
+        if re.match(r'[ァ-ヶー]', ch):
+            j=i
+            while j<n and re.match(r'[ァ-ヶー]', text[j]): j+=1
+            atoms.append(text[i:j]); i=j; continue
+        j=i; buf=''
+        while j<n:
+            c=text[j]; buf+=c; j+=1
+            if c in 'はがをにへとのもや、。・：:！？!?': break
+            if len(buf)>=12: break
+            if j<n and (text[j] in '「(' or re.match(r'[A-Za-z0-9#@ァ-ヶー]', text[j])): break
+        atoms.append(buf); i=j
+    merged=[]
+    for a in atoms:
+        if merged and a==' ': merged[-1]+=a
+        else: merged.append(a)
+    return [a for a in merged if a!='']
+
+def split_brackets(atoms):
+    out=[]
+    for a in atoms:
+        while a.startswith('【') and '】' in a:
+            k=a.index('】')+1
+            out.append((a[:k],'sub'))
+            a=a[k:]
+            if not a: break
+        if a: out.append((a,None))
+    return out
+
+def classify(atoms, emph, hero):
+    # returns list of (text, cls): cls in base/sub/accent/hero ; glue=True means a line must not start with it
+    atoms = split_brackets(atoms)
+    out=[]
+    def emit(text, cls, glue=False):
+        if text: out.append((text, cls, glue))
+    for a, forced in atoms:
+        if forced=='sub':
+            emit(a,'sub'); continue
+        if a==hero:
+            emit(a,'hero'); continue
+        if a in emph:
+            emit(a,'accent'); continue
+        if a.startswith('('):
+            k=a.find(')')
+            emit(a[:k+1],'sub')
+            rest=a[k+1:]
+            if rest: emit(rest,'sub',glue=True)
+            continue
+        if a in CONJ or a in AUX:
+            emit(a,'sub',glue=True); continue
+        if len(a)>1 and a[-1] in PARTICLES and not a.endswith('から'):
+            emit(a[:-1],'base'); emit(a[-1],'sub',glue=True); continue
+        emit(a,'base')
+    return out
+
+def split_emph(atoms, emph, hero):
+    targets=[e for e in emph+[hero] if e]
+    out=[]
+    for a in atoms:
+        rest=a
+        while rest:
+            hit=None
+            for e in targets:
+                if e in rest: hit=e; break
+            if not hit: out.append(rest); break
+            pre,_,post = rest.partition(hit)
+            if pre: out.append(pre)
+            out.append(hit); rest=post
+    return out
+
+def layout(items, widths, maxw, maxlines, balance_last=False, min_fill=0.0):
+    n=len(items)
+    INF=float('inf')
+    from functools import lru_cache
+    @lru_cache(maxsize=None)
+    def solve(i, k):
+        if i==n: return (0, [])
+        if k==0: return (INF, None)
+        best=(INF, None); w=0
+        for j in range(i, n):
+            w+=widths[j]
+            if w>maxw and j>i: break
+            line=items[i:j+1]
+            if j<n-1:
+                if items[j+1][2]:  # next is glue: cannot break here
+                    continue
+                slack=maxw-w
+                cost=slack*slack/700.0
+                if min_fill and w < maxw*min_fill: cost+=400
+                rc, rest = solve(j+1, k-1)
+                if rest is None: continue
+                cand=(cost+rc, [line]+rest)
+            else:
+                c=(maxw-w)*0.25
+                if balance_last:
+                    c=(maxw-w)*1.15
+                    if len(line)==1 and n>1: c+=500
+                cand=(c, [line])
+            if cand[0]<best[0]: best=cand
+        return best
+    return solve(0, maxlines)[1]
+
+def background(acc):
+    top=(19,29,48); bot=(8,12,22)
+    base = Image.new('RGB',(1,H))
+    for y in range(H):
+        base.putpixel((0,y),(int(top[0]+(bot[0]-top[0])*y/H), int(top[1]+(bot[1]-top[1])*y/H), int(top[2]+(bot[2]-top[2])*y/H)))
+    img = base.resize((W,H))
+    glow = Image.new('RGB',(W,H),(0,0,0))
+    gd = ImageDraw.Draw(glow)
+    tint=tuple(int((a*0.35 + b*0.65) * 0.42) for a, b in zip(acc, (70, 95, 150)))
+    gd.ellipse([W//2-560,-380,W//2+560,300], fill=tint)
+    glow = glow.filter(ImageFilter.GaussianBlur(150))
+    return ImageChops.add(img, glow)
+
+def style_of(cls, size, acc):
+    if cls=='hero': return ImageFont.truetype(BOLD, int(size*1.45)), WHITE
+    if cls=='accent': return ImageFont.truetype(BOLD, int(size*1.15)), acc
+    if cls=='sub': return ImageFont.truetype(BOLD, max(20,int(size*0.8))), SUBC
+    return ImageFont.truetype(BOLD, size), BASE
+
+def line_heights(lines, size, acc):
+    hs=[]
+    for ln in lines:
+        mx=size
+        for (text, cls, glue) in ln:
+            fnt,_=style_of(cls, size, acc)
+            mx=max(mx, fnt.size)
+        hs.append(int(mx*1.38))
+    return hs
+
+def draw_lines(d, items, lines, widths, x0, y_top, size, acc, heights):
+    y=y_top
+    idx=0
+    for li, ln in enumerate(lines):
+        mx=max(style_of(cls, size, acc)[0].size for (text, cls, glue) in ln)
+        baseline=y+mx
+        x=x0
+        for (text, cls, glue) in ln:
+            fnt,col=style_of(cls, size, acc)
+            d.text((x, baseline), text, font=fnt, fill=col, anchor='ls')
+            x+=widths[idx]; idx+=1
+        y+=heights[li]
+    return y
+
+def finish(d, img, cat, tags, acc, y, out):
+    if tags:
+        y += 30
+        tf=ImageFont.truetype(REG, 27)
+        x=MARGIN
+        for tg in tags[:5]:
+            label='#'+tg
+            tw=d.textlength(label, font=tf)
+            if x+tw+34 > W-MARGIN: break
+            d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
+            d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
+            x+=tw+34+14
+    d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
+    d.rectangle([0,H-10,W,H], fill=acc)
+    img.save(out, quality=90)
+
+import urllib.request, io
+def body_images(path):
+    t=open(path,encoding='utf-8').read()
+    body=t.split('---',2)[2] if t.count('---')>=2 else t
+    urls=[]
+    for m in re.finditer(r'!\[[^\]]*\]\((<[^>]+>|[^)\s]+)', body):
+        u=m.group(1).strip('<>')
+        urls.append(u)
+    return urls
+
+def load_image(src):
+    try:
+        if src.startswith('http'):
+            req=urllib.request.Request(src, headers={'User-Agent':'Mozilla/5.0'})
+            data=urllib.request.urlopen(req, timeout=20).read()
+            return Image.open(io.BytesIO(data)).convert('RGB')
+        p = src.lstrip('/')
+        if p.startswith('images/'): p = 'static/' + p
+        return Image.open(p).convert('RGB')
+    except Exception as e:
+        print('  img load failed:', src[:80], e)
+        return None
+
+def pick_image(path, cimg):
+    if cimg=='none': return None
+    if cimg and cimg!='auto':
+        return load_image(cimg)
+    best=None
+    for u in body_images(path):
+        im=load_image(u)
+        if im is None: continue
+        w,h=im.size
+        if w<1000: continue
+        a=w/h
+        if a<1.2 or a>2.4: continue
+        score=-abs(a-1.78)
+        if best is None or score>best[0]+0.02:
+            best=(score, im, u)
+    if best: print('  picked image:', best[2][:90], best[1].size)
+    return best[1] if best else None
+
+def paste_panel(img, panel_img, x, y, pw, ph):
+    src=panel_img
+    scale=max(pw/src.size[0], ph/src.size[1])
+    nw,nh=int(src.size[0]*scale+0.5), int(src.size[1]*scale+0.5)
+    src=src.resize((nw,nh), Image.LANCZOS)
+    left=(nw-pw)//2; top=(nh-ph)//2
+    src=src.crop((left,top,left+pw,top+ph))
+    mask=Image.new('L',(pw,ph),0)
+    md=ImageDraw.Draw(mask)
+    md.rounded_rectangle([0,0,pw,ph], radius=18, fill=255)
+    img.paste(src,(x,y),mask)
+    d=ImageDraw.Draw(img)
+    d.rounded_rectangle([x,y,x+pw,y+ph], radius=18, outline=(120,135,160), width=2)
+
+def make(path, out, hero_override=None, emphasis_override=None):
+    title, cat, tags, kw, emph, cimg, slug = fm_of(path)
+    hero = hero_override if hero_override is not None else kw
+    if emphasis_override is not None: emph = emphasis_override
+    disp = title.replace('（','(').replace('）',')')
+    acc = accent_for(cat)
+    img = background(acc)
+    d = ImageDraw.Draw(img)
+    cat_h = 34+30 if cat else 0
+    chips_h = 48 if tags else 0
+
+    panel = pick_image(path, cimg)
+    if panel is not None:
+        items = classify(split_emph(tokenize(disp), emph, hero), emph, hero)
+        PW_, PH_ = 400, 330
+        col_w = W - MARGIN*2 - PW_ - 44
+        def solve_p(ml_target):
+            for size_try in range(92, 39, -4):
+                widths=[]
+                for (text, cls, glue) in items:
+                    fnt,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
+                lt=layout(items, widths, col_w, ml_target, balance_last=True, min_fill=0.5)
+                if not lt or len(lt)!=ml_target: continue
+                hs=line_heights(lt, size_try, acc)
+                if cat_h + sum(hs) + (30 if tags else 0) + chips_h > PH_ + 150: continue
+                return (size_try, lt, widths, hs)
+            return None
+        sols={}
+        for ml_t in (2,3,4):
+            s=solve_p(ml_t)
+            if s: sols[ml_t]=s
+        if 2 in sols and 3 in sols and sols[2][0]<76 and sols[3][0]>=sols[2][0]:
+            chosen=sols[3]
+        else:
+            chosen=sols[min(sols)]
+        size, lines, widths, heights = chosen
+        block_h=sum(heights)
+        total = cat_h + block_h + (30 if tags else 0) + chips_h
+        y = (H - total)//2 - 14
+        if cat:
+            d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += cat_h
+        draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
+        paste_panel(img, panel, W-MARGIN-PW_, (H-PH_)//2 - 10, PW_, PH_)
+        y += block_h
+        if tags:
+            y += 30
+            tf=ImageFont.truetype(REG, 27)
+            x=MARGIN
+            for tg in tags[:5]:
+                label='#'+tg
+                tw=d.textlength(label, font=tf)
+                if x+tw+34 > MARGIN+col_w: break
+                d.rounded_rectangle([x,y,x+tw+34,y+48], radius=24, outline=(120,135,160), width=2)
+                d.text((x+17,y+9), label, font=tf, fill=(203,213,225))
+                x+=tw+34+14
+        d.text((MARGIN,H-72), 'aoiro-labo.com', font=ImageFont.truetype(REG, 30), fill=(148,170,200))
+        d.rectangle([0,H-10,W,H], fill=acc)
+        img.save(out, quality=90)
+        print('made (panel)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
+        return
+    zone = False
+    if hero and disp.endswith(hero):
+        # try zone composition: hero block on the right, white
+        ksize=300
+        while ksize>90:
+            kw_font=ImageFont.truetype(BOLD, ksize)
+            kw_w=d.textlength(hero, font=kw_font)
+            if kw_w <= W*0.46: break
+            ksize-=12
+        body = disp[:-len(hero)]
+        items = classify(split_emph(tokenize(body), emph, ''), emph, '')
+        col_w = W - MARGIN*2 - int(kw_w) - 48
+        size=76; lines=None; widths=None
+        while size>=52:
+            widths=[]
+            for (text, cls, glue) in items:
+                fnt,_=style_of(cls, size, acc); widths.append(d.textlength(text, font=fnt))
+            for ml in (2,3):
+                lines=layout(items, widths, col_w, ml)
+                if lines: break
+            if lines: break
+            size-=4
+        if lines:
+            zone=True
+            heights=line_heights(lines, size, acc)
+            block_h=sum(heights)
+            total = cat_h + block_h + (30 if tags else 0) + chips_h
+            y = (H - total)//2 - 14
+            if cat:
+                d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += cat_h
+            draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
+            d.text((W-MARGIN-kw_w, y + block_h//2), hero, font=kw_font, fill=WHITE, anchor='lm')
+            y += block_h
+            finish(d, img, cat, tags, acc, y, out)
+            print('made (zone)', out, '| hero:', hero)
+            return
+    # full-width flow (hero inline if it is a suffix, else plain)
+    items = classify(split_emph(tokenize(disp), emph, hero), emph, hero)
+    maxw = W - MARGIN*2
+    def solve_for(ml_target):
+        for size_try in range(100, 39, -4):
+            widths=[]
+            for (text, cls, glue) in items:
+                fnt,_=style_of(cls, size_try, acc); widths.append(d.textlength(text, font=fnt))
+            lt=layout(items, widths, maxw, ml_target, balance_last=True, min_fill=0.58)
+            if not lt or len(lt)!=ml_target: continue
+            line_ws=[]; idx=0
+            for ln in lt:
+                lw=sum(widths[idx:idx+len(ln)]); idx+=len(ln); line_ws.append(lw)
+            if not all(lw>=maxw*0.45 for lw in line_ws[:-1]): continue
+            hs=line_heights(lt, size_try, acc)
+            if cat_h + sum(hs) + (30 if tags else 0) + chips_h > H-140: continue
+            return (size_try, lt, widths, hs)
+        return None
+    sol = {}
+    for ml_target in (1,2,3):
+        s = solve_for(ml_target)
+        if s: sol[ml_target]=s
+    chosen=None
+    if 2 in sol and 3 in sol and sol[2][0] < 76 and sol[3][0] >= sol[2][0]:
+        chosen = sol[3]
+    elif 2 in sol: chosen = sol[2]
+    elif 3 in sol: chosen = sol[3]
+    elif 1 in sol: chosen = sol[1]
+    elif sol: chosen = sol[max(sol)]
+    size, lines, widths, heights = chosen
+    block_h=sum(heights)
+    total = cat_h + block_h + (30 if tags else 0) + chips_h
+    y = (H - total)//2 - 14
+    if cat:
+        d.text((MARGIN, y), cat, font=ImageFont.truetype(BOLD, 34), fill=acc); y += cat_h
+    draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
+    y += block_h
+    finish(d, img, cat, tags, acc, y, out)
+    print('made (flow)', out, '| hero:', hero, '| lines:', [[t for (t,c,g) in ln] for ln in lines])
+
+if __name__ == '__main__':
+    for p in sys.argv[1:]:
+        _t,_c,_tg,_k,_e,_ci,sl = fm_of(p)
+        make(p, rf'static\images\cover-{sl}.jpg')
