@@ -28,7 +28,7 @@ def fm_of(path):
 BOLD=r"C:\Windows\Fonts\YuGothB.ttc"
 REG=r"C:\Windows\Fonts\YuGothM.ttc"
 FONT_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
-ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-SemiBold.ttf","Bold":"ZenKakuGothicNew-Black.ttf"}
+ZEN_MAP={"Regular":"ZenKakuGothicNew-Regular.ttf","Medium":"ZenKakuGothicNew-Medium.ttf","SemiBold":"ZenKakuGothicNew-SemiBold.ttf","Bold":"ZenKakuGothicNew-Bold.ttf"}
 def cover_font(weight, size):
     p = os.path.join(FONT_DIR, ZEN_MAP[weight])
     if os.path.exists(p):
@@ -230,8 +230,8 @@ def background(acc):
 def style_of(cls, size, acc):
     if cls=='hero': return cover_font("Bold", int(size*1.45)), WHITE
     if cls=='accent': return cover_font("SemiBold", int(size*1.15)), acc
-    if cls=='sub': return cover_font("Bold", size), BASE
-    return cover_font("Bold", size), BASE
+    if cls=='sub': return cover_font("Regular", max(20,int(size*0.8))), SUBC
+    return cover_font("Medium", size), BASE
 
 def line_heights(lines, size, acc):
     hs=[]
@@ -439,7 +439,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             if cat:
                 d.text((MARGIN, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
             if bracket:
-                d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=BASE); y += bracket_h
+                d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
             draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
             y += block_h
             if tags:
@@ -525,7 +525,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
             if cat:
                 d.text((gx, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
             if bracket:
-                d.text((gx, y), bracket, font=cover_font("SemiBold", 40), fill=BASE); y += bracket_h
+                d.text((gx, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
             title_top = y
             draw_lines(d, items, lines, widths, gx, y, size, acc, heights)
             d.text((gx + maxlw + 14, title_top - kw_bb[1]), hero, font=kw_font, fill=WHITE)
@@ -569,7 +569,7 @@ def make(path, out, hero_override=None, emphasis_override=None):
     if cat:
         d.text((MARGIN, y), cat, font=cover_font("SemiBold", 34), fill=acc); y += 34+30
     if bracket:
-        d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=BASE); y += bracket_h
+        d.text((MARGIN, y), bracket, font=cover_font("SemiBold", 40), fill=SUBC); y += bracket_h
     draw_lines(d, items, lines, widths, MARGIN, y, size, acc, heights)
     y += block_h
     finish(d, img, cat, tags, acc, y, out)
