@@ -54,13 +54,7 @@ Androidには、メイン機だった頃に長らくお世話になっていたN
 
 ## ビルドの流れ
 
-```mermaid
-flowchart LR
-    A["ソースをpush"] --> B["GitHub Actions<br/>macos-15 でビルド"]
-    B --> C["NowPlaying.ipa"]
-    C --> D["Artifacts / リリース"]
-    D --> E["LiveContainerで実行"]
-```
+![ビルドの流れ](/images/build-flow.svg)
 
 - ソースはSwift + SwiftUI。プロジェクトファイルはXcodeGenの project.yml から生成する
 - v* のタグを打つと、リリースにも.ipaが添付される
