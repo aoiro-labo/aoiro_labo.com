@@ -14,6 +14,7 @@ categories:
 tags:
     - ASOBI CHANNEL
     - アイドルマスター
+    - "シャニラジ"
     - サブスクリプション
 ---
 
