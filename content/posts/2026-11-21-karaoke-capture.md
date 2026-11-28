@@ -218,6 +218,8 @@ PC経由でOBS等を使う場合はコーデックも品質も自由だが、GV-
 
 ![GV-HDRECで録画したファイルのMediaInfo表示。エンコード日が2012年になっている](https://images.aoiro-labo.com/blog/karaoke-mediainfo.jpg "録画ファイルの情報（日付がおかしい）")
 
+### GV-HDRECでキャプチャ
+
 GV-HDRECでキャプチャしたもの。
 
 {{< masonry maxColumns="2" >}}
@@ -227,6 +229,8 @@ GV-HDRECでキャプチャしたもの。
 ![GV-HDRECでキャプチャした画面](https://images.aoiro-labo.com/blog/karaoke-gv-3.jpg)
 ![GV-HDRECでキャプチャした画面](https://images.aoiro-labo.com/blog/karaoke-gv-4.jpg)
 {{< /masonry >}}
+
+### GC551G2でキャプチャ
 
 GC551G2（AVerMedia Streaming Center経由）でキャプチャしたもの。
 
