@@ -21,8 +21,15 @@ article.group div.aspect-\[16\/9\] {
 article.group img.object-cover {
   object-fit: contain;
 }
-div.absolute.right-0.w-80,
-article.group div.aspect-\[2\/1\],
-article.group div.aspect-\[16\/9\] {
-  background-color: #0b1220;
+/* 余白の地色は付けない。カード地色のままにして「画像が置いてある」見え方にする
+   （紺で埋めるとカバーのグラデーションと段差になりレターボックスに見える） */
+
+/* 広い画面では右エリアを広げてカバー比率に近づけ、余白自体を小さくする */
+@media (min-width: 1024px) {
+  article.group div.absolute.right-0.w-80 {
+    width: 26rem;
+  }
+  article.group div.md\:pr-84 {
+    padding-right: 27rem;
+  }
 }
