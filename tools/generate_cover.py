@@ -226,6 +226,11 @@ def layout(items, widths, maxw, maxlines, balance_last=False, min_fill=0.0):
                     continue
                 if items[j][0].endswith(('・','･')):  # never break right after a nakaguro
                     continue
+                m=j+1
+                while m<n and items[m][0].strip()=='':
+                    m+=1
+                if m<n and (items[m][1]=='sub' or items[m][0].startswith(('、','。','）','」','』','】','・','･'))):
+                    continue  # a line must not start with a particle or closing mark
                 slack=maxw-w
                 cost=slack*slack/700.0
                 if items[j][0]=='：': cost-=250
