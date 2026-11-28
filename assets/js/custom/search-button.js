@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var b = document.createElement('button');
     b.type = 'button';
     b.className = cls;
-    b.setAttribute('aria-label', '検索');
-    b.title = '検索 (Ctrl+K)';
+    b.setAttribute('aria-label', 'サイト内検索');
+    b.title = 'サイト内検索 (Ctrl+K)';
     b.innerHTML = svg;
     b.addEventListener('click', function () {
       if (window.Search) window.Search.show();
