@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap');
+
+/* Trial: swap the site font from IBM Plex Sans JP to Zen Kaku Gothic New.
+   Remove this file to revert. Zen Kaku has no 600 weight; 600 maps to 700. */
+:root {
+  --font-sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+    "Noto Sans JP", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
