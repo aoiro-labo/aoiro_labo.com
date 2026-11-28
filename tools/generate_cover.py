@@ -187,6 +187,8 @@ def layout(items, widths, maxw, maxlines, balance_last=False, min_fill=0.0):
             if j<n-1:
                 if items[j+1][2]:  # next is glue: cannot break here
                     continue
+                if items[j][0].endswith('・'):  # never break right after a nakaguro
+                    continue
                 slack=maxw-w
                 cost=slack*slack/700.0
                 if min_fill and w < maxw*min_fill: cost+=400
